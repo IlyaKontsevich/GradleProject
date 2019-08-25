@@ -1,0 +1,26 @@
+2019-08-25 23:08:34 INFO  UserService:28 - Sumthing happends
+2019-08-25 23:08:38 INFO  UserService:28 - Sumthing happends
+2019-08-25 23:08:42 INFO  UserService:28 - Sumthing happends
+2019-08-25 23:08:44 INFO  UserService:28 - Sumthing happends
+2019-08-25 23:15:46 INFO  UserService:31 - Get user page
+2019-08-25 23:15:50 INFO  UserService:31 - Get user page
+2019-08-25 23:15:56 INFO  UserService:26 - Add user
+2019-08-25 23:15:57 INFO  UserService:31 - Get user page
+2019-08-25 23:15:58 INFO  UserService:31 - Get user page
+2019-08-25 23:16:00 INFO  UserService:50 - Get user
+2019-08-25 23:16:02 INFO  UserService:20 - Update user
+2019-08-25 23:16:02 INFO  UserService:31 - Get user page
+2019-08-25 23:16:04 INFO  UserService:44 - Delete user
+2019-08-25 23:16:04 INFO  UserService:31 - Get user page
+2019-08-25 23:16:06 INFO  TaskService:24 - Get task page
+2019-08-25 23:16:12 INFO  UserService:50 - Get user
+2019-08-25 23:16:12 INFO  TaskService:45 - Add task
+2019-08-25 23:16:12 INFO  TaskService:24 - Get task page
+2019-08-25 23:16:13 INFO  TaskService:24 - Get task page
+2019-08-25 23:16:15 INFO  TaskService:57 - Get task
+2019-08-25 23:16:16 INFO  UserService:50 - Get user
+2019-08-25 23:16:16 INFO  TaskService:39 - Update task
+2019-08-25 23:16:16 INFO  TaskService:24 - Get task page
+2019-08-25 23:16:18 INFO  TaskService:51 - Delete task
+2019-08-25 23:16:18 INFO  TaskService:24 - Get task page
+2019-08-25 23:16:20 INFO  UserService:31 - Get user page
