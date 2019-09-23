@@ -13,6 +13,10 @@
             <td><form:input path="email"  type = "email" value="s@mail.ru"/></td>
         </tr>
         <tr>
+            <td>Password : </td>
+            <td><form:input path="password"/></td>
+        </tr>
+        <tr>
             <td>Age : </td>
             <td><form:input path="age"  type = "number" min = "1" max = "100" value="1"/></td>
         </tr>

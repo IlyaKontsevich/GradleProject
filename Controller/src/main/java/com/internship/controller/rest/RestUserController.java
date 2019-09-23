@@ -1,4 +1,4 @@
-/*package com.internship.controller.rest;
+package com.internship.controller.rest;
 
 import com.internship.model.User;
 import com.internship.service.IUserService;
@@ -47,4 +47,3 @@ public class RestUserController {
             return null;
     }
 }
-*/

@@ -1,7 +1,6 @@
 package com.internship.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -16,36 +15,40 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class LoginSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    @Qualifier("userDetailsServiceImpl")
     private UserDetailsServiceImpl userDetailsService;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     public void registerGlobalAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
+        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
-        http.csrf()
-                .disable()
+        http
                 .authorizeRequests()
-                .antMatchers("/resources/**", "/**").permitAll()
-                .anyRequest().permitAll()
-                .and();
-
-        http.formLogin()
+                .antMatchers("/resources/**","/login", "/logerror","/logout/","/registration").permitAll()
+                .antMatchers("/user/**").authenticated()
+                .and()
+                .formLogin()
                 .loginPage("/login")
-                .successForwardUrl("/user/?page=1&size=5&sort=name:asc")
+                .defaultSuccessUrl("/user/")
                 .loginProcessingUrl("/j_spring_security_check")
-                .failureUrl("/user/logerror")
+                .failureUrl("/logerror")
                 .usernameParameter("j_username")
-                .passwordParameter("j_password");
-        http.logout()
+                .passwordParameter("j_password")
+                .and()
+                .logout()
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login")
-                .invalidateHttpSession(true);
-
+                .permitAll()
+                .invalidateHttpSession(true)
+                .and()
+                .exceptionHandling().accessDeniedPage("/accessDenied/")
+                .and()
+                .csrf()
+                .disable();
     }
 
 }

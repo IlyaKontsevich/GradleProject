@@ -1,8 +1,10 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 Sort by: ${sort}
-</br>
 Filter by: ${filter}
+<p align="right">user:  ${login}</p>
+<p align="right"> <a href="/FirstProject/logout/">Log out</a></p>
+</br>
 <h1 align ="center">Users List</h1>
 <table align ="center" border="2" width="70%" cellpadding="2">
     <tr><th><form  method="post" action="savefilter{id}${url}">

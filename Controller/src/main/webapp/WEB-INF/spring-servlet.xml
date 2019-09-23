@@ -18,7 +18,7 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
-    <bean id ="userDetailsService" class="com.internship.config.UserDetailsServiceImpl"/>
+    <bean id ="bCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 
     <mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/"/>
     <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>

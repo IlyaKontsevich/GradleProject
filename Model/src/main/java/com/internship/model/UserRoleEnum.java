@@ -1,8 +1,8 @@
 package com.internship.model;
 
 public enum UserRoleEnum {
-    ADMIN,
-    USER;
+    ROLE_ADMIN,
+    ROLE_USER;
 
     UserRoleEnum() {
     }

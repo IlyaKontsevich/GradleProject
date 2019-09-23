@@ -4,6 +4,7 @@ import com.internship.model.Task;
 import com.internship.service.ITaskService;
 import com.internship.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,13 +24,20 @@ public class TaskController {
     private IUserService userService;
 
     @RequestMapping("{param}/form")
-    public String showForm(Model m) {
+    public String showForm(Model m, Authentication authentication, Integer userId) {
+        if(!access(authentication, userId)){
+            return "redirect:/accessDenied/";
+        }
         m.addAttribute("command", new Task("taskname"));
         return "taskForm";
     }
 
     @RequestMapping(value="{param}/save",method = RequestMethod.POST)
-    public String save(String date,@PathVariable Integer userId,@ModelAttribute("task") Task task){
+    public String save(String date,@PathVariable Integer userId,
+                       Authentication authentication,@ModelAttribute("task") Task task){
+        if(!access(authentication, userId)){
+            return "redirect:/accessDenied/";
+        }
         task.setUser(userService.get(userId));
         LocalDate localDate = LocalDate.parse(date);
         LocalDate todayDate = LocalDate.now();
@@ -46,13 +54,24 @@ public class TaskController {
         }
     }
 
+    public boolean access(Authentication authentication, Integer userId){
+        if(userService.getByEmail(authentication.getName()).equals(userService.get(userId)) ||
+        authentication.getName().equals("admin@mail.ru")){
+            return true;
+        }
+        return false;
+    }
 
     @RequestMapping("/")
     public String view(@PathVariable String userUrl,@PathVariable Integer userId,
                        @RequestParam(value="page", defaultValue = "1") String page,
                        @RequestParam(value="size", defaultValue = "3") String size,
                        @RequestParam(value="sort",defaultValue = "name:asc") List<String> sort,
-                       @RequestParam(required = false, value="filter") List<String> filter, Model m){
+                       @RequestParam(required = false, value="filter") List<String> filter,
+                       Authentication authentication,Model m){
+        if(!access(authentication, userId)){
+            return "redirect:/accessDenied/";
+        }
         if(filter == null) {
             filter = new ArrayList<String>();
             filter.add("");
@@ -72,7 +91,11 @@ public class TaskController {
     }
 
     @RequestMapping(value="{param}/{id}",method = RequestMethod.PUT)
-    public String editSave(String time,String done,String date,@PathVariable Integer userId,@ModelAttribute("task") Task task){
+    public String editSave(String time,String done,String date,@PathVariable Integer userId,
+                           Authentication authentication, @ModelAttribute("task") Task task){
+        if(!access(authentication, userId)){
+            return "redirect:/accessDenied/";
+        }
         task.setUser(userService.get(userId));
         task.setTimeadd(LocalDate.parse(time));
         task.setDeadline(LocalDate.parse(date));
@@ -82,14 +105,21 @@ public class TaskController {
     }
 
     @RequestMapping(value="{param}/{id}/edit")
-    public String edit(@PathVariable Integer userId,@PathVariable Integer id, Model m){
+    public String edit(@PathVariable Integer userId,@PathVariable Integer id,
+                       Authentication authentication, Model m){
+        if(!access(authentication, userId)){
+            return "redirect:/accessDenied/";
+        }
         Task task = service.get(id);
         m.addAttribute("command",task);
         m.addAttribute("date",task.getTimeadd());
         return "taskEditForm";
     }
     @RequestMapping(value="{param}/{id}",method = RequestMethod.DELETE)
-    public String delete(@PathVariable int id){
+    public String delete(@PathVariable int id, Authentication authentication, @PathVariable Integer userId){
+        if(!access(authentication, userId)){
+            return "redirect:/accessDenied/";
+        }
         service.delete(id);
         return "redirect: ../?{param}";
     }
