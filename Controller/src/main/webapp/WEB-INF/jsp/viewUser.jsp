@@ -31,6 +31,7 @@ Filter by: ${filter}
             <td>${user.name}</td>
             <td>${user.age}</td>
             <td>${user.email}</td>
+
             <td><a href="${url.substring(1)}/${user.id}/task/">View task</a></td>
             <td><a href="${url.substring(1)}/${user.id}/edit">Edit</a></td>
             </form>
