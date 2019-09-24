@@ -31,11 +31,10 @@ Filter by: ${filter}
             <td>${user.name}</td>
             <td>${user.age}</td>
             <td>${user.email}</td>
-
-            <td><a href="${url.substring(1)}/${user.id}/task/">View task</a></td>
-            <td><a href="${url.substring(1)}/${user.id}/edit">Edit</a></td>
+            <td><a href="${user.id}/task/${taskUrl}">View task</a></td>
+            <td><a href="${user.id}/edit">Edit</a></td>
             </form>
-            <form:form method="DELETE" action="${url.substring(1)}/${user.id}">
+            <form:form method="DELETE" action="${user.id}">
             <td><input type="submit" value="Delete" /></td>
             </form:form>
         </tr>
@@ -50,7 +49,7 @@ Filter by: ${filter}
     <a href="changepage${position-1}${url}">Back</a>
 </c:if>
 <br/>
-<p align="center"><a href="${url.substring(1)}/form">Add New User</a></p>
+<p align="center"><a href="form">Add New User</a></p>
 Change page size
 <a href="pagesize{5}${url}">5</a>
 <a href="pagesize{10}${url}">10</a>

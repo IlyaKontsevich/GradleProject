@@ -1,5 +1,6 @@
 package com.internship.config;
 
+import com.internship.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -33,7 +34,7 @@ public class LoginSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/user/")
+                .defaultSuccessUrl("/user/prevsession/")
                 .loginProcessingUrl("/j_spring_security_check")
                 .failureUrl("/logerror")
                 .usernameParameter("j_username")

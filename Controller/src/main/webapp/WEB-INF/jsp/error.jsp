@@ -11,4 +11,4 @@
 <br/>
 <tr> a non-faithfully entered date</tr>
 <br/>
-<a href="../?${url}">View Users</a>
+<a href="../user/${url}">View Users</a>

@@ -1,5 +1,6 @@
 package com.internship.utils;
 
+import com.internship.model.Info;
 import com.internship.model.Task;
 import com.internship.model.User;
 import org.hibernate.SessionFactory;
@@ -19,6 +20,7 @@ public class HibernateSessionFactoryUtil {
                 Configuration configuration = new Configuration().configure();
                 configuration.addAnnotatedClass(User.class);
                 configuration.addAnnotatedClass(Task.class);
+                configuration.addAnnotatedClass(Info.class);
                 StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
                 sessionFactory = configuration.buildSessionFactory(builder.build());
 

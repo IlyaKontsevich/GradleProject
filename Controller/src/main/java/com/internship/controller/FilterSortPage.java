@@ -1,5 +1,7 @@
 package com.internship.controller;
 
+import com.internship.service.IInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +13,7 @@ import java.util.List;
 @Controller
 public class FilterSortPage {
 
-    @RequestMapping(value={"user/savefilter{type}","user/{userUrl}/{userId}/task/savefilter{type}"})
+    @RequestMapping(value={"user/savefilter{type}","user/{userId}/task/savefilter{type}"})
     public String saveFilter(@PathVariable String type,String filtervalue,@RequestParam(value="page", defaultValue = "1") String page,
                              @RequestParam(value="size", defaultValue = "3") String size,
                              @RequestParam(value="sort",defaultValue = "name:asc") List<String> sort,
@@ -26,7 +28,7 @@ public class FilterSortPage {
             filter.clear();
             return "redirect:./?page="+page+"&size="+size+"&sort="+String.join("&sort=",sort);
         }if(filtervalue != null)
-            type = type+","+filtervalue+"";
+            type = type+ "," + filtervalue + "";
         if(contains(filter,type)==-1){
             filter.add(type.replace(",",":"));
         }else{
@@ -35,7 +37,7 @@ public class FilterSortPage {
         }return "redirect:./?page="+page+"&size="+size+"&sort="+String.join("&sort=",sort)+"&filter="+String.join("&filter=",filter);
     }
 
-    @RequestMapping(value = {"user/changepage{pages}","user/{userUrl}/{userId}/task/changepage{pages}"})
+    @RequestMapping(value = {"user/changepage{pages}","user/{userId}/task/changepage{pages}"})
     public String changePage(@PathVariable String pages,@RequestParam(value="page", defaultValue = "1") String page,
                              @RequestParam(value="size", defaultValue = "3") String size,
                              @RequestParam(value="sort",defaultValue = "name:asc") List<String> sort,
@@ -45,7 +47,7 @@ public class FilterSortPage {
         return "redirect:./?page="+pages+"&size="+size+"&sort="+String.join("&sort=",sort)+"&filter="+String.join("&filter=",filter);
     }
 
-    @RequestMapping(value = {"user/pagesize{pageSize}","user/{userUrl}/{userId}/task/pagesize{pageSize}"})
+    @RequestMapping(value = {"user/pagesize{pageSize}","user/{userId}/task/pagesize{pageSize}"})
     public String changePageSize(@PathVariable String pageSize,
                                  @RequestParam(value="page", defaultValue = "1") String page,
                                  @RequestParam(value="size", defaultValue = "3") String size,
@@ -69,7 +71,7 @@ public class FilterSortPage {
         return -1;
     }
 
-    @RequestMapping(value = {"user/changesort{sorttype}","user/{userUrl}/{userId}/task/changesort{sorttype}"})
+    @RequestMapping(value = {"user/changesort{sorttype}","user/{userId}/task/changesort{sorttype}"})
     public String changeSortType(@RequestParam(value="page", defaultValue = "1") String page,
                                  @RequestParam(value="size", defaultValue = "3") String size,
                                  @RequestParam(value="sort",defaultValue = "name:asc") List<String> sort,

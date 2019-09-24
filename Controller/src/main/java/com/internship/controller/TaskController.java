@@ -1,6 +1,7 @@
 package com.internship.controller;
 
 import com.internship.model.Task;
+import com.internship.service.IInfoService;
 import com.internship.service.ITaskService;
 import com.internship.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +17,17 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping("user/{userUrl}/{userId}/task")
+@RequestMapping("user/{userId}/task")
 public class TaskController {
     @Autowired
     private ITaskService service;
     @Autowired
     private IUserService userService;
+    @Autowired
+    private IInfoService infoService;
 
-    @RequestMapping("{param}/form")
-    public String showForm(Model m, Authentication authentication, Integer userId) {
+    @RequestMapping("/form")
+    public String showForm(@PathVariable Integer userId, Model m, Authentication authentication) {
         if(!access(authentication, userId)){
             return "redirect:/accessDenied/";
         }
@@ -32,7 +35,7 @@ public class TaskController {
         return "taskForm";
     }
 
-    @RequestMapping(value="{param}/save",method = RequestMethod.POST)
+    @RequestMapping(value="/save",method = RequestMethod.POST)
     public String save(String date,@PathVariable Integer userId,
                        Authentication authentication,@ModelAttribute("task") Task task){
         if(!access(authentication, userId)){
@@ -42,15 +45,15 @@ public class TaskController {
         LocalDate localDate = LocalDate.parse(date);
         LocalDate todayDate = LocalDate.now();
         if(localDate.isBefore(todayDate)) {
-            return "redirect:/user/{userUrl}/error";
+            return "redirect:/user/error";
         }else {
             task.setTimeadd(todayDate);
             task.setDeadline(localDate);
             task.setIsdone(false);
             if (service.add(task) != null)
-                return "redirect:../?{param}";
+                return "redirect:../task/" + infoService.getTaskUrl(userId);
             else
-                return "redirect:/user/{userUrl}/error";
+                return "redirect:/user/error";
         }
     }
 
@@ -63,7 +66,7 @@ public class TaskController {
     }
 
     @RequestMapping("/")
-    public String view(@PathVariable String userUrl,@PathVariable Integer userId,
+    public String view(@PathVariable Integer userId,
                        @RequestParam(value="page", defaultValue = "1") String page,
                        @RequestParam(value="size", defaultValue = "3") String size,
                        @RequestParam(value="sort",defaultValue = "name:asc") List<String> sort,
@@ -75,12 +78,14 @@ public class TaskController {
         if(filter == null) {
             filter = new ArrayList<String>();
             filter.add("");
-            m.addAttribute("url","?page="+page+"&size="+size+"&sort="+String.join("&sort=",sort));
+            infoService.changeTaskUrl("?page="+page+"&size="+size+"&sort="+String.join("&sort=",sort),userId);
+            m.addAttribute("url", infoService.getTaskUrl(userId));
         }else {
-            m.addAttribute("url","?page="+page+"&size="+size+"&sort="+String.join("&sort=",sort)+"&filter="+String.join("&filter=",filter));
+            infoService.changeTaskUrl("?page="+page+"&size="+size+"&sort="+String.join("&sort=",sort)+"&filter="+String.join("&filter=",filter),userId);
+            m.addAttribute("url", infoService.getTaskUrl(userId));
         }
         Collection<Task> list = service.getPage(Integer.parseInt(page),Integer.parseInt(size),userId,sort,filter);
-        m.addAttribute("userUrl",userUrl);
+        m.addAttribute("userUrl", infoService.getUserUrl(userId));
         m.addAttribute("filter",String.join(", and by ",filter).replace(":"," value:"));
         m.addAttribute("sort",String.join(", and by ",sort).replace(":"," order:"));
         m.addAttribute("pageSize",Integer.parseInt(size));
@@ -90,7 +95,7 @@ public class TaskController {
         return "task";
     }
 
-    @RequestMapping(value="{param}/{id}",method = RequestMethod.PUT)
+    @RequestMapping(value="/{id}",method = RequestMethod.PUT)
     public String editSave(String time,String done,String date,@PathVariable Integer userId,
                            Authentication authentication, @ModelAttribute("task") Task task){
         if(!access(authentication, userId)){
@@ -101,10 +106,10 @@ public class TaskController {
         task.setDeadline(LocalDate.parse(date));
         task.setIsdone(Boolean.parseBoolean(done));
         service.update(task);
-        return "redirect: ../../?{param}";
+        return "redirect: ../" + infoService.getTaskUrl(userId);
     }
 
-    @RequestMapping(value="{param}/{id}/edit")
+    @RequestMapping(value="/{id}/edit")
     public String edit(@PathVariable Integer userId,@PathVariable Integer id,
                        Authentication authentication, Model m){
         if(!access(authentication, userId)){
@@ -115,13 +120,13 @@ public class TaskController {
         m.addAttribute("date",task.getTimeadd());
         return "taskEditForm";
     }
-    @RequestMapping(value="{param}/{id}",method = RequestMethod.DELETE)
+    @RequestMapping(value="/{id}",method = RequestMethod.DELETE)
     public String delete(@PathVariable int id, Authentication authentication, @PathVariable Integer userId){
         if(!access(authentication, userId)){
             return "redirect:/accessDenied/";
         }
         service.delete(id);
-        return "redirect: ../?{param}";
+        return "redirect: ../task/" + infoService.getTaskUrl(userId);
     }
 }
 

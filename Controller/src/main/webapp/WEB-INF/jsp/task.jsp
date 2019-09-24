@@ -46,8 +46,8 @@ Filter by: ${filter}
         <td>${task.isdone}</td>
         <td>${task.deadline}</td>
         <td>${task.timeadd}</td>
-        <td><a href="${url.substring(1)}/${task.id}/edit">Edit</a></td>
-        <form:form method="DELETE" action="${url.substring(1)}/${task.id}">
+        <td><a href="${task.id}/edit">Edit</a></td>
+        <form:form method="DELETE" action="${task.id}">
             <td><input type="submit" value="Delete" /></td>
         </form:form>
     </tr>
@@ -62,10 +62,10 @@ Filter by: ${filter}
     <a href="changepage${position-1}${url}">Back</a>
 </c:if>
 
-<p align="center"><a href="${url.substring(1)}/form">Add New Task</a></p>
+<p align="center"><a href="form">Add New Task</a></p>
 Change page size
 <a href="pagesize{5}${url}">5</a>
 <a href="pagesize{10}${url}">10</a>
 <a href="pagesize{15}${url}">15</a>
 </br>
-<p align="center"><a href="/FirstProject/user/?${userUrl}">View users</a></p>
+<p align="center"><a href="/FirstProject/user/${userUrl}">View users</a></p>
