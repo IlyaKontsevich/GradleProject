@@ -33,12 +33,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             roles.add(new SimpleGrantedAuthority(UserRoleEnum.ROLE_USER.name()));
             log.info("User login");
         }
-        UserDetails userDetails =
-                new org.springframework.security.core.userdetails.User(user.getEmail(),
-                        user.getPassword(),
-                        roles);
-
-        return userDetails;
+        user.setAuthorities(roles);
+        return user;
     }
 
 }

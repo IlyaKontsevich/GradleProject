@@ -1,11 +1,15 @@
 package com.internship.service;
 
+import com.internship.model.User;
+
 public interface IInfoService {
-    String getTaskUrl(Integer userId);
+    String getTaskUrl();
 
-    String getUserUrl(Integer userId);
+    String getUserUrl();
 
-    void changeTaskUrl(String taskUrl, Integer userId);
+    User getCurrentUser();
 
-    void changeUserUrl(String userUrl, Integer userId);
+    void changeTaskUrl(String taskUrl);
+
+    void changeUserUrl(String userUrl);
 }

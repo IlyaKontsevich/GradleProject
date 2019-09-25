@@ -1,7 +1,11 @@
 package com.internship.service;
 
+
 import com.internship.dao.IInfoDao;
+import com.internship.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -10,24 +14,30 @@ public class InfoService implements IInfoService {
     private IInfoDao infoDao;
 
     @Override
-    public String getTaskUrl(Integer userId) {
-        return infoDao.getTaskUrl(userId);
+    public User getCurrentUser(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return (User) authentication.getPrincipal();
     }
 
     @Override
-    public String getUserUrl(Integer userId) {
-        return infoDao.getUserUrl(userId);
+    public String getTaskUrl() {
+        return infoDao.getTaskUrl(getCurrentUser().getId());
+    }
+
+    @Override
+    public String getUserUrl() {
+        return infoDao.getUserUrl(getCurrentUser().getId());
     }
 
 
     @Override
-    public void changeTaskUrl(String taskUrl, Integer userId) {
-        infoDao.changeTaskUrl(taskUrl, userId);
+    public void changeTaskUrl(String taskUrl) {
+        infoDao.changeTaskUrl(taskUrl, getCurrentUser().getId());
     }
 
     @Override
-    public void changeUserUrl(String userUrl, Integer userId) {
-        infoDao.changeUserUrl(userUrl, userId);
+    public void changeUserUrl(String userUrl) {
+        infoDao.changeUserUrl(userUrl, getCurrentUser().getId());
 
     }
 }

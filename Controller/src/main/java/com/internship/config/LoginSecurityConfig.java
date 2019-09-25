@@ -34,7 +34,7 @@ public class LoginSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/user/prevsession/")
+                .defaultSuccessUrl("/user/redirect")
                 .loginProcessingUrl("/j_spring_security_check")
                 .failureUrl("/logerror")
                 .usernameParameter("j_username")

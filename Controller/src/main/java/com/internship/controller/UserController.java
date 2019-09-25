@@ -24,7 +24,6 @@ public class UserController {
     private IInfoService infoService;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-    Integer userId;
 
 
     @Secured(value = {"ROLE_ADMIN"})
@@ -34,14 +33,12 @@ public class UserController {
         return "userForm";
     }
 
-    @RequestMapping("/prevsession")
-    public String prevSession(Authentication authentication) {
-        //Object principal = authentication.getPrincipal();
-        //User user = (User)principal;
-        // User actingUser = (User) authentication.getPrincipal();
-        User user = service.getByEmail(authentication.getName());
-        userId = user.getId();
-        return "redirect:/user/" + infoService.getUserUrl(userId);
+    @RequestMapping("/redirect")
+    public String prevSession() {
+        if(infoService.getUserUrl()!= null)
+            return "redirect:../user/" + infoService.getUserUrl();
+        else
+            return "redirect:../user/";
     }
 
     @Secured(value = {"ROLE_ADMIN"})
@@ -49,14 +46,14 @@ public class UserController {
     public String save(@ModelAttribute("user") User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         if (service.add(user) != null)
-            return "redirect:../user/" + infoService.getUserUrl(userId);
+                return "redirect:../user/" + infoService.getUserUrl();
         else
             return "redirect:error";
     }
 
     @RequestMapping("/error")
     public String error(Model m) {
-        m.addAttribute("url", infoService.getUserUrl(userId));
+        m.addAttribute("url", infoService.getUserUrl());
         return "error";
     }
 
@@ -70,14 +67,14 @@ public class UserController {
         if (filter == null) {
             filter = new ArrayList<String>();
             filter.add("");
-            infoService.changeUserUrl("?page=" + page + "&size=" + size + "&sort=" + String.join("&sort=", sort), userId);
-            m.addAttribute("url", infoService.getUserUrl(userId));
+            infoService.changeUserUrl("?page=" + page + "&size=" + size + "&sort=" + String.join("&sort=", sort));
+            m.addAttribute("url", infoService.getUserUrl());
         } else {
-            infoService.changeUserUrl("?page=" + page + "&size=" + size + "&sort=" + String.join("&sort=", sort) + "&filter=" + String.join("&filter=", filter), userId);
-            m.addAttribute("url", infoService.getUserUrl(userId));
+            infoService.changeUserUrl("?page=" + page + "&size=" + size + "&sort=" + String.join("&sort=", sort) + "&filter=" + String.join("&filter=", filter));
+            m.addAttribute("url", infoService.getUserUrl());
         }
         Collection<User> list = service.getPage(Integer.parseInt(page), Integer.parseInt(size), sort, filter);
-        m.addAttribute("taskUrl", infoService.getTaskUrl(userId));
+        m.addAttribute("taskUrl", infoService.getTaskUrl());
         m.addAttribute("login", authentication.getName());
         m.addAttribute("filter", String.join(", and by ", filter).replace(":", " value:"));
         m.addAttribute("sort", String.join(", and by ", sort).replace(":", " order:"));
@@ -93,7 +90,7 @@ public class UserController {
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public String editSave(@ModelAttribute("user") User user) {
         service.update(user);
-        return "redirect:/user/" + infoService.getUserUrl(userId);
+        return "redirect:/user/" + infoService.getUserUrl();
     }
 
     @Secured(value = {"ROLE_ADMIN"})
@@ -108,6 +105,6 @@ public class UserController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public String delete(@PathVariable int id) {
         service.delete(id);
-        return "redirect:/user/" + infoService.getUserUrl(userId);
+        return "redirect:/user/" + infoService.getUserUrl();
     }
 }
