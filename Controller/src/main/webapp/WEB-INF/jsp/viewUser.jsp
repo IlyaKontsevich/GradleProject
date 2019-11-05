@@ -1,9 +1,13 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 Sort by: ${sort}
 Filter by: ${filter}
 <p align="right">user:  ${login}</p>
-<p align="right"> <a href="/FirstProject/logout/">Log out</a></p>
+<p align="right"> <a href="/logout/">Log out</a></p>
 </br>
 <h1 align ="center">Users List</h1>
 <table align ="center" border="2" width="70%" cellpadding="2">

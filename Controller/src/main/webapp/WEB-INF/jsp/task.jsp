@@ -1,5 +1,9 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
 Sort by: ${sort}
 </br>
 Filter by: ${filter}
@@ -68,4 +72,4 @@ Change page size
 <a href="pagesize{10}${url}">10</a>
 <a href="pagesize{15}${url}">15</a>
 </br>
-<p align="center"><a href="/FirstProject/user/${userUrl}">View users</a></p>
+<p align="center"><a href="/user/${userUrl}">View users</a></p>
