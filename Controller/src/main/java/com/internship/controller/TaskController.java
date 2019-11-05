@@ -75,7 +75,8 @@ public class TaskController {
             infoService.changeTaskUrl("?page="+page+"&size="+size+"&sort="+String.join("&sort=",sort));
             m.addAttribute("url", infoService.getTaskUrl());
         }else {
-            infoService.changeTaskUrl("?page="+page+"&size="+size+"&sort="+String.join("&sort=",sort)+"&filter="+String.join("&filter=",filter));
+            infoService.changeTaskUrl("?page="+page+"&size="+size+"&sort="
+                    +String.join("&sort=",sort)+"&filter="+String.join("&filter=",filter));
             m.addAttribute("url", infoService.getTaskUrl());
         }
         Collection<Task> list = service.getPage(Integer.parseInt(page),Integer.parseInt(size),userId,sort,filter);

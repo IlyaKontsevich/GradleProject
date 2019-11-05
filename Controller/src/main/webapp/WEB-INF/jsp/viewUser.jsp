@@ -5,6 +5,7 @@
 </head>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 Sort by: ${sort}
+</br>
 Filter by: ${filter}
 <p align="right">user:  ${login}</p>
 <p align="right"> <a href="/logout/">Log out</a></p>

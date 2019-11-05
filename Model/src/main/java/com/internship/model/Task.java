@@ -7,21 +7,21 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name="tasks")
+@Table(name = "tasks")
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
-    @Column(name="deadline")
+    @Column(name = "deadline")
     private LocalDate deadline;
-    @Column(name="timeAdd")
+    @Column(name = "timeAdd")
     private LocalDate timeadd;
-    @Column(name="priority")
+    @Column(name = "priority")
     private String priority;
-    @Column(name="isdone")
+    @Column(name = "isdone")
     private Boolean isdone;
     @ManyToOne
     @JoinColumn(name = "userid", nullable = false)

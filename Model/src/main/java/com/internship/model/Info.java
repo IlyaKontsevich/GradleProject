@@ -3,14 +3,14 @@ package com.internship.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name="info")
+@Table(name = "info")
 public class Info {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
-    @Column(name="user_url")
+    @Column(name = "user_url")
     String userUrl;
-    @Column(name="task_url")
+    @Column(name = "task_url")
     String taskUrl;
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)

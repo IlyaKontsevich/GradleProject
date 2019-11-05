@@ -5,4 +5,4 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <h2>Sorry, you do not have permission to view this page.</h2>
-<a href="/user/">View Users</a>
+<a href="/user/redirect">View Users</a>

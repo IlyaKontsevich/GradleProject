@@ -9,37 +9,37 @@ import org.springframework.stereotype.Component;
 import javax.persistence.criteria.*;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Function;
 
 @Component
-public class UserHibernateDao implements IUserDao{
+public class UserHibernateDao implements IUserDao {
 
     @Override
     public Collection<User> getPage(Integer position, Integer pageSize, List<String> sortType, List<String> filter) {
-        Predicate[] predicates = new Predicate[filter.size()];
-        Order[] orders = new Order[sortType.size()];
-
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<User> cr = cb.createQuery(User.class);
         Root<User> root = cr.from(User.class);
 
-        for(int i =0; i< sortType.size();i++){
-            String str = sortType.get(i);
-            String[] parts = str.split(":");
+        Function<List<String>, Order[]> mappingSortToOrder = list -> list
+                    .stream()
+                    .map((str) -> {
+                        String[] parts = str.split(":");
+                        if (parts[1].equals("asc"))
+                            return cb.asc(root.get(parts[0]));
+                        return cb.desc(root.get(parts[0]));
+                    })
+                    .toArray(Order[]::new);
+        Function<List<String>, Predicate[]> mappingFilterToPredicates = list -> list
+                .stream()
+                .map((str) -> {
+                    String[] parts = str.split(":");
+                    return cb.equal(root.get(parts[0]), parts[1]);
+                })
+                .toArray(Predicate[]::new);
 
-            if(parts[1].equals("asc")){
-                orders[i] = cb.asc(root.get(parts[0]));
-            }if(parts[1].equals("desc")){
-                orders[i] = cb.desc(root.get(parts[0]));
-            }
-        }
-        cr.orderBy(orders);
-        for(int i = 0; i < filter.size();i++){
-            String str = filter.get(i);
-            String[] parts = str.split(":");
-            predicates[i] = cb.equal(root.get(parts[0]),parts[1]);
-        }
-        cr.select(root).where(predicates);
+        cr.select(root).where(mappingFilterToPredicates.apply(filter));
+        cr.orderBy(mappingSortToOrder.apply(sortType));
         Collection<User> users = session.createQuery(cr).setFirstResult(position).setMaxResults(pageSize).getResultList();
         session.close();
         return users;
@@ -61,8 +61,9 @@ public class UserHibernateDao implements IUserDao{
 
     @Override
     public User add(User user) {
-        List<User> users = (List<User>)  HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From User WHERE email ='"+user.getEmail()+"'").list();
-        if(users.size()!=0){
+        List<User> users = (List<User>) HibernateSessionFactoryUtil.getSessionFactory().openSession()
+                .createQuery("From User WHERE email ='" + user.getEmail() + "'").list();
+        if (users.size() != 0) {
             return null;
         }
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
@@ -70,7 +71,8 @@ public class UserHibernateDao implements IUserDao{
         session.save(user);
         tx1.commit();
         session.close();
-        users = (List<User>)  HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From User WHERE email ='"+user.getEmail()+"'").list();
+        users = (List<User>) HibernateSessionFactoryUtil.getSessionFactory().openSession()
+                .createQuery("From User WHERE email ='" + user.getEmail() + "'").list();
         return users.get(0);
     }
 
@@ -93,8 +95,9 @@ public class UserHibernateDao implements IUserDao{
 
     @Override
     public User getByEmail(String email) {
-        List<User> users = (List<User>)  HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From User WHERE email ='"+email+"'").list();
-        if(users.size()==0){
+        List<User> users = (List<User>) HibernateSessionFactoryUtil.getSessionFactory().openSession()
+                .createQuery("From User WHERE email ='" + email + "'").list();
+        if (users.size() == 0) {
             return null;
         }
         return users.get(0);
@@ -102,7 +105,7 @@ public class UserHibernateDao implements IUserDao{
 
     @Override
     public boolean delete(Integer id) {
-        if(get(id) == null)
+        if (get(id) == null)
             return false;
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         Transaction tx1 = session.beginTransaction();

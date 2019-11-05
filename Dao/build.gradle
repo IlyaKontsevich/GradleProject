@@ -19,7 +19,6 @@ dependencies {
     implementation 'org.hibernate:hibernate-ehcache:5.4.1.Final'
     compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.16'
     implementation "org.springframework.security:spring-security-core:5.1.5.RELEASE"
-    //compile 'org.redisson:redisson-hibernate-53:3.10.2'
     project.dependencies{
         compile(project(':Model'))
     }

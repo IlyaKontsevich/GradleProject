@@ -35,7 +35,7 @@ public class UserController {
 
     @RequestMapping("/redirect")
     public String prevSession() {
-        if(infoService.getUserUrl()!= null)
+        if (infoService.getUserUrl() != null)
             return "redirect:../user/" + infoService.getUserUrl();
         else
             return "redirect:../user/";
@@ -44,9 +44,11 @@ public class UserController {
     @Secured(value = {"ROLE_ADMIN"})
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String save(@ModelAttribute("user") User user) {
+        if (!access(user.getId()))
+            return "redirect:/accessDenied/";
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         if (service.add(user) != null)
-                return "redirect:../user/" + infoService.getUserUrl();
+            return "redirect:../user/" + infoService.getUserUrl();
         else
             return "redirect:error";
     }
@@ -70,7 +72,8 @@ public class UserController {
             infoService.changeUserUrl("?page=" + page + "&size=" + size + "&sort=" + String.join("&sort=", sort));
             m.addAttribute("url", infoService.getUserUrl());
         } else {
-            infoService.changeUserUrl("?page=" + page + "&size=" + size + "&sort=" + String.join("&sort=", sort) + "&filter=" + String.join("&filter=", filter));
+            infoService.changeUserUrl("?page=" + page + "&size=" + size + "&sort="
+                    + String.join("&sort=", sort) + "&filter=" + String.join("&filter=", filter));
             m.addAttribute("url", infoService.getUserUrl());
         }
         Collection<User> list = service.getPage(Integer.parseInt(page), Integer.parseInt(size), sort, filter);
@@ -89,6 +92,8 @@ public class UserController {
     @Secured(value = {"ROLE_ADMIN"})
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public String editSave(@ModelAttribute("user") User user) {
+        if (!access(user.getId()))
+            return "redirect:/accessDenied/";
         service.update(user);
         return "redirect:/user/" + infoService.getUserUrl();
     }
@@ -96,6 +101,8 @@ public class UserController {
     @Secured(value = {"ROLE_ADMIN"})
     @RequestMapping(value = "/{id}/edit")
     public String edit(@PathVariable int id, Model m) {
+        if (!access(id))
+            return "redirect:/accessDenied/";
         User user = service.get(id);
         m.addAttribute("command", user);
         return "userEditForm";
@@ -104,7 +111,14 @@ public class UserController {
     @Secured(value = {"ROLE_ADMIN"})
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public String delete(@PathVariable int id) {
+        if (!access(id))
+            return "redirect:/accessDenied/";
         service.delete(id);
         return "redirect:/user/" + infoService.getUserUrl();
+    }
+
+    private boolean access(Integer userId) {
+        return infoService.getCurrentUser().equals(service.get(userId)) ||
+                infoService.getCurrentUser().getEmail().equals("admin@mail.ru");
     }
 }

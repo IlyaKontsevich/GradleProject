@@ -10,45 +10,44 @@ import javax.persistence.criteria.*;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Function;
 
 @Component
 public class TaskHibernateDao implements ITaskDao {
 
     @Override
     public Collection<Task> getPage(Integer position, Integer userId, Integer pageSize, List<String> sortType, List<String> filter) {
-
-        Predicate[] predicates = new Predicate[filter.size()+1];
-        Order[] orders = new Order[sortType.size()];
-
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<Task> cr = cb.createQuery(Task.class);
         Root<Task> root = cr.from(Task.class);
 
-        for(int i =0; i< sortType.size();i++){
-            String str = sortType.get(i);
-            String[] parts = str.split(":");
+        Function<List<String>, Order[]> mappingSortToOrder = list -> list
+                .stream()
+                .map((str) -> {
+                    String[] parts = str.split(":");
+                    if (parts[1].equals("asc"))
+                        return cb.asc(root.get(parts[0]));
+                    return cb.desc(root.get(parts[0]));
+                })
+                .toArray(Order[]::new);
+        cr.orderBy(mappingSortToOrder.apply(sortType));
 
-            if(parts[1].equals("asc")){
-                orders[i] = cb.asc(root.get(parts[0]));
-            }if(parts[1].equals("desc")){
-                orders[i] = cb.desc(root.get(parts[0]));
-            }
-        }
-        cr.orderBy(orders);
-        predicates[0] = cb.equal(root.get("user"),userId);
-        for(int i = 0; i < filter.size();i++){
-            String str = filter.get(i);
-            String[] parts = str.split(":");
-            if (parts[0].equals("isdone"))
-                predicates[i+1] = cb.equal(root.get(parts[0]),Boolean.parseBoolean(parts[1]));
-            else
-            if (parts[0].equals("timeadd") || parts[0].equals("deadline"))
-                predicates[i+1] = cb.equal(root.get(parts[0]), LocalDate.parse(parts[1]));
-            else
-                predicates[i+1] = cb.equal(root.get(parts[0]),parts[1]);
-        }
-        cr.select(root).where(predicates);
+        Function<List<String>, Predicate[]> mappingFilterToPredicates = list -> list
+                .stream()
+                .map((str) -> {
+                    String[] parts = str.split(":");
+                    if(parts[0].equals("isdone"))
+                        return cb.equal(root.get(parts[0]),Boolean.parseBoolean(parts[1]));
+                    else if(parts[0].equals("timeadd") || parts[0].equals("deadline"))
+                        return cb.equal(root.get(parts[0]), LocalDate.parse(parts[1]));
+                    else
+                    return cb.equal(root.get(parts[0]), parts[1]);
+                })
+                .toArray(Predicate[]::new);
+
+        Predicate[] predicates = mappingFilterToPredicates.apply(filter);
+        cr.select(root).where(cb.equal(root.get("user"),userId)).where(predicates);
         Collection<Task> tasks = session.createQuery(cr).setFirstResult(position).setMaxResults(pageSize).getResultList();
         session.close();
         return tasks;
@@ -70,7 +69,8 @@ public class TaskHibernateDao implements ITaskDao {
 
     @Override
     public Task add(Task task) {
-        List<Task> tasks = (List<Task>)  HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From Task WHERE userid = '"+task.getUser().getId()+"'AND name ='"+task.getName()+"'").list();
+        List<Task> tasks = (List<Task>)  HibernateSessionFactoryUtil.getSessionFactory().openSession()
+                .createQuery("From Task WHERE userid = '"+task.getUser().getId()+"'AND name ='"+task.getName()+"'").list();
         if(tasks.size()!=0){
             return null;
         }
@@ -79,7 +79,8 @@ public class TaskHibernateDao implements ITaskDao {
         session.save(task);
         tx1.commit();
         session.close();
-        tasks = (List<Task>)  HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From Task WHERE userid = '"+task.getUser().getId()+"'AND name ='"+task.getName()+"'").list();
+        tasks = (List<Task>)  HibernateSessionFactoryUtil.getSessionFactory().openSession()
+                .createQuery("From Task WHERE userid = '"+task.getUser().getId()+"'AND name ='"+task.getName()+"'").list();
         return tasks.get(0);
     }
 

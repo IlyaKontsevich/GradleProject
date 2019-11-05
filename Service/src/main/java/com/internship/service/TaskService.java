@@ -9,33 +9,35 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.function.UnaryOperator;
 
 @Service
-public class TaskService implements ITaskService{
+public class TaskService implements ITaskService {
     @Autowired
     @Qualifier("taskHibernateDao")
     private ITaskDao dao;
-    @Autowired
-    private IUserService service;
     private static final Logger log = Logger.getLogger(TaskService.class);
 
     @Override
-    public Collection<Task> getPage(Integer position, Integer pageSize, Integer userId, List<String> sortType,List<String> filter){
+    public Collection<Task> getPage(Integer position, Integer pageSize, Integer userId, List<String> sortType, List<String> filter) {
         log.info("Get task page");
-        if(filter.get(0).equals("")){
+        if (filter.get(0).equals(""))
             filter.remove(0);
-        }
-        if(position != 1) {
-            position = position + pageSize - 2;
-        }else{
-            position = position-1;
-        }
-        return dao.getPage(position,userId,pageSize,sortType,filter);
+
+        UnaryOperator<Integer> changePosition = pos -> {
+            if (pos != 1)
+                pos += pageSize - 2;
+            else
+                pos -= 1;
+            return pos;
+        };
+        position = changePosition.apply(position);
+
+        return dao.getPage(position, userId, pageSize, sortType, filter);
     }
 
     @Override
-    public void update(Task task)
-    {
+    public void update(Task task) {
         log.info("Update task");
         dao.update(task);
     }
