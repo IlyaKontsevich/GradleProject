@@ -6,7 +6,6 @@ import com.internship.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,8 +21,6 @@ public class UserController {
     private IUserService service;
     @Autowired
     private IInfoService infoService;
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
     @Secured(value = {"ROLE_ADMIN"})
@@ -44,9 +41,6 @@ public class UserController {
     @Secured(value = {"ROLE_ADMIN"})
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String save(@ModelAttribute("user") User user) {
-        if (!access(user.getId()))
-            return "redirect:/accessDenied/";
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         if (service.add(user) != null)
             return "redirect:../user/" + infoService.getUserUrl();
         else
@@ -68,12 +62,10 @@ public class UserController {
                        Model m) {
         if (filter == null) {
             filter = new ArrayList<String>();
-            filter.add("");
-            infoService.changeUserUrl("?page=" + page + "&size=" + size + "&sort=" + String.join("&sort=", sort));
+            changeUserUrl(page, size, sort, null);
             m.addAttribute("url", infoService.getUserUrl());
         } else {
-            infoService.changeUserUrl("?page=" + page + "&size=" + size + "&sort="
-                    + String.join("&sort=", sort) + "&filter=" + String.join("&filter=", filter));
+            changeUserUrl(page, size, sort, filter);
             m.addAttribute("url", infoService.getUserUrl());
         }
         Collection<User> list = service.getPage(Integer.parseInt(page), Integer.parseInt(size), sort, filter);
@@ -89,16 +81,12 @@ public class UserController {
     }
 
 
-    @Secured(value = {"ROLE_ADMIN"})
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public String editSave(@ModelAttribute("user") User user) {
-        if (!access(user.getId()))
-            return "redirect:/accessDenied/";
         service.update(user);
         return "redirect:/user/" + infoService.getUserUrl();
     }
 
-    @Secured(value = {"ROLE_ADMIN"})
     @RequestMapping(value = "/{id}/edit")
     public String edit(@PathVariable int id, Model m) {
         if (!access(id))
@@ -111,8 +99,6 @@ public class UserController {
     @Secured(value = {"ROLE_ADMIN"})
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public String delete(@PathVariable int id) {
-        if (!access(id))
-            return "redirect:/accessDenied/";
         service.delete(id);
         return "redirect:/user/" + infoService.getUserUrl();
     }
@@ -120,5 +106,17 @@ public class UserController {
     private boolean access(Integer userId) {
         return infoService.getCurrentUser().equals(service.get(userId)) ||
                 infoService.getCurrentUser().getEmail().equals("admin@mail.ru");
+    }
+
+    private void changeUserUrl(String page, String size, List<String> sort, List<String> filter) {
+        if (filter == null)
+            infoService.changeUserUrl("?page=" + page
+                    + "&size=" + size
+                    + "&sort=" + String.join("&sort=", sort));
+        else
+        infoService.changeUserUrl("?page=" + page
+                + "&size=" + size
+                + "&sort=" + String.join("&sort=", sort)
+                + "&filter=" + String.join("&filter=", filter));
     }
 }

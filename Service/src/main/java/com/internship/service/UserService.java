@@ -4,6 +4,7 @@ import com.internship.dao.IUserDao;
 import com.internship.model.User;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -15,16 +16,20 @@ import java.util.function.UnaryOperator;
 public class UserService implements IUserService {
     @Autowired
     private IUserDao dao;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
     private static final Logger log = Logger.getLogger(UserService.class);
 
     @Override
     public void update(User user) {
         log.info("Update user");
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         dao.update(user);
     }
 
     public User add(User user) {
         log.info("Add user");
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return dao.add(user);
     }
 
@@ -39,9 +44,6 @@ public class UserService implements IUserService {
             return pos;
         };
         position = changePosition.apply(position);
-
-        if (filter.get(0).equals(""))
-            filter.remove(0);
 
         return dao.getPage(position, pageSize, sortType, filter);
     }

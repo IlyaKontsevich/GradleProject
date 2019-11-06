@@ -20,6 +20,10 @@
             <td><form:input path="age"  type = "number" min = "1" max = "100"/></td>
         </tr>
         <tr>
+            <td>Password : </td>
+            <td><form:input path="password"/></td>
+        </tr>
+        <tr>
             <td> </td>
             <td><input type="submit" value="Edit Save"/></td>
         </tr>

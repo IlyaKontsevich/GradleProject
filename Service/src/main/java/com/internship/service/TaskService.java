@@ -21,9 +21,6 @@ public class TaskService implements ITaskService {
     @Override
     public Collection<Task> getPage(Integer position, Integer pageSize, Integer userId, List<String> sortType, List<String> filter) {
         log.info("Get task page");
-        if (filter.get(0).equals(""))
-            filter.remove(0);
-
         UnaryOperator<Integer> changePosition = pos -> {
             if (pos != 1)
                 pos += pageSize - 2;
@@ -31,9 +28,9 @@ public class TaskService implements ITaskService {
                 pos -= 1;
             return pos;
         };
+        filter.add("user:"+ userId);
         position = changePosition.apply(position);
-
-        return dao.getPage(position, userId, pageSize, sortType, filter);
+        return dao.getPage(position, pageSize, sortType, filter);
     }
 
     @Override

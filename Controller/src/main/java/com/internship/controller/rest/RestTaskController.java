@@ -21,10 +21,9 @@ public class RestTaskController {
                                  @RequestParam(value="size", defaultValue = "10") String size,
                                  @RequestParam(value="sort",defaultValue = "name:asc") List<String> sort,
                                  @RequestParam(required = false, value="filter") List<String> filter){
-        if(filter == null) {
+        if(filter == null)
             filter = new ArrayList<String>();
-            filter.add("");
-        }
+
         Collection<Task> list = service.getPage(Integer.parseInt(page),Integer.parseInt(size),userId,sort,filter);
         return list;
     }

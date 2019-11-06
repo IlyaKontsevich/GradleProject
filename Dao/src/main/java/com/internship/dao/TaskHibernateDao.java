@@ -16,7 +16,7 @@ import java.util.function.Function;
 public class TaskHibernateDao implements ITaskDao {
 
     @Override
-    public Collection<Task> getPage(Integer position, Integer userId, Integer pageSize, List<String> sortType, List<String> filter) {
+    public Collection<Task> getPage(Integer position, Integer pageSize, List<String> sortType, List<String> filter) {
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<Task> cr = cb.createQuery(Task.class);
@@ -37,17 +37,22 @@ public class TaskHibernateDao implements ITaskDao {
                 .stream()
                 .map((str) -> {
                     String[] parts = str.split(":");
-                    if(parts[0].equals("isdone"))
-                        return cb.equal(root.get(parts[0]),Boolean.parseBoolean(parts[1]));
-                    else if(parts[0].equals("timeadd") || parts[0].equals("deadline"))
-                        return cb.equal(root.get(parts[0]), LocalDate.parse(parts[1]));
-                    else
-                    return cb.equal(root.get(parts[0]), parts[1]);
+                    switch (parts[0]) {
+                        case "isdone":
+                            return cb.equal(root.get(parts[0]), Boolean.parseBoolean(parts[1]));
+                        case "timeadd":
+                        case "deadline":
+                            return cb.equal(root.get(parts[0]), LocalDate.parse(parts[1]));
+                        case "user":
+                            return cb.equal(root.get("user"), Integer.valueOf(parts[1]));
+                        default:
+                            return cb.equal(root.get(parts[0]), parts[1]);
+                    }
                 })
                 .toArray(Predicate[]::new);
 
         Predicate[] predicates = mappingFilterToPredicates.apply(filter);
-        cr.select(root).where(cb.equal(root.get("user"),userId)).where(predicates);
+        cr.select(root).where(predicates);
         Collection<Task> tasks = session.createQuery(cr).setFirstResult(position).setMaxResults(pageSize).getResultList();
         session.close();
         return tasks;

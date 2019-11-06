@@ -36,9 +36,6 @@ public class TaskController {
 
     @RequestMapping(value="/save",method = RequestMethod.POST)
     public String save(String date,@PathVariable Integer userId, @ModelAttribute("task") Task task){
-        if(!access(userId)){
-            return "redirect:/accessDenied/";
-        }
         task.setUser(userService.get(userId));
         LocalDate localDate = LocalDate.parse(date);
         LocalDate todayDate = LocalDate.now();
@@ -55,11 +52,6 @@ public class TaskController {
         }
     }
 
-    private boolean access(Integer userId){
-        return infoService.getCurrentUser().equals(userService.get(userId)) ||
-                infoService.getCurrentUser().getEmail().equals("admin@mail.ru");
-    }
-
     @RequestMapping("/")
     public String view(@PathVariable Integer userId,
                        @RequestParam(value="page", defaultValue = "1") String page,
@@ -71,12 +63,10 @@ public class TaskController {
         }
         if(filter == null) {
             filter = new ArrayList<String>();
-            filter.add("");
-            infoService.changeTaskUrl("?page="+page+"&size="+size+"&sort="+String.join("&sort=",sort));
+            changeTaskUrl(page, size, sort, filter);
             m.addAttribute("url", infoService.getTaskUrl());
         }else {
-            infoService.changeTaskUrl("?page="+page+"&size="+size+"&sort="
-                    +String.join("&sort=",sort)+"&filter="+String.join("&filter=",filter));
+            changeTaskUrl(page, size, sort, filter);
             m.addAttribute("url", infoService.getTaskUrl());
         }
         Collection<Task> list = service.getPage(Integer.parseInt(page),Integer.parseInt(size),userId,sort,filter);
@@ -92,9 +82,6 @@ public class TaskController {
 
     @RequestMapping(value="/{id}",method = RequestMethod.PUT)
     public String editSave(String time,String done,String date,@PathVariable Integer userId, @ModelAttribute("task") Task task){
-        if(!access(userId)){
-            return "redirect:/accessDenied/";
-        }
         task.setUser(userService.get(userId));
         task.setTimeadd(LocalDate.parse(time));
         task.setDeadline(LocalDate.parse(date));
@@ -120,6 +107,23 @@ public class TaskController {
         }
         service.delete(id);
         return "redirect: ../task/" + infoService.getTaskUrl();
+    }
+
+    private void changeTaskUrl(String page, String size, List<String> sort, List<String> filter) {
+        if (filter == null)
+            infoService.changeTaskUrl("?page=" + page
+                    + "&size=" + size
+                    + "&sort=" + String.join("&sort=", sort));
+        else
+            infoService.changeTaskUrl("?page=" + page
+                    + "&size=" + size
+                    + "&sort=" + String.join("&sort=", sort)
+                    + "&filter=" + String.join("&filter=", filter));
+    }
+
+    private boolean access(Integer userId){
+        return infoService.getCurrentUser().equals(userService.get(userId)) ||
+                infoService.getCurrentUser().getEmail().equals("admin@mail.ru");
     }
 }
 

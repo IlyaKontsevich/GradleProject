@@ -12,39 +12,37 @@ import java.util.List;
 public class FilterSortPage {
 
     @RequestMapping(value = {"user/savefilter{type}", "user/{userId}/task/savefilter{type}"})
-    public String saveFilter(@PathVariable String type, String filtervalue, @RequestParam(value = "page", defaultValue = "1") String page,
+    public String saveFilter(@PathVariable String type, String filtervalue,
+                             @RequestParam(value = "page", defaultValue = "1") String page,
                              @RequestParam(value = "size", defaultValue = "3") String size,
                              @RequestParam(value = "sort", defaultValue = "name:asc") List<String> sort,
                              @RequestParam(required = false, value = "filter") List<String> filter) {
-        if (filter == null) {
-            filter = new ArrayList<String>();
-            filter.add("");
-        }
-        type = type.replace("{", "");
-        type = type.replace("}", "");
-        if (type.equals("nul")) {
-            filter.clear();
-            return "redirect:./?page=" + page + "&size=" + size + "&sort=" + String.join("&sort=", sort);
-        }
-        if (filtervalue != null)
-            type = type + "," + filtervalue + "";
-        if (contains(filter, type) == -1) {
-            filter.add(type.replace(",", ":"));
+        type = type
+                .replace("{", "")
+                .replace("}", "");
+
+        if (type.equals("nul"))
+            return redirect(page, size, sort, null);
+
+        if (!filtervalue.equals("")) {
+            if (filter == null)
+                filter = new ArrayList<String>();
+            type = type + ":" + filtervalue;
+            filter.removeIf(str -> contains(sort, str));
+            filter.add(type);
+            return redirect(page, size, sort, filter);
         } else {
-            filter.remove(contains(filter, type));
-            filter.add(type.replace(",", ":"));
+            return redirect(page, size, sort, filter);
         }
-        return "redirect:./?page=" + page + "&size=" + size + "&sort=" + String.join("&sort=", sort) + "&filter=" + String.join("&filter=", filter);
     }
 
     @RequestMapping(value = {"user/changepage{pages}", "user/{userId}/task/changepage{pages}"})
-    public String changePage(@PathVariable String pages, @RequestParam(value = "page", defaultValue = "1") String page,
+    public String changePage(@PathVariable String pages,
+                             @RequestParam(value = "page", defaultValue = "1") String page,
                              @RequestParam(value = "size", defaultValue = "3") String size,
                              @RequestParam(value = "sort", defaultValue = "name:asc") List<String> sort,
                              @RequestParam(required = false, value = "filter") List<String> filter) {
-        if (filter == null)
-            return "redirect:./?page=" + pages + "&size=" + size + "&sort=" + String.join("&sort=", sort);
-        return "redirect:./?page=" + pages + "&size=" + size + "&sort=" + String.join("&sort=", sort) + "&filter=" + String.join("&filter=", filter);
+        return redirect(pages, size, sort, filter);
     }
 
     @RequestMapping(value = {"user/pagesize{pageSize}", "user/{userId}/task/pagesize{pageSize}"})
@@ -53,22 +51,10 @@ public class FilterSortPage {
                                  @RequestParam(value = "size", defaultValue = "3") String size,
                                  @RequestParam(value = "sort", defaultValue = "name:asc") List<String> sort,
                                  @RequestParam(required = false, value = "filter") List<String> filter) {
-        pageSize = pageSize.replace("{", "");
-        pageSize = pageSize.replace("}", "");
-        if (filter == null)
-            return "redirect:./?page=1&size=" + pageSize + "&sort=" + String.join("&sort=", sort);
-        return "redirect:./?page=1&size=" + pageSize + "&sort=" + String.join("&sort=", sort) + "&filter=" + String.join("&filter=", filter);
-    }
-
-    public int contains(List<String> list, String string) {
-        String mass[] = string.split(",");
-        int i = 0;
-        for (String str : list) {
-            if (str.contains(mass[0]))
-                return i;
-            i++;
-        }
-        return -1;
+        pageSize = pageSize
+                .replace("{", "")
+                .replace("}", "");
+        return redirect(page, pageSize, sort, filter);
     }
 
     @RequestMapping(value = {"user/changesort{sorttype}", "user/{userId}/task/changesort{sorttype}"})
@@ -77,31 +63,39 @@ public class FilterSortPage {
                                  @RequestParam(value = "sort", defaultValue = "name:asc") List<String> sort,
                                  @RequestParam(required = false, value = "filter") List<String> filter,
                                  @PathVariable String sorttype) {
-        sorttype = sorttype.replace("{", "");
-        sorttype = sorttype.replace("}", "");
-        String mass[] = sorttype.split(",");
-        if (mass[1].equals("nul")) {
-            if (contains(sort, sorttype) != -1) {
-                sort.remove(contains(sort, sorttype));
-            }
+        sorttype = sorttype
+                .replace("{", "")
+                .replace("}", "");
+
+        if (sorttype.split(",")[1].equals("nul")) {
+            sort.removeIf(str -> contains(sort, str));
             if (!sort.isEmpty()) {
                 size = size + "&sort=";
             }
-            if (filter == null)
-                return "redirect:./?page=" + page + "&size=" + size + String.join("&sort=", sort);
-            return "redirect:./?page=" + page + "&size=" + size + String.join("&sort=", sort) + "&filter=" + String.join("&filter=", filter);
+            return redirect(page, size, sort, filter);
         }
-        if (contains(sort, sorttype) == -1) {
-            sort.add(sorttype.replace(",", ":"));
-        } else {
-            sort.remove(contains(sort, sorttype));
-            sort.add(sorttype.replace(",", ":"));
+        sort.removeIf(str -> contains(sort, str));
+        sort.add(sorttype.replace(",", ":"));
+        return redirect(page, size, sort, filter);
+    }
+
+    private boolean contains(List<String> list, String string) {
+        for (String str : list) {
+            if (str.contains(string.split(",")[0]))
+                return true;
         }
-        if (!sort.isEmpty()) {
-            size = size + "&sort=";
-        }
+        return false;
+    }
+
+    private String redirect(String page, String size, List<String> sort, List<String> filter) {
         if (filter == null)
-            return "redirect:./?page=" + page + "&size=" + size + String.join("&sort=", sort);
-        return "redirect:./?page=" + page + "&size=" + size + String.join("&sort=", sort) + "&filter=" + String.join("&filter=", filter);
+            return "redirect:./?page=" + page
+                    + "&size=" + size
+                    + "&sort=" + String.join("&sort=", sort);
+
+        return "redirect:./?page=" + page
+                + "&size=" + size
+                + "&sort=" + String.join("&sort=", sort)
+                + "&filter=" + String.join("&filter=", filter);
     }
 }

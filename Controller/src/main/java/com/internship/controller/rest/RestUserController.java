@@ -18,13 +18,12 @@ public class RestUserController {
 
     @RequestMapping(value = "/",method = RequestMethod.GET)
     public Collection<User> view(@RequestParam(value="page", defaultValue = "1") String page,
-                       @RequestParam(value="size", defaultValue = "3") String size,
-                       @RequestParam(value="sort",defaultValue = "name:asc") List<String> sort,
-                       @RequestParam(required = false, value="filter") List<String> filter){
-        if(filter == null) {
+                                 @RequestParam(value="size", defaultValue = "3") String size,
+                                 @RequestParam(value="sort",defaultValue = "name:asc") List<String> sort,
+                                 @RequestParam(required = false, value="filter") List<String> filter){
+        if(filter == null)
             filter = new ArrayList<String>();
-            filter.add("");
-        }
+
         Collection<User> list = service.getPage(Integer.parseInt(page),Integer.parseInt(size),sort,filter);
         return list;
     }
