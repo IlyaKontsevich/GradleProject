@@ -16,7 +16,7 @@ public class Swagger2Config {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2).select()
                 .apis(RequestHandlerSelectors
-                        .basePackage("com.internship.controller.rest"))
+                .basePackage("com.internship.controller.rest"))
                 .paths(PathSelectors.regex("/.*"))
                 .build().apiInfo(apiEndPointsInfo());
     }

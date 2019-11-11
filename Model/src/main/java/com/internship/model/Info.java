@@ -7,11 +7,11 @@ import javax.persistence.*;
 public class Info {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    private Integer id;
     @Column(name = "user_url")
-    String userUrl;
+    private String userUrl;
     @Column(name = "task_url")
-    String taskUrl;
+    private String taskUrl;
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;

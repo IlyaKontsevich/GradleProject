@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import javax.persistence.criteria.*;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 
 @Component
@@ -16,7 +17,7 @@ public class UserHibernateDao implements IUserDao {
 
     @Override
     public Collection<User> getPage(Integer position, Integer pageSize, List<String> sortType, List<String> filter) {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Session session = Objects.requireNonNull(HibernateSessionFactoryUtil.getSessionFactory()).openSession();
         CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<User> cr = cb.createQuery(User.class);
         Root<User> root = cr.from(User.class);
@@ -38,9 +39,14 @@ public class UserHibernateDao implements IUserDao {
                 })
                 .toArray(Predicate[]::new);
 
-        cr.select(root).where(mappingFilterToPredicates.apply(filter));
-        cr.orderBy(mappingSortToOrder.apply(sortType));
-        Collection<User> users = session.createQuery(cr).setFirstResult(position).setMaxResults(pageSize).getResultList();
+        cr.select(root)
+                .where(mappingFilterToPredicates.apply(filter))
+                .orderBy(mappingSortToOrder.apply(sortType));
+        Collection<User> users = session
+                                        .createQuery(cr)
+                                        .setFirstResult(position)
+                                        .setMaxResults(pageSize)
+                                        .getResultList();
         session.close();
         return users;
     }
@@ -52,7 +58,7 @@ public class UserHibernateDao implements IUserDao {
 
     @Override
     public void update(User user) {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Session session = Objects.requireNonNull(HibernateSessionFactoryUtil.getSessionFactory()).openSession();
         Transaction tx1 = session.beginTransaction();
         session.update(user);
         tx1.commit();
@@ -78,7 +84,7 @@ public class UserHibernateDao implements IUserDao {
 
     @Override
     public User get(Integer id) {
-        return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(User.class, id);
+        return Objects.requireNonNull(HibernateSessionFactoryUtil.getSessionFactory()).openSession().get(User.class, id);
     }
 
     @Override
@@ -107,7 +113,7 @@ public class UserHibernateDao implements IUserDao {
     public boolean delete(Integer id) {
         if (get(id) == null)
             return false;
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Session session = Objects.requireNonNull(HibernateSessionFactoryUtil.getSessionFactory()).openSession();
         Transaction tx1 = session.beginTransaction();
         session.delete(get(id));
         tx1.commit();

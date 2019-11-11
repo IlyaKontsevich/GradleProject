@@ -27,7 +27,7 @@ public class UserController {
     @RequestMapping("/form")
     public String showForm(Model m) {
         m.addAttribute("command", new User("username"));
-        return "userForm";
+        return "userPage/userForm";
     }
 
     @RequestMapping("/redirect")
@@ -50,7 +50,7 @@ public class UserController {
     @RequestMapping("/error")
     public String error(Model m) {
         m.addAttribute("url", infoService.getUserUrl());
-        return "error";
+        return "userPage/error";
     }
 
     @RequestMapping(value = "/")
@@ -59,25 +59,26 @@ public class UserController {
                        @RequestParam(value = "sort", defaultValue = "name:asc") List<String> sort,
                        @RequestParam(required = false, value = "filter") List<String> filter,
                        Authentication authentication,
-                       Model m) {
+                       Model model) {
         if (filter == null) {
             filter = new ArrayList<String>();
             changeUserUrl(page, size, sort, null);
-            m.addAttribute("url", infoService.getUserUrl());
+            model.addAttribute("url", infoService.getUserUrl());
         } else {
             changeUserUrl(page, size, sort, filter);
-            m.addAttribute("url", infoService.getUserUrl());
+            model.addAttribute("url", infoService.getUserUrl());
         }
         Collection<User> list = service.getPage(Integer.parseInt(page), Integer.parseInt(size), sort, filter);
-        m.addAttribute("taskUrl", infoService.getTaskUrl());
-        m.addAttribute("login", authentication.getName());
-        m.addAttribute("filter", String.join(", and by ", filter).replace(":", " value:"));
-        m.addAttribute("sort", String.join(", and by ", sort).replace(":", " order:"));
-        m.addAttribute("pageSize", Integer.parseInt(size));
-        m.addAttribute("size", service.getSize());
-        m.addAttribute("position", page);
-        m.addAttribute("list", list);
-        return "viewUser";
+        model
+                .addAttribute("taskUrl", infoService.getTaskUrl())
+                .addAttribute("login", authentication.getName())
+                .addAttribute("filter", String.join(", and by ", filter).replace(":", " value:"))
+                .addAttribute("sort", String.join(", and by ", sort).replace(":", " order:"))
+                .addAttribute("pageSize", Integer.parseInt(size))
+                .addAttribute("size", service.getSize())
+                .addAttribute("position", page)
+                .addAttribute("list", list);
+        return "userPage/viewUser";
     }
 
 
@@ -93,7 +94,7 @@ public class UserController {
             return "redirect:/accessDenied/";
         User user = service.get(id);
         m.addAttribute("command", user);
-        return "userEditForm";
+        return "userPage/userEditForm";
     }
 
     @Secured(value = {"ROLE_ADMIN"})
@@ -110,11 +111,13 @@ public class UserController {
 
     private void changeUserUrl(String page, String size, List<String> sort, List<String> filter) {
         if (filter == null)
-            infoService.changeUserUrl("?page=" + page
+            infoService.changeUserUrl(
+                    "?page=" + page
                     + "&size=" + size
                     + "&sort=" + String.join("&sort=", sort));
         else
-        infoService.changeUserUrl("?page=" + page
+        infoService.changeUserUrl(
+                "?page=" + page
                 + "&size=" + size
                 + "&sort=" + String.join("&sort=", sort)
                 + "&filter=" + String.join("&filter=", filter));

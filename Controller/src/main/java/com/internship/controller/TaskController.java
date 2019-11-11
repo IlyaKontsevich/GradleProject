@@ -31,7 +31,7 @@ public class TaskController {
             return "redirect:/accessDenied/";
         }
         m.addAttribute("command", new Task("taskname"));
-        return "taskForm";
+        return "taskPage/taskForm";
     }
 
     @RequestMapping(value="/save",method = RequestMethod.POST)
@@ -57,27 +57,28 @@ public class TaskController {
                        @RequestParam(value="page", defaultValue = "1") String page,
                        @RequestParam(value="size", defaultValue = "3") String size,
                        @RequestParam(value="sort",defaultValue = "name:asc") List<String> sort,
-                       @RequestParam(required = false, value="filter") List<String> filter, Model m){
+                       @RequestParam(required = false, value="filter") List<String> filter, Model model){
         if(!access(userId)){
             return "redirect:/accessDenied/";
         }
         if(filter == null) {
             filter = new ArrayList<String>();
             changeTaskUrl(page, size, sort, filter);
-            m.addAttribute("url", infoService.getTaskUrl());
+            model.addAttribute("url", infoService.getTaskUrl());
         }else {
             changeTaskUrl(page, size, sort, filter);
-            m.addAttribute("url", infoService.getTaskUrl());
+            model.addAttribute("url", infoService.getTaskUrl());
         }
         Collection<Task> list = service.getPage(Integer.parseInt(page),Integer.parseInt(size),userId,sort,filter);
-        m.addAttribute("userUrl", infoService.getUserUrl());
-        m.addAttribute("filter",String.join(", and by ",filter).replace(":"," value:"));
-        m.addAttribute("sort",String.join(", and by ",sort).replace(":"," order:"));
-        m.addAttribute("pageSize",Integer.parseInt(size));
-        m.addAttribute("size",service.getSize(userId));
-        m.addAttribute("position",page);
-        m.addAttribute("list",list);
-        return "task";
+        model
+                .addAttribute("userUrl", infoService.getUserUrl())
+                .addAttribute("filter",String.join(", and by ",filter).replace(":"," value:"))
+                .addAttribute("sort",String.join(", and by ",sort).replace(":"," order:"))
+                .addAttribute("pageSize",Integer.parseInt(size))
+                .addAttribute("size",service.getSize(userId))
+                .addAttribute("position",page)
+                .addAttribute("list",list);
+        return "taskPage/task";
     }
 
     @RequestMapping(value="/{id}",method = RequestMethod.PUT)
@@ -98,7 +99,7 @@ public class TaskController {
         Task task = service.get(id);
         m.addAttribute("command",task);
         m.addAttribute("date",task.getTimeadd());
-        return "taskEditForm";
+        return "taskPage/taskEditForm";
     }
     @RequestMapping(value="/{id}",method = RequestMethod.DELETE)
     public String delete(@PathVariable int id, @PathVariable Integer userId){
@@ -111,11 +112,13 @@ public class TaskController {
 
     private void changeTaskUrl(String page, String size, List<String> sort, List<String> filter) {
         if (filter == null)
-            infoService.changeTaskUrl("?page=" + page
+            infoService.changeTaskUrl(
+                    "?page=" + page
                     + "&size=" + size
                     + "&sort=" + String.join("&sort=", sort));
         else
-            infoService.changeTaskUrl("?page=" + page
+            infoService.changeTaskUrl(
+                    "?page=" + page
                     + "&size=" + size
                     + "&sort=" + String.join("&sort=", sort)
                     + "&filter=" + String.join("&filter=", filter));

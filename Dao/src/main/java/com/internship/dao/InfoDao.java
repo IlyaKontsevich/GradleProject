@@ -11,12 +11,13 @@ import org.springframework.stereotype.Component;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.util.Objects;
 
 @Component
 public class InfoDao implements IInfoDao {
 
     private Info createIfNotExists(Integer userId) {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Session session = Objects.requireNonNull(HibernateSessionFactoryUtil.getSessionFactory()).openSession();
         CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<Info> cr = cb.createQuery(Info.class);
         Root<Info> root = cr.from(Info.class);
@@ -47,7 +48,7 @@ public class InfoDao implements IInfoDao {
     @Override
     public void changeTaskUrl(String taskUrl, Integer userId) {
         Info info = createIfNotExists(userId);
-        HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Objects.requireNonNull(HibernateSessionFactoryUtil.getSessionFactory()).openSession();
         info.setTaskUrl(taskUrl);
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         Transaction tx1 = session.beginTransaction();
@@ -59,7 +60,7 @@ public class InfoDao implements IInfoDao {
     @Override
     public void changeUserUrl(String userUrl, Integer userId) {
         Info info = createIfNotExists(userId);
-        HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Objects.requireNonNull(HibernateSessionFactoryUtil.getSessionFactory()).openSession();
         info.setUserUrl(userUrl);
         Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
         Transaction tx1 = session.beginTransaction();

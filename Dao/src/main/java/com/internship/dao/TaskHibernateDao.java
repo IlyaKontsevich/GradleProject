@@ -10,6 +10,7 @@ import javax.persistence.criteria.*;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 
 @Component
@@ -17,7 +18,7 @@ public class TaskHibernateDao implements ITaskDao {
 
     @Override
     public Collection<Task> getPage(Integer position, Integer pageSize, List<String> sortType, List<String> filter) {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Session session = Objects.requireNonNull(HibernateSessionFactoryUtil.getSessionFactory()).openSession();
         CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<Task> cr = cb.createQuery(Task.class);
         Root<Task> root = cr.from(Task.class);
@@ -53,7 +54,11 @@ public class TaskHibernateDao implements ITaskDao {
 
         Predicate[] predicates = mappingFilterToPredicates.apply(filter);
         cr.select(root).where(predicates);
-        Collection<Task> tasks = session.createQuery(cr).setFirstResult(position).setMaxResults(pageSize).getResultList();
+        Collection<Task> tasks = session
+                                        .createQuery(cr)
+                                        .setFirstResult(position)
+                                        .setMaxResults(pageSize)
+                                        .getResultList();
         session.close();
         return tasks;
     }
@@ -65,7 +70,7 @@ public class TaskHibernateDao implements ITaskDao {
 
     @Override
     public void update(Task task) {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Session session = Objects.requireNonNull(HibernateSessionFactoryUtil.getSessionFactory()).openSession();
         Transaction tx1 = session.beginTransaction();
         session.update(task);
         tx1.commit();
@@ -91,12 +96,12 @@ public class TaskHibernateDao implements ITaskDao {
 
     @Override
     public Task get(Integer id) {
-        return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Task.class, id);
+        return Objects.requireNonNull(HibernateSessionFactoryUtil.getSessionFactory()).openSession().get(Task.class, id);
     }
 
     @Override
     public Collection<Task> getAll(Integer userId) {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Session session = Objects.requireNonNull(HibernateSessionFactoryUtil.getSessionFactory()).openSession();
         CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<Task> cr = cb.createQuery(Task.class);
         Root<Task> root = cr.from(Task.class);
@@ -111,7 +116,7 @@ public class TaskHibernateDao implements ITaskDao {
         if(get(id)==null){
             return false;
         }
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        Session session = Objects.requireNonNull(HibernateSessionFactoryUtil.getSessionFactory()).openSession();
         Transaction tx1 = session.beginTransaction();
         session.delete(get(id));
         tx1.commit();

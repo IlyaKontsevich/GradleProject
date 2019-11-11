@@ -19,35 +19,35 @@ public class LoginController {
 
     @RequestMapping("/login")
     public String Login(){
-        return "login";
+        return "loginPage/login";
     }
 
     @RequestMapping("/logerror")
     public String LogErr(Model m){
         m.addAttribute("error","Incorrect login or password or registration Error, please try again");
-        return "login";
+        return "loginPage/login";
     }
 
     @RequestMapping("/logreg")
     public String LogRegistration(Model m){
         m.addAttribute("error","Successful registration, please enter your login and password");
-        return "login";
+        return "loginPage/login";
     }
 
     @RequestMapping("/logout")
     public String LogOut(){
-        return "login";
+        return "loginPage/login";
     }
 
     @RequestMapping("/accessDenied")
     public String accessDenied(){
-        return "accessDenied";
+        return "loginPage/accessDenied";
     }
 
     @RequestMapping("/registration")
     public String Registration(Model m){
         m.addAttribute("command", new User());
-        return "registration";
+        return "loginPage/registration";
     }
 
     @RequestMapping(value="/save",method = RequestMethod.POST)
