@@ -1,11 +1,8 @@
-package com.internship.service;
-
-import java.util.Collection;
+package com.internship.service.interfaces;
 
 public interface IService<T> {
     void update(T type);
     T add(T type);
     void delete(Integer id);
     T get(Integer id);
-    Collection<T> getAll();
 }

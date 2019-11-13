@@ -1,8 +1,9 @@
 package com.internship.controller;
 
 import com.internship.model.User;
-import com.internship.service.IInfoService;
-import com.internship.service.IUserService;
+import com.internship.service.interfaces.IInfoService;
+import com.internship.service.interfaces.IMessageService;
+import com.internship.service.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
@@ -11,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Controller
@@ -21,13 +21,15 @@ public class UserController {
     private IUserService service;
     @Autowired
     private IInfoService infoService;
+    @Autowired
+    private IMessageService messageService;
 
 
     @Secured(value = {"ROLE_ADMIN"})
     @RequestMapping("/form")
     public String showForm(Model m) {
         m.addAttribute("command", new User("username"));
-        return "userPage/userForm";
+        return "userPages/userForm";
     }
 
     @RequestMapping("/redirect")
@@ -50,7 +52,7 @@ public class UserController {
     @RequestMapping("/error")
     public String error(Model m) {
         m.addAttribute("url", infoService.getUserUrl());
-        return "userPage/error";
+        return "userPages/error";
     }
 
     @RequestMapping(value = "/")
@@ -68,8 +70,10 @@ public class UserController {
             changeUserUrl(page, size, sort, filter);
             model.addAttribute("url", infoService.getUserUrl());
         }
-        Collection<User> list = service.getPage(Integer.parseInt(page), Integer.parseInt(size), sort, filter);
+        List<User> list = service.getPage(Integer.parseInt(page), Integer.parseInt(size), sort, filter);
         model
+                .addAttribute("unreadMessages", messageService.getUnreadMessages(((User) authentication.getPrincipal()).getId()))
+                .addAttribute("userId", ((User) authentication.getPrincipal()).getId())
                 .addAttribute("taskUrl", infoService.getTaskUrl())
                 .addAttribute("login", authentication.getName())
                 .addAttribute("filter", String.join(", and by ", filter).replace(":", " value:"))
@@ -78,7 +82,7 @@ public class UserController {
                 .addAttribute("size", service.getSize())
                 .addAttribute("position", page)
                 .addAttribute("list", list);
-        return "userPage/viewUser";
+        return "userPages/viewUser";
     }
 
 
@@ -94,7 +98,14 @@ public class UserController {
             return "redirect:/accessDenied/";
         User user = service.get(id);
         m.addAttribute("command", user);
-        return "userPage/userEditForm";
+        return "userPages/userEditForm";
+    }
+
+    @RequestMapping(value = "/{id}/viewtask")
+    public String viewTask(@PathVariable int id) {
+        if (!access(id))
+            return "redirect:/accessDenied/";
+        return "redirect: /user/{id}/task/" + infoService.getTaskUrl();
     }
 
     @Secured(value = {"ROLE_ADMIN"})
@@ -103,6 +114,7 @@ public class UserController {
         service.delete(id);
         return "redirect:/user/" + infoService.getUserUrl();
     }
+
 
     private boolean access(Integer userId) {
         return infoService.getCurrentUser().equals(service.get(userId)) ||
@@ -113,13 +125,13 @@ public class UserController {
         if (filter == null)
             infoService.changeUserUrl(
                     "?page=" + page
-                    + "&size=" + size
-                    + "&sort=" + String.join("&sort=", sort));
+                            + "&size=" + size
+                            + "&sort=" + String.join("&sort=", sort));
         else
-        infoService.changeUserUrl(
-                "?page=" + page
-                + "&size=" + size
-                + "&sort=" + String.join("&sort=", sort)
-                + "&filter=" + String.join("&filter=", filter));
+            infoService.changeUserUrl(
+                    "?page=" + page
+                            + "&size=" + size
+                            + "&sort=" + String.join("&sort=", sort)
+                            + "&filter=" + String.join("&filter=", filter));
     }
 }

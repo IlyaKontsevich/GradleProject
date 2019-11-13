@@ -8,6 +8,7 @@ Sort by: ${sort}
 </br>
 Filter by: ${filter}
 <p align="right">user:  ${login}</p>
+<p align="right"> <a href="${userId}/messages/">(Unread messages: ${unreadMessages})</a></p>
 <p align="right"> <a href="/logout/">Log out</a></p>
 </br>
 <h1 align ="center">Users List</h1>
@@ -24,24 +25,25 @@ Filter by: ${filter}
         </form></th><th>
         <form method="post" action="savefilter{nul}${url}">
             <input type="submit" value="Without filter" />
-        </form></th><th></th><th></th>
+        </form></th><th></th><th></th><th></th>
     <tr><th>Id<a href="changesort{id,asc}${url}">&#8593</a><a href="changesort{id,desc}${url}">&#8595</a><a href="changesort{id,nul}${url}">&#215</a></th>
         <th>Name<a href="changesort{name,asc}${url}">&#8593</a><a href="changesort{name,desc}${url}">&#8595</a><a href="changesort{name,nul}${url}">&#215</a></th>
         <th>Age<a href="changesort{age,asc}${url}">&#8593</a><a href="changesort{age,desc}${url}">&#8595</a><a href="changesort{age,nul}${url}">&#215</a></th>
         <th>Email<a href="changesort{email,asc}${url}">&#8593</a><a href="changesort{email,desc}${url}">&#8595</a><a href="changesort{email,nul}${url}">&#215</a></th>
-        <th>View users tasks</th><th>Edit</th><th>Delete</th>
+        <th>View users tasks</th><th>Edit</th><th>Delete</th><th>View users messages</th>
     <c:forEach var="user" items="${list}">
         <tr>
             <td>${user.id}</td>
             <td>${user.name}</td>
             <td>${user.age}</td>
             <td>${user.email}</td>
-            <td><a href="${user.id}/task/${taskUrl}">View task</a></td>
+            <td><a href="${user.id}/viewtask">View task</a></td>
             <td><a href="${user.id}/edit">Edit</a></td>
             </form>
             <form:form method="DELETE" action="${user.id}">
             <td><input type="submit" value="Delete" /></td>
             </form:form>
+            <td><a href="${user.id}/messages/">View messages</a></td>
         </tr>
     </c:forEach>
 </table>

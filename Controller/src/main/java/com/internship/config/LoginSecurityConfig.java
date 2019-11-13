@@ -1,6 +1,6 @@
 package com.internship.config;
 
-import com.internship.service.UserDetailsServiceImpl;
+import com.internship.service.implementation.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

@@ -1,7 +1,7 @@
 package com.internship.controller.rest;
 
 import com.internship.model.Task;
-import com.internship.service.ITaskService;
+import com.internship.service.interfaces.ITaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

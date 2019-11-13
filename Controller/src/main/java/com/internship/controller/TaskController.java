@@ -1,23 +1,23 @@
 package com.internship.controller;
 
 import com.internship.model.Task;
-import com.internship.service.IInfoService;
-import com.internship.service.ITaskService;
-import com.internship.service.IUserService;
+import com.internship.service.interfaces.IInfoService;
+import com.internship.service.interfaces.ITaskService;
+import com.internship.service.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 
 @Controller
 @RequestMapping("user/{userId}/task")
-public class TaskController {
+public class TaskController{
     @Autowired
     private ITaskService service;
     @Autowired
@@ -31,7 +31,7 @@ public class TaskController {
             return "redirect:/accessDenied/";
         }
         m.addAttribute("command", new Task("taskname"));
-        return "taskPage/taskForm";
+        return "taskPages/taskForm";
     }
 
     @RequestMapping(value="/save",method = RequestMethod.POST)
@@ -42,9 +42,9 @@ public class TaskController {
         if(localDate.isBefore(todayDate)) {
             return "redirect:/user/error";
         }else {
-            task.setTimeadd(todayDate);
-            task.setDeadline(localDate);
-            task.setIsdone(false);
+            task.setTimeAdd(todayDate);
+            task.setDeadLine(localDate);
+            task.setIsDone(false);
             if (service.add(task) != null)
                 return "redirect:../task/" + infoService.getTaskUrl();
             else
@@ -57,7 +57,8 @@ public class TaskController {
                        @RequestParam(value="page", defaultValue = "1") String page,
                        @RequestParam(value="size", defaultValue = "3") String size,
                        @RequestParam(value="sort",defaultValue = "name:asc") List<String> sort,
-                       @RequestParam(required = false, value="filter") List<String> filter, Model model){
+                       @RequestParam(required = false, value="filter") List<String> filter,
+                       Authentication authentication, Model model){
         if(!access(userId)){
             return "redirect:/accessDenied/";
         }
@@ -69,24 +70,24 @@ public class TaskController {
             changeTaskUrl(page, size, sort, filter);
             model.addAttribute("url", infoService.getTaskUrl());
         }
-        Collection<Task> list = service.getPage(Integer.parseInt(page),Integer.parseInt(size),userId,sort,filter);
+        List<Task> list = service.getPage(Integer.parseInt(page),Integer.parseInt(size),userId,sort,filter);
         model
-                .addAttribute("userUrl", infoService.getUserUrl())
+                .addAttribute("login", authentication.getName())
                 .addAttribute("filter",String.join(", and by ",filter).replace(":"," value:"))
                 .addAttribute("sort",String.join(", and by ",sort).replace(":"," order:"))
                 .addAttribute("pageSize",Integer.parseInt(size))
                 .addAttribute("size",service.getSize(userId))
                 .addAttribute("position",page)
                 .addAttribute("list",list);
-        return "taskPage/task";
+        return "taskPages/task";
     }
 
     @RequestMapping(value="/{id}",method = RequestMethod.PUT)
     public String editSave(String time,String done,String date,@PathVariable Integer userId, @ModelAttribute("task") Task task){
         task.setUser(userService.get(userId));
-        task.setTimeadd(LocalDate.parse(time));
-        task.setDeadline(LocalDate.parse(date));
-        task.setIsdone(Boolean.parseBoolean(done));
+        task.setTimeAdd(LocalDate.parse(time));
+        task.setDeadLine(LocalDate.parse(date));
+        task.setIsDone(Boolean.parseBoolean(done));
         service.update(task);
         return "redirect: ../" + infoService.getTaskUrl();
     }
@@ -98,8 +99,8 @@ public class TaskController {
         }
         Task task = service.get(id);
         m.addAttribute("command",task);
-        m.addAttribute("date",task.getTimeadd());
-        return "taskPage/taskEditForm";
+        m.addAttribute("date",task.getTimeAdd());
+        return "taskPages/taskEditForm";
     }
     @RequestMapping(value="/{id}",method = RequestMethod.DELETE)
     public String delete(@PathVariable int id, @PathVariable Integer userId){

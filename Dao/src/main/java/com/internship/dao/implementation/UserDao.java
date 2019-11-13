@@ -1,5 +1,6 @@
-package com.internship.dao;
+package com.internship.dao.implementation;
 
+import com.internship.dao.interfaces.IUserDao;
 import com.internship.model.User;
 import com.internship.utils.HibernateSessionFactoryUtil;
 import org.hibernate.Session;
@@ -7,53 +8,33 @@ import org.hibernate.Transaction;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.criteria.*;
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Function;
+
+import static com.internship.utils.UtilsForDao.mapFilterToPredicates;
+import static com.internship.utils.UtilsForDao.mapSortToOrder;
 
 @Component
-public class UserHibernateDao implements IUserDao {
+public class UserDao implements IUserDao {
 
     @Override
-    public Collection<User> getPage(Integer position, Integer pageSize, List<String> sortType, List<String> filter) {
+    public List<User> getPage(Integer position, Integer pageSize, List<String> sortType, List<String> filter) {
         Session session = Objects.requireNonNull(HibernateSessionFactoryUtil.getSessionFactory()).openSession();
         CriteriaBuilder cb = session.getCriteriaBuilder();
-        CriteriaQuery<User> cr = cb.createQuery(User.class);
-        Root<User> root = cr.from(User.class);
+        CriteriaQuery<User> criteriaQuery = cb.createQuery(User.class);
+        Root<User> root = criteriaQuery.from(User.class);
 
-        Function<List<String>, Order[]> mappingSortToOrder = list -> list
-                    .stream()
-                    .map((str) -> {
-                        String[] parts = str.split(":");
-                        if (parts[1].equals("asc"))
-                            return cb.asc(root.get(parts[0]));
-                        return cb.desc(root.get(parts[0]));
-                    })
-                    .toArray(Order[]::new);
-        Function<List<String>, Predicate[]> mappingFilterToPredicates = list -> list
-                .stream()
-                .map((str) -> {
-                    String[] parts = str.split(":");
-                    return cb.equal(root.get(parts[0]), parts[1]);
-                })
-                .toArray(Predicate[]::new);
-
-        cr.select(root)
-                .where(mappingFilterToPredicates.apply(filter))
-                .orderBy(mappingSortToOrder.apply(sortType));
-        Collection<User> users = session
-                                        .createQuery(cr)
+        criteriaQuery
+                .select(root)
+                .where(mapFilterToPredicates(filter, root, cb))
+                .orderBy(mapSortToOrder(sortType, root, cb));
+        List<User> users = session
+                                        .createQuery(criteriaQuery)
                                         .setFirstResult(position)
                                         .setMaxResults(pageSize)
                                         .getResultList();
         session.close();
         return users;
-    }
-
-    @Override
-    public Integer getSize() {
-        return getAll().size();
     }
 
     @Override
@@ -85,18 +66,6 @@ public class UserHibernateDao implements IUserDao {
     @Override
     public User get(Integer id) {
         return Objects.requireNonNull(HibernateSessionFactoryUtil.getSessionFactory()).openSession().get(User.class, id);
-    }
-
-    @Override
-    public Collection<User> getAll() {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
-        CriteriaBuilder cb = session.getCriteriaBuilder();
-        CriteriaQuery<User> cr = cb.createQuery(User.class);
-        Root<User> root = cr.from(User.class);
-        cr.select(root);
-        Collection<User> users = session.createQuery(cr).getResultList();
-        session.close();
-        return users;
     }
 
     @Override

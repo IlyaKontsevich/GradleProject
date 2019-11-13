@@ -15,16 +15,16 @@ public class Task {
     private Integer id;
     @Column(name = "name")
     private String name;
-    @Column(name = "deadline")
-    private LocalDate deadline;
-    @Column(name = "timeAdd")
-    private LocalDate timeadd;
+    @Column(name = "dead_line")
+    private LocalDate deadLine;
+    @Column(name = "time_add")
+    private LocalDate timeAdd;
     @Column(name = "priority")
     private String priority;
-    @Column(name = "isdone")
-    private Boolean isdone;
+    @Column(name = "is_done")
+    private Boolean isDone;
     @ManyToOne
-    @JoinColumn(name = "userid", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     public void setName(String name) {
@@ -46,12 +46,12 @@ public class Task {
         this.id = id;
     }
 
-    public Boolean getIsdone() {
-        return isdone;
+    public Boolean getIsDone() {
+        return isDone;
     }
 
-    public void setIsdone(Boolean done) {
-        isdone = done;
+    public void setIsDone(Boolean done) {
+        isDone = done;
     }
 
     public String getPriority() {
@@ -62,28 +62,28 @@ public class Task {
         this.priority = priority;
     }
 
-    public LocalDate getTimeadd() {
-        return timeadd;
+    public LocalDate getTimeAdd() {
+        return timeAdd;
     }
 
-    public void setTimeadd(LocalDate timeadd) {
-        this.timeadd = timeadd;
+    public void setTimeAdd(LocalDate timeAdd) {
+        this.timeAdd = timeAdd;
     }
 
     public Task(String name) {
         this.name = name;
     }
 
-    public void setDeadline(LocalDate deadline) {
-        this.deadline = deadline;
+    public void setDeadLine(LocalDate deadLine) {
+        this.deadLine = deadLine;
     }
 
     public String getName() {
         return name;
     }
 
-    public LocalDate getDeadline() {
-        return deadline;
+    public LocalDate getDeadLine() {
+        return deadLine;
     }
 
     public int getId() {

@@ -1,4 +1,4 @@
-package com.internship.service;
+package com.internship.service.implementation;
 
 import com.internship.model.User;
 import com.internship.model.UserRoleEnum;

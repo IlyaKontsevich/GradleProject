@@ -1,7 +1,7 @@
 package com.internship.controller;
 
 import com.internship.model.User;
-import com.internship.service.IUserService;
+import com.internship.service.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -19,35 +19,35 @@ public class LoginController {
 
     @RequestMapping("/login")
     public String Login(){
-        return "loginPage/login";
+        return "loginPages/login";
     }
 
     @RequestMapping("/logerror")
     public String LogErr(Model m){
         m.addAttribute("error","Incorrect login or password or registration Error, please try again");
-        return "loginPage/login";
+        return "loginPages/login";
     }
 
     @RequestMapping("/logreg")
     public String LogRegistration(Model m){
         m.addAttribute("error","Successful registration, please enter your login and password");
-        return "loginPage/login";
+        return "loginPages/login";
     }
 
     @RequestMapping("/logout")
     public String LogOut(){
-        return "loginPage/login";
+        return "loginPages/login";
     }
 
     @RequestMapping("/accessDenied")
     public String accessDenied(){
-        return "loginPage/accessDenied";
+        return "loginPages/accessDenied";
     }
 
     @RequestMapping("/registration")
     public String Registration(Model m){
         m.addAttribute("command", new User());
-        return "loginPage/registration";
+        return "loginPages/registration";
     }
 
     @RequestMapping(value="/save",method = RequestMethod.POST)

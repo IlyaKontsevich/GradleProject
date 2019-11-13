@@ -12,9 +12,19 @@ public class Info {
     private String userUrl;
     @Column(name = "task_url")
     private String taskUrl;
+    @Column(name = "message_url")
+    private String messageUrl;
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    public String getMessageUrl() {
+        return messageUrl;
+    }
+
+    public void setMessageUrl(String messageUrl) {
+        this.messageUrl = messageUrl;
+    }
 
     public User getUser() {
         return user;

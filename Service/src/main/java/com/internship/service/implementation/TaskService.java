@@ -1,35 +1,32 @@
-package com.internship.service;
+package com.internship.service.implementation;
 
-import com.internship.dao.ITaskDao;
+import com.internship.dao.interfaces.ITaskDao;
 import com.internship.model.Task;
+import com.internship.service.interfaces.ITaskService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.UnaryOperator;
 
+import static com.internship.service.utils.UtilsForServices.changePosition;
+
 @Service
 public class TaskService implements ITaskService {
     @Autowired
-    @Qualifier("taskHibernateDao")
+    @Qualifier("taskDao")
     private ITaskDao dao;
     private static final Logger log = Logger.getLogger(TaskService.class);
 
     @Override
-    public Collection<Task> getPage(Integer position, Integer pageSize, Integer userId, List<String> sortType, List<String> filter) {
+    public List<Task> getPage(Integer position, Integer pageSize, Integer userId, List<String> sortType, List<String> filter) {
         log.info("Get task page");
-        UnaryOperator<Integer> changePosition = pos -> {
-            if (pos != 1)
-                pos += pageSize - 2;
-            else
-                pos -= 1;
-            return pos;
-        };
-        filter.add("user:"+ userId);
-        position = changePosition.apply(position);
+        filter.add("user:" + userId);
+        position = changePosition(position, pageSize);
         return dao.getPage(position, pageSize, sortType, filter);
     }
 
@@ -60,12 +57,10 @@ public class TaskService implements ITaskService {
 
     @Override
     public Integer getSize(Integer userId) {
-        return dao.getSize(userId);
+        List<String> filter = new ArrayList<>();
+        filter.add("user:" + userId);
+        return dao.getPage(0, 1000, new ArrayList<>(), filter).size();
     }
 
-    @Override
-    public Collection<Task> getAll() {
-        return dao.getAll(1);
-    }
 
 }

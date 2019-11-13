@@ -45,6 +45,28 @@ create table IF NOT EXISTS  users
 alter table users
     add primary key (id);
 
+create table messages
+(
+    id             bigint unsigned auto_increment,
+    send_time      date            not null,
+    is_read        tinyint(1)      not null,
+    message        varchar(250)    not null,
+    sender_id      bigint unsigned not null,
+    receiver_email varchar(250)    null,
+    receiver_id    bigint unsigned not null,
+    constraint id
+        unique (id),
+    constraint messages_users_id_fk
+        foreign key (receiver_id) references users (id)
+            on update cascade on delete cascade,
+    constraint sender
+        foreign key (sender_id) references users (id)
+            on delete cascade
+);
+
+alter table messages
+    add primary key (id);
+
 INSERT INTO users (id, age, email, name, password) VALUES (2, 19, 'admin@mail.ru', 'Admin', '$2a$10$UjI43.BDAFxRrtYynmmVYOJXzoULn0n8RQiLyCnFfs0F1Le9V5TKa');
 INSERT INTO users (id, age, email, name, password) VALUES (3, 12, 's@mail.ru', 'username', '$2a$10$A0IFoJ5lV.142pJcAeICBeO9vJE.dNU0CNCWHP3CRXhiKEET/jPf2');
 INSERT INTO users (id, age, email, name, password) VALUES (4, 1, 's@mail.ru1', 'username1', '$2a$10$KAAmf/e37VZzOPTML3pv0.Nkt41Az76ehMU6jHbXOLu6hCsk6c./m');
@@ -57,7 +79,7 @@ INSERT INTO users (id, age, email, name, password) VALUES (10, 1, 's@mail.ru9', 
 INSERT INTO LocalDB.info (id, user_url, task_url, user_id) VALUES (1, '?page=1&size=10&sort=name:asc', '?page=1&size=10&sort=name:asc', 2);
 INSERT INTO LocalDB.info (id, user_url, task_url, user_id) VALUES (2, '?page=1&size=3&sort=name:asc', '?page=1&size=3&sort=name:asc', 3);
 
-INSERT INTO LocalDB.tasks (id, name, deadLine, timeAdd, isDone, userId, priority) VALUES (1, 'taskname', '2019-12-12', '2019-11-05', 0, 2, 'low');
-INSERT INTO LocalDB.tasks (id, name, deadLine, timeAdd, isDone, userId, priority) VALUES (2, 'taskname3', '2019-12-12', '2019-11-05', 0, 2, 'low');
-INSERT INTO LocalDB.tasks (id, name, deadLine, timeAdd, isDone, userId, priority) VALUES (3, 'taskname2', '2019-12-12', '2019-11-05', 0, 2, 'low');
-INSERT INTO LocalDB.tasks (id, name, deadLine, timeAdd, isDone, userId, priority) VALUES (4, 'taskname4', '2019-12-12', '2019-11-05', 0, 2, 'low');
+INSERT INTO LocalDB.tasks (id, name, dead_line, time_add, is_done, user_id, priority) VALUES (1, 'taskname', '2019-12-12', '2019-11-05', 0, 2, 'low');
+INSERT INTO LocalDB.tasks (id, name, dead_line, time_add, is_done, user_id, priority) VALUES (2, 'taskname3', '2019-12-12', '2019-11-05', 0, 2, 'low');
+INSERT INTO LocalDB.tasks (id, name, dead_line, time_add, is_done, user_id, priority) VALUES (3, 'taskname2', '2019-12-12', '2019-11-05', 0, 2, 'low');
+INSERT INTO LocalDB.tasks (id, name, dead_line, time_add, is_done, user_id, priority) VALUES (4, 'taskname4', '2019-12-12', '2019-11-05', 0, 2, 'low');

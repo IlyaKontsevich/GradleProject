@@ -7,6 +7,8 @@
 Sort by: ${sort}
 </br>
 Filter by: ${filter}
+<p align="right">user:  ${login}</p>
+<p align="right"> <a href="/logout/">Log out</a></p>
 <h1 align="center">Tasks List</h1>
 <table align ="center" border="2" width="70%" cellpadding="2">
     <tr><th><form  method="post" action="savefilter{id}${url}">
@@ -47,9 +49,9 @@ Filter by: ${filter}
         <td>${task.id}</td>
         <td>${task.priority}</td>
         <td>${task.name}</td>
-        <td>${task.isdone}</td>
-        <td>${task.deadline}</td>
-        <td>${task.timeadd}</td>
+        <td>${task.isDone}</td>
+        <td>${task.deadLine}</td>
+        <td>${task.timeAdd}</td>
         <td><a href="${task.id}/edit">Edit</a></td>
         <form:form method="DELETE" action="${task.id}">
             <td><input type="submit" value="Delete" /></td>
@@ -72,4 +74,4 @@ Change page size
 <a href="pagesize{10}${url}">10</a>
 <a href="pagesize{15}${url}">15</a>
 </br>
-<p align="center"><a href="/user/${userUrl}">View users</a></p>
+<p align="center"><a href="/user/redirect">View users</a></p>

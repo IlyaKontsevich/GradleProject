@@ -1,4 +1,5 @@
-package com.internship.dao;/*package com.com.internship.dao;
+/*
+package com.internship.dao;
 
 import com.com.internship.mappers.TaskMapper;
 import com.com.internship.model.Task;
