@@ -1,7 +1,7 @@
 package com.internship.dao;/*package com.com.internship.dao;
 
 import com.com.internship.mappers.UserMapper;
-import com.com.internship.model.User;
+import com.com.internship.model.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;

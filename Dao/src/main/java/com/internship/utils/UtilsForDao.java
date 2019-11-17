@@ -20,53 +20,27 @@ public class UtilsForDao {
                     .toArray(Order[]::new);
     }
 
-    public static Predicate[] mapTaskFilterToPredicates(List<String> filter, Root root, CriteriaBuilder cb){
-        return filter
-                    .stream()
-                    .map((str) -> {
-                        String[] parts = str.split(":");
-                        switch (parts[0]) {
-                            case "isDone":
-                                return cb.equal(root.get(parts[0]), Boolean.parseBoolean(parts[1]));
-                            case "timeAdd":
-                            case "deadLine":
-                                return cb.equal(root.get(parts[0]), LocalDate.parse(parts[1]));
-                            case "user":
-                                return cb.equal(root.get("user"), Integer.valueOf(parts[1]));
-                            default:
-                                return cb.equal(root.get(parts[0]), parts[1]);
-                    }
-                })
-                .toArray(Predicate[]::new);
-    }
-
-    public static Predicate[] mapMessagesFilterToPredicates(List<String> filter, Root root, CriteriaBuilder cb){
+    public static Predicate[] mapFilterToPredicates(List<String> filter, Root root, CriteriaBuilder cb){
         return filter
                 .stream()
                 .map((str) -> {
                     String[] parts = str.split(":");
                     switch (parts[0]) {
                         case "isRead":
+                        case "isDone":
                             return cb.equal(root.get(parts[0]), Boolean.parseBoolean(parts[1]));
                         case "sendTime":
+                        case "timeAdd":
+                        case "deadLine":
                             return cb.equal(root.get(parts[0]), LocalDate.parse(parts[1]));
                         case "senderUser":
                         case "receiverUser":
+                        case "user":
                             return cb.equal(root.get(parts[0]), Integer.valueOf(parts[1]));
                         default:
                             return cb.equal(root.get(parts[0]), parts[1]);
                     }
                 })
                 .toArray(Predicate[]::new);
-    }
-
-    public static Predicate[] mapFilterToPredicates(List<String> filter, Root root, CriteriaBuilder cb) {
-        return filter
-                    .stream()
-                    .map((str) -> {
-                        String[] parts = str.split(":");
-                        return cb.equal(root.get(parts[0]), parts[1]);
-                    })
-                    .toArray(Predicate[]::new);
     }
 }

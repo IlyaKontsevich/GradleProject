@@ -1,9 +1,7 @@
 package com.internship.service.interfaces;
 
-import com.internship.model.User;
-import com.internship.service.interfaces.IService;
+import com.internship.model.entity.User;
 
-import java.util.Collection;
 import java.util.List;
 
 public interface IUserService extends IService<User> {

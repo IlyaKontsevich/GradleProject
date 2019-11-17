@@ -1,6 +1,6 @@
 package com.internship.service.interfaces;
 
-import com.internship.model.Message;
+import com.internship.model.entity.Message;
 
 import java.util.List;
 

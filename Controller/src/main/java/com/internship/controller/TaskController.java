@@ -1,6 +1,6 @@
 package com.internship.controller;
 
-import com.internship.model.Task;
+import com.internship.model.entity.Task;
 import com.internship.service.interfaces.IInfoService;
 import com.internship.service.interfaces.ITaskService;
 import com.internship.service.interfaces.IUserService;
@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.internship.model.enums.Type.TASK;
+import static com.internship.utils.UtilsForController.*;
 
 
 @Controller
@@ -27,9 +30,9 @@ public class TaskController{
 
     @RequestMapping("/form")
     public String showForm(@PathVariable Integer userId, Model m) {
-        if(!access(userId)){
+        if(access(userId, userService, infoService))
             return "redirect:/accessDenied/";
-        }
+
         m.addAttribute("command", new Task("taskname"));
         return "taskPages/taskForm";
     }
@@ -59,15 +62,15 @@ public class TaskController{
                        @RequestParam(value="sort",defaultValue = "name:asc") List<String> sort,
                        @RequestParam(required = false, value="filter") List<String> filter,
                        Authentication authentication, Model model){
-        if(!access(userId)){
+        if(access(userId, userService, infoService))
             return "redirect:/accessDenied/";
-        }
+
         if(filter == null) {
             filter = new ArrayList<String>();
-            changeTaskUrl(page, size, sort, filter);
+            changeUrl(page, size, sort, filter, infoService, TASK);
             model.addAttribute("url", infoService.getTaskUrl());
         }else {
-            changeTaskUrl(page, size, sort, filter);
+            changeUrl(page, size, sort, filter, infoService, TASK);
             model.addAttribute("url", infoService.getTaskUrl());
         }
         List<Task> list = service.getPage(Integer.parseInt(page),Integer.parseInt(size),userId,sort,filter);
@@ -94,9 +97,9 @@ public class TaskController{
 
     @RequestMapping(value="/{id}/edit")
     public String edit(@PathVariable Integer userId,@PathVariable Integer id, Model m){
-        if(!access(userId)){
+        if(access(userId, userService, infoService))
             return "redirect:/accessDenied/";
-        }
+
         Task task = service.get(id);
         m.addAttribute("command",task);
         m.addAttribute("date",task.getTimeAdd());
@@ -104,30 +107,11 @@ public class TaskController{
     }
     @RequestMapping(value="/{id}",method = RequestMethod.DELETE)
     public String delete(@PathVariable int id, @PathVariable Integer userId){
-        if(!access(userId)){
+        if(access(userId, userService, infoService))
             return "redirect:/accessDenied/";
-        }
+
         service.delete(id);
         return "redirect: ../task/" + infoService.getTaskUrl();
-    }
-
-    private void changeTaskUrl(String page, String size, List<String> sort, List<String> filter) {
-        if (filter == null)
-            infoService.changeTaskUrl(
-                    "?page=" + page
-                    + "&size=" + size
-                    + "&sort=" + String.join("&sort=", sort));
-        else
-            infoService.changeTaskUrl(
-                    "?page=" + page
-                    + "&size=" + size
-                    + "&sort=" + String.join("&sort=", sort)
-                    + "&filter=" + String.join("&filter=", filter));
-    }
-
-    private boolean access(Integer userId){
-        return infoService.getCurrentUser().equals(userService.get(userId)) ||
-                infoService.getCurrentUser().getEmail().equals("admin@mail.ru");
     }
 }
 

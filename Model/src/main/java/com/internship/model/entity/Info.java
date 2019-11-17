@@ -1,4 +1,4 @@
-package com.internship.model;
+package com.internship.model.entity;
 
 import javax.persistence.*;
 

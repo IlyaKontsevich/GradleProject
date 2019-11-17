@@ -1,21 +1,22 @@
 package com.internship.service.implementation;
 
 import com.internship.dao.interfaces.ITaskDao;
-import com.internship.model.Task;
+import com.internship.model.entity.Task;
 import com.internship.service.interfaces.ITaskService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.function.UnaryOperator;
 
-import static com.internship.service.utils.UtilsForServices.changePosition;
+import static com.internship.utils.UtilsForServices.changePosition;
 
 @Service
+@Transactional(propagation= Propagation.REQUIRED)
 public class TaskService implements ITaskService {
     @Autowired
     @Qualifier("taskDao")
@@ -39,13 +40,21 @@ public class TaskService implements ITaskService {
     @Override
     public Task add(Task task) {
         log.info("Add task");
+        int userId = task.getUser().getId();
+        String taskName = task.getName();
+
+        if (dao.getTaskByUserIdAndName(userId, taskName) != null) {
+            throw new RuntimeException(String.format("Task %s exists for %s user", taskName, task.getUser().getName()));
+        }
+
         return dao.add(task);
     }
 
     @Override
-    public void delete(Integer id) {
+    public boolean delete(Integer id) {
         log.info("Delete task");
         dao.delete(id);
+        return false;
     }
 
     @Override
@@ -61,6 +70,5 @@ public class TaskService implements ITaskService {
         filter.add("user:" + userId);
         return dao.getPage(0, 1000, new ArrayList<>(), filter).size();
     }
-
 
 }

@@ -1,7 +1,8 @@
 package com.internship.service.implementation;
 
-import com.internship.model.User;
-import com.internship.model.UserRoleEnum;
+import com.internship.model.entity.User;
+import com.internship.model.enums.UserRoleEnum;
+import com.internship.service.interfaces.IUserService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -18,7 +20,7 @@ import java.util.Set;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private UserService userService;
+    private IUserService userService;
     private static final Logger log = Logger.getLogger(UserService.class);
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {

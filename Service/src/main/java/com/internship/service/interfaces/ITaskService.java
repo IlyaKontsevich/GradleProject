@@ -1,9 +1,7 @@
 package com.internship.service.interfaces;
 
-import com.internship.model.Task;
-import com.internship.service.interfaces.IService;
+import com.internship.model.entity.Task;
 
-import java.util.Collection;
 import java.util.List;
 
 public interface ITaskService extends IService<Task> {

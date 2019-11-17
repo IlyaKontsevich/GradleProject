@@ -1,4 +1,4 @@
-package com.internship.model;
+package com.internship.model.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -22,7 +22,7 @@ public class Message {
     @OneToOne
     @JoinColumn(name = "receiver_id", nullable = false)
     private User receiverUser;
-    @Column(name = "receiver_email")
+    @Transient
     private String receiverEmail;
 
     public String getReceiverEmail() {

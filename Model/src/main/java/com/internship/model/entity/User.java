@@ -1,6 +1,5 @@
-package com.internship.model;
+package com.internship.model.entity;
 
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -10,7 +9,6 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "users")
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class User implements UserDetails {
     @Column(name = "name")
     private String name;

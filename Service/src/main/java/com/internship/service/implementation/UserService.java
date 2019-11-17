@@ -1,22 +1,24 @@
 package com.internship.service.implementation;
 
 import com.internship.dao.interfaces.IUserDao;
-import com.internship.model.User;
+import com.internship.model.entity.User;
 import com.internship.service.interfaces.IUserService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.function.UnaryOperator;
 
-import static com.internship.service.utils.UtilsForServices.changePosition;
+import static com.internship.utils.UtilsForServices.changePosition;
+import static java.lang.String.format;
 
 
 @Service
+@Transactional(propagation=Propagation.REQUIRED,readOnly = false)
 public class UserService implements IUserService {
     @Autowired
     private IUserDao dao;
@@ -33,6 +35,11 @@ public class UserService implements IUserService {
 
     public User add(User user) {
         log.info("Add user");
+
+        if (dao.getByEmail(user.getEmail()) != null) {
+            throw new RuntimeException(format("User with %s email already registered", user.getEmail()));
+        }
+
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return dao.add(user);
     }
@@ -43,9 +50,9 @@ public class UserService implements IUserService {
         return dao.getPage(position, pageSize, sortType, filter);
     }
 
-    public void delete(Integer id) {
+    public boolean delete(Integer id) {
         log.info("Delete user");
-        dao.delete(id);
+        return dao.delete(id);
     }
 
     public User get(Integer id) {

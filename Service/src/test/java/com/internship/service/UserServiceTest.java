@@ -2,7 +2,7 @@
 package com.internship.service;
 
 import com.internship.dao.implementation.UserDao;
-import com.internship.model.User;
+import com.internship.model.entity.User;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

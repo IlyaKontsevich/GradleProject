@@ -1,6 +1,7 @@
 package com.internship.service.interfaces;
 
-import com.internship.model.User;
+import com.internship.model.enums.Type;
+import com.internship.model.entity.User;
 
 public interface IInfoService {
     String getTaskUrl();
@@ -10,6 +11,8 @@ public interface IInfoService {
     String getMessageUrl();
 
     User getCurrentUser();
+
+    void changeUrl(String newUrl, Type type);
 
     void changeTaskUrl(String taskUrl);
 

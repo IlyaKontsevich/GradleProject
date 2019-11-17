@@ -1,37 +1,24 @@
+drop table IF EXISTS info;
 create table IF NOT EXISTS info
 (
-    id       bigint unsigned auto_increment,
+    id       INTEGER unsigned auto_increment,
     user_url varchar(250)    null,
     task_url varchar(250)    null,
-    user_id  bigint unsigned not null,
+    message_url varchar(250)    null,
+    user_id  INTEGER unsigned not null,
     constraint id
-        unique (id)
+        unique (id),
+    constraint info_users_id_fk
+        foreign key (user_id) references users (id)
+            on update cascade on delete cascade
 );
 alter table info
     add primary key (id);
 
-create table IF NOT EXISTS tasks
-(
-    id       bigint unsigned auto_increment,
-    name     varchar(250)    not null,
-    deadLine date            not null,
-    timeAdd  date            not null,
-    isDone   tinyint(1)      not null,
-    userId   bigint unsigned not null,
-    priority varchar(250)    not null,
-    constraint id
-        unique (id),
-    constraint tasksUser
-        foreign key (userId) references users (id)
-            on update cascade on delete cascade
-);
-
-alter table tasks
-    add primary key (id);
-
+drop table IF EXISTS users;
 create table IF NOT EXISTS  users
 (
-    id       bigint unsigned auto_increment,
+    id       INTEGER unsigned auto_increment,
     age      int          not null,
     email    varchar(250) not null,
     name     varchar(250) not null,
@@ -45,15 +32,36 @@ create table IF NOT EXISTS  users
 alter table users
     add primary key (id);
 
+drop table IF EXISTS tasks;
+create table IF NOT EXISTS tasks
+(
+    id       INTEGER unsigned auto_increment,
+    name     varchar(250)    not null,
+    dead_line date            not null,
+    time_add  date            not null,
+    is_done   tinyint(1)      not null,
+    user_id   INTEGER unsigned not null,
+    priority varchar(250)    not null,
+    constraint id
+        unique (id),
+    constraint tasksUser
+        foreign key (user_id) references users (id)
+            on update cascade on delete cascade
+);
+
+alter table tasks
+    add primary key (id);
+
+drop table IF EXISTS messages;
 create table messages
 (
-    id             bigint unsigned auto_increment,
+    id             INTEGER unsigned auto_increment,
     send_time      date            not null,
     is_read        tinyint(1)      not null,
     message        varchar(250)    not null,
-    sender_id      bigint unsigned not null,
+    sender_id      INTEGER unsigned not null,
     receiver_email varchar(250)    null,
-    receiver_id    bigint unsigned not null,
+    receiver_id    INTEGER unsigned not null,
     constraint id
         unique (id),
     constraint messages_users_id_fk

@@ -1,6 +1,6 @@
 package com.internship.controller;
 
-import com.internship.model.User;
+import com.internship.model.entity.User;
 import com.internship.service.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

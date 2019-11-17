@@ -1,17 +1,20 @@
 package com.internship.service.implementation;
 
 import com.internship.dao.interfaces.IMessagesDao;
-import com.internship.model.Message;
+import com.internship.model.entity.Message;
 import com.internship.service.interfaces.IMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.internship.service.utils.UtilsForServices.changePosition;
+import static com.internship.utils.UtilsForServices.changePosition;
 
 @Service
+@Transactional(propagation= Propagation.REQUIRED)
 public class MessageService implements IMessageService {
     @Autowired
     private IMessagesDao dao;
@@ -66,8 +69,9 @@ public class MessageService implements IMessageService {
     }
 
     @Override
-    public void delete(Integer id) {
+    public boolean delete(Integer id) {
         dao.delete(id);
+        return false;
     }
 
     @Override

@@ -2,7 +2,7 @@
 package com.internship.dao;
 
 import com.com.internship.mappers.TaskMapper;
-import com.com.internship.model.Task;
+import com.com.internship.model.entity.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;

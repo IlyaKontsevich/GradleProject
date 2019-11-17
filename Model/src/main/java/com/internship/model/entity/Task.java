@@ -1,14 +1,11 @@
-package com.internship.model;
+package com.internship.model.entity;
 
-
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "tasks")
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,6 +1,6 @@
 package com.internship.controller;
 
-import com.internship.model.User;
+import com.internship.model.entity.User;
 import com.internship.service.interfaces.IInfoService;
 import com.internship.service.interfaces.IMessageService;
 import com.internship.service.interfaces.IUserService;
@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.internship.model.enums.Type.USER;
+import static com.internship.utils.UtilsForController.access;
+import static com.internship.utils.UtilsForController.changeUrl;
 
 @Controller
 @RequestMapping("/user")
@@ -64,10 +68,10 @@ public class UserController {
                        Model model) {
         if (filter == null) {
             filter = new ArrayList<String>();
-            changeUserUrl(page, size, sort, null);
+            changeUrl(page, size, sort, null, infoService, USER);
             model.addAttribute("url", infoService.getUserUrl());
         } else {
-            changeUserUrl(page, size, sort, filter);
+            changeUrl(page, size, sort, filter, infoService, USER);
             model.addAttribute("url", infoService.getUserUrl());
         }
         List<User> list = service.getPage(Integer.parseInt(page), Integer.parseInt(size), sort, filter);
@@ -93,8 +97,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/{id}/edit")
-    public String edit(@PathVariable int id, Model m) {
-        if (!access(id))
+    public String edit(@PathVariable Integer id, Model m) {
+        if (access(id, service, infoService))
             return "redirect:/accessDenied/";
         User user = service.get(id);
         m.addAttribute("command", user);
@@ -102,36 +106,30 @@ public class UserController {
     }
 
     @RequestMapping(value = "/{id}/viewtask")
-    public String viewTask(@PathVariable int id) {
-        if (!access(id))
+    public String viewTask(@PathVariable Integer id) {
+        if (access(id, service, infoService))
             return "redirect:/accessDenied/";
-        return "redirect: /user/{id}/task/" + infoService.getTaskUrl();
+        if(infoService.getTaskUrl()!= null)
+            return "redirect: /user/{id}/task/" + infoService.getTaskUrl();
+        else
+            return "redirect: /user/{id}/task/";
+    }
+
+    @RequestMapping(value = "/{id}/viewMessage")
+    public String viewMessage(@PathVariable Integer id) {
+        if (access(id, service, infoService))
+            return "redirect:/accessDenied/";
+        if (infoService.getMessageUrl() != null)
+            return "redirect: /user/{id}/messages/" + infoService.getMessageUrl();
+        else
+            return "redirect: /user/{id}/messages/";
     }
 
     @Secured(value = {"ROLE_ADMIN"})
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public String delete(@PathVariable int id) {
+    public String delete(@PathVariable Integer id) {
         service.delete(id);
         return "redirect:/user/" + infoService.getUserUrl();
     }
 
-
-    private boolean access(Integer userId) {
-        return infoService.getCurrentUser().equals(service.get(userId)) ||
-                infoService.getCurrentUser().getEmail().equals("admin@mail.ru");
-    }
-
-    private void changeUserUrl(String page, String size, List<String> sort, List<String> filter) {
-        if (filter == null)
-            infoService.changeUserUrl(
-                    "?page=" + page
-                            + "&size=" + size
-                            + "&sort=" + String.join("&sort=", sort));
-        else
-            infoService.changeUserUrl(
-                    "?page=" + page
-                            + "&size=" + size
-                            + "&sort=" + String.join("&sort=", sort)
-                            + "&filter=" + String.join("&filter=", filter));
-    }
 }

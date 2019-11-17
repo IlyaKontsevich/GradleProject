@@ -1,4 +1,4 @@
-package com.internship.service.utils;
+package com.internship.utils;
 
 import java.util.function.UnaryOperator;
 

@@ -1,6 +1,6 @@
 package com.internship.controller.rest;
 
-import com.internship.model.User;
+import com.internship.model.entity.User;
 import com.internship.service.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 

@@ -1,6 +1,6 @@
 package com.internship.controller;
 
-import com.internship.model.Message;
+import com.internship.model.entity.Message;
 import com.internship.service.interfaces.IInfoService;
 import com.internship.service.interfaces.IMessageService;
 import com.internship.service.interfaces.IUserService;
@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.internship.model.enums.Type.MESSAGE;
+import static com.internship.utils.UtilsForController.*;
 
 @Controller
 @RequestMapping("user/{userId}/messages")
@@ -31,12 +34,16 @@ public class MessagesController {
     }
 
     @RequestMapping("{id}/answer")
-    public String answer() {
+    public String answer(@PathVariable Integer id) {
+        if (access(id, userService, infoService))
+            return "redirect:/accessDenied/";
         return "redirect: ../form";
     }
 
     @RequestMapping("{id}/read")
     public String read(@PathVariable Integer id) {
+        if (access(id, userService, infoService))
+            return "redirect:/accessDenied/";
         Message message = service.get(id);
         message.setRead(true);
         service.update(message);
@@ -67,12 +74,14 @@ public class MessagesController {
                        @RequestParam(required = false, value = "filter") List<String> filter,
                        Authentication authentication,
                        Model model) {
+        if (access(userId, userService, infoService))
+            return "redirect:/accessDenied/";
         if (filter == null) {
             filter = new ArrayList<String>();
-            changeMessageUrl(page, size, sort, null);
+            changeUrl(page, size, sort, null, infoService, MESSAGE);
             model.addAttribute("url", infoService.getMessageUrl());
         } else {
-            changeMessageUrl(page, size, sort, filter);
+            changeUrl(page, size, sort, filter, infoService, MESSAGE);
             model.addAttribute("url", infoService.getMessageUrl());
         }
         List<Message> list = service.getPage(Integer.parseInt(page), Integer.parseInt(size), userId, sort, filter);
@@ -89,22 +98,10 @@ public class MessagesController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public String delete(@PathVariable int id) {
+        if (access(id, userService, infoService))
+            return "redirect:/accessDenied/";
         service.delete(id);
         return "redirect:/user/{userId}/messages/" + infoService.getMessageUrl();
-    }
-
-    private void changeMessageUrl(String page, String size, List<String> sort, List<String> filter) {
-        if (filter == null)
-            infoService.changeMessageUrl(
-                    "?page=" + page
-                            + "&size=" + size
-                            + "&sort=" + String.join("&sort=", sort));
-        else
-            infoService.changeMessageUrl(
-                    "?page=" + page
-                            + "&size=" + size
-                            + "&sort=" + String.join("&sort=", sort)
-                            + "&filter=" + String.join("&filter=", filter));
     }
 
 }
