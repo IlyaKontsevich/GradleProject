@@ -1,7 +1,7 @@
 package com.internship.service.interfaces;
 
-import com.internship.model.enums.Type;
 import com.internship.model.entity.User;
+import com.internship.model.enums.Type;
 
 public interface IInfoService {
     String getTaskUrl();

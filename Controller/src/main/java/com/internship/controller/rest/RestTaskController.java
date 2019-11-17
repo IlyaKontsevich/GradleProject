@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import static com.internship.model.enums.Type.TASK;
+import static com.internship.utils.UtilsForController.createPageRequest;
+
 @RestController
 @RequestMapping("/api/{userId}/task")
 public class RestTaskController {
@@ -24,7 +27,7 @@ public class RestTaskController {
         if(filter == null)
             filter = new ArrayList<String>();
 
-        Collection<Task> list = service.getPage(Integer.parseInt(page),Integer.parseInt(size),userId,sort,filter);
+        Collection<Task> list = service.getPage(createPageRequest(page, size, sort, filter, userId, TASK));
         return list;
     }
 

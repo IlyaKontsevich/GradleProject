@@ -1,6 +1,7 @@
 package com.internship.dao.implementation;
 
 import com.internship.dao.interfaces.IDao;
+import com.internship.model.PageRequest;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +24,10 @@ public abstract class GenericDao<ENTITY> implements IDao<ENTITY> {
     private Class<ENTITY> entityType = (Class<ENTITY>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 
     public void update(ENTITY type) {
-        sessionFactory.getCurrentSession().update(type);
+            sessionFactory.getCurrentSession().update(type);
     }
 
-    public List<ENTITY> getPage(Integer position, Integer pageSize, List<String> sortType, List<String> filter) {
+    public List<ENTITY> getPage(PageRequest pageRequest) {
         EntityManager session = getSession();
         CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<ENTITY> criteriaQuery = cb.createQuery(entityType);
@@ -34,12 +35,12 @@ public abstract class GenericDao<ENTITY> implements IDao<ENTITY> {
 
         criteriaQuery
                 .select(root)
-                .where(mapFilterToPredicates(filter, root, cb))
-                .orderBy(mapSortToOrder(sortType, root, cb));
+                .where(mapFilterToPredicates(pageRequest.getFilter(), root, cb))
+                .orderBy(mapSortToOrder(pageRequest.getSort(), root, cb));
         List<ENTITY> page = session
                 .createQuery(criteriaQuery)
-                .setFirstResult(position)
-                .setMaxResults(pageSize)
+                .setFirstResult(pageRequest.getPosition())
+                .setMaxResults(pageRequest.getPageSize())
                 .getResultList();
         session.close();
         return page;

@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.internship.model.enums.Type.MESSAGE;
+import static com.internship.model.enums.Type.USER;
 import static com.internship.utils.UtilsForController.*;
 
 @Controller
@@ -84,7 +85,7 @@ public class MessagesController {
             changeUrl(page, size, sort, filter, infoService, MESSAGE);
             model.addAttribute("url", infoService.getMessageUrl());
         }
-        List<Message> list = service.getPage(Integer.parseInt(page), Integer.parseInt(size), userId, sort, filter);
+        List<Message> list = service.getPage(createPageRequest(page, size, sort, filter, userId, MESSAGE));
         model
                 .addAttribute("login", authentication.getName())
                 .addAttribute("filter", String.join(", and by ", filter).replace(":", " value:"))

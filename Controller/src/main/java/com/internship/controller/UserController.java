@@ -1,6 +1,7 @@
 package com.internship.controller;
 
 import com.internship.model.entity.User;
+import com.internship.model.enums.Type;
 import com.internship.service.interfaces.IInfoService;
 import com.internship.service.interfaces.IMessageService;
 import com.internship.service.interfaces.IUserService;
@@ -15,8 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.internship.model.enums.Type.USER;
-import static com.internship.utils.UtilsForController.access;
-import static com.internship.utils.UtilsForController.changeUrl;
+import static com.internship.utils.UtilsForController.*;
 
 @Controller
 @RequestMapping("/user")
@@ -74,7 +74,7 @@ public class UserController {
             changeUrl(page, size, sort, filter, infoService, USER);
             model.addAttribute("url", infoService.getUserUrl());
         }
-        List<User> list = service.getPage(Integer.parseInt(page), Integer.parseInt(size), sort, filter);
+        List<User> list = service.getPage(createPageRequest(page, size, sort, filter, null, USER));
         model
                 .addAttribute("unreadMessages", messageService.getUnreadMessages(((User) authentication.getPrincipal()).getId()))
                 .addAttribute("userId", ((User) authentication.getPrincipal()).getId())

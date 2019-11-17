@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.internship.model.enums.Type.TASK;
+import static com.internship.model.enums.Type.USER;
 import static com.internship.utils.UtilsForController.*;
 
 
@@ -73,7 +74,7 @@ public class TaskController{
             changeUrl(page, size, sort, filter, infoService, TASK);
             model.addAttribute("url", infoService.getTaskUrl());
         }
-        List<Task> list = service.getPage(Integer.parseInt(page),Integer.parseInt(size),userId,sort,filter);
+        List<Task> list = service.getPage(createPageRequest(page, size, sort, filter, userId, TASK));
         model
                 .addAttribute("login", authentication.getName())
                 .addAttribute("filter",String.join(", and by ",filter).replace(":"," value:"))

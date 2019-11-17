@@ -1,6 +1,7 @@
 package com.internship.service.implementation;
 
 import com.internship.dao.interfaces.IMessagesDao;
+import com.internship.model.PageRequest;
 import com.internship.model.entity.Message;
 import com.internship.service.interfaces.IMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.internship.utils.UtilsForServices.changePosition;
-
 @Service
-@Transactional(propagation= Propagation.REQUIRED)
-public class MessageService implements IMessageService {
+@Transactional(propagation=Propagation.REQUIRED,readOnly = false)
+public class MessageService extends GenericService<Message> implements IMessageService {
     @Autowired
     private IMessagesDao dao;
 
@@ -23,17 +21,16 @@ public class MessageService implements IMessageService {
     public Integer getSize(Integer userId) {
         List<String> filter = new ArrayList<>();
         filter.add("receiverUser:" + userId);
-        return dao.getPage(0,1000, new ArrayList<>(), filter).size();
+        return super.getPage(new PageRequest(filter, new ArrayList<>(), 0, 1000)).size();
     }
 
     @Override
-    public List<Message> getPage(Integer position, Integer pageSize, Integer userId, List<String> sortType, List<String> filter) {
-        if (filter == null)
-             filter = new ArrayList<>();
-        filter.add("receiverUser:"+userId);
-        position = changePosition(position, pageSize);
-        List<Message> result= dao.getPage(position,pageSize,sortType,filter);
-        result.addAll(getBySenderId(userId));
+    public List<Message> getPage(PageRequest pageRequest) {
+        List<Message> result = super.getPage(pageRequest);
+        result.addAll(getBySenderId(result
+                .get(0)
+                .getSenderUser()
+                .getId()));
         return result;
     }
 
@@ -41,14 +38,14 @@ public class MessageService implements IMessageService {
     public List<Message> getBySenderId(Integer senderId) {
         List<String> filter = new ArrayList<>();
         filter.add("senderUser:"+senderId);
-        return dao.getPage(0,1000, new ArrayList<>(), filter);
+        return super.getPage(new PageRequest(filter, new ArrayList<>(), 0, 1000));
     }
 
     @Override
     public List<Message> getByReceiverId(Integer receiverId) {
         List<String> filter = new ArrayList<>();
         filter.add("receiverUser:"+receiverId);
-        return dao.getPage(0,1000, new ArrayList<>(), filter);
+        return super.getPage(new PageRequest(filter, new ArrayList<>(), 0, 1000));
     }
 
     @Override
@@ -56,26 +53,5 @@ public class MessageService implements IMessageService {
         if(getByReceiverId(userId).isEmpty())
             return 0;
         return dao.getUnreadMessages(userId).size();
-    }
-
-    @Override
-    public void update(Message message) {
-         dao.update(message);
-    }
-
-    @Override
-    public Message add(Message message) {
-        return dao.add(message);
-    }
-
-    @Override
-    public boolean delete(Integer id) {
-        dao.delete(id);
-        return false;
-    }
-
-    @Override
-    public Message get(Integer id) {
-        return dao.get(id);
     }
 }

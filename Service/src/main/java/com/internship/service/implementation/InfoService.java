@@ -2,8 +2,8 @@ package com.internship.service.implementation;
 
 
 import com.internship.dao.interfaces.IInfoDao;
-import com.internship.model.enums.Type;
 import com.internship.model.entity.User;
+import com.internship.model.enums.Type;
 import com.internship.service.interfaces.IInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
