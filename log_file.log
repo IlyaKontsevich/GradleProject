@@ -2250,3 +2250,97 @@
 2019-11-17 21:48:03 INFO  GenericDao:48 - Get Page class com.internship.model.entity.User
 2019-11-17 21:48:03 INFO  GenericDao:48 - Get Page class com.internship.model.entity.Message
 2019-11-17 21:48:03 INFO  GenericDao:48 - Get Page class com.internship.model.entity.User
+2019-11-17 21:50:06 INFO  UserService:30 - Admin login
+2019-11-17 21:50:06 INFO  GenericDao:48 - Get Page class com.internship.model.entity.User
+2019-11-17 21:50:06 INFO  GenericDao:48 - Get Page class com.internship.model.entity.Message
+2019-11-17 21:50:06 INFO  GenericDao:48 - Get Page class com.internship.model.entity.User
+2019-11-17 21:50:09 INFO  GenericDao:42 - Get class com.internship.model.entity.UserId: 9
+2019-11-17 21:50:09 INFO  GenericDao:42 - Get class com.internship.model.entity.UserId: 9
+2019-11-17 21:50:09 INFO  GenericDao:48 - Get Page class com.internship.model.entity.Task
+2019-11-17 21:50:09 INFO  GenericDao:48 - Get Page class com.internship.model.entity.Task
+2019-11-17 21:50:11 INFO  GenericDao:42 - Get class com.internship.model.entity.UserId: 9
+2019-11-17 21:50:12 INFO  GenericDao:42 - Get class com.internship.model.entity.UserId: 9
+2019-11-17 21:50:12 INFO  GenericDao:30 - Add class com.internship.model.entity.Task
+2019-11-17 21:50:12 INFO  GenericDao:42 - Get class com.internship.model.entity.UserId: 9
+2019-11-17 21:50:12 INFO  GenericDao:48 - Get Page class com.internship.model.entity.Task
+2019-11-17 21:50:12 INFO  GenericDao:48 - Get Page class com.internship.model.entity.Task
+2019-11-17 21:50:13 INFO  GenericDao:48 - Get Page class com.internship.model.entity.User
+2019-11-17 21:50:13 INFO  GenericDao:48 - Get Page class com.internship.model.entity.Message
+2019-11-17 21:50:13 INFO  GenericDao:48 - Get Page class com.internship.model.entity.User
+2019-11-18 12:26:03 INFO  UserService:30 - Admin login
+2019-11-18 12:26:26 INFO  UserService:30 - Admin login
+2019-11-18 12:27:09 INFO  UserService:30 - Admin login
+2019-11-18 12:28:02 INFO  UserService:34 - User login
+2019-11-18 12:28:56 INFO  UserService:30 - Admin login
+2019-11-18 12:28:56 INFO  GenericDao:48 - Get Page class com.internship.model.entity.User
+2019-11-18 12:28:56 INFO  GenericDao:48 - Get Page class com.internship.model.entity.Message
+2019-11-18 12:28:56 INFO  GenericDao:48 - Get Page class com.internship.model.entity.User
+2019-11-18 13:33:00 INFO  UserService:30 - Admin login
+2019-11-18 13:33:01 INFO  GenericDao:48 - Get Page class com.internship.model.entity.User
+2019-11-18 13:33:01 INFO  GenericDao:48 - Get Page class com.internship.model.entity.Message
+2019-11-18 13:33:01 INFO  GenericDao:48 - Get Page class com.internship.model.entity.User
+2019-11-18 20:35:58 INFO  UserService:30 - Admin login
+2019-11-18 20:36:01 INFO  GenericDao:48 - Get Page class com.internship.model.entity.User
+2019-11-18 20:36:01 INFO  GenericDao:48 - Get Page class com.internship.model.entity.Message
+2019-11-18 20:36:01 INFO  GenericDao:48 - Get Page class com.internship.model.entity.User
+2019-11-18 20:36:05 INFO  GenericDao:36 - Delete class com.internship.model.entity.UserId: 17
+2019-11-18 20:36:05 INFO  GenericDao:48 - Get Page class com.internship.model.entity.User
+2019-11-18 20:36:05 INFO  GenericDao:48 - Get Page class com.internship.model.entity.Message
+2019-11-18 20:36:05 INFO  GenericDao:48 - Get Page class com.internship.model.entity.User
+2019-11-18 20:36:11 INFO  UserService:30 - Admin login
+2019-11-18 20:36:11 INFO  GenericDao:48 - Get Page class com.internship.model.entity.User
+2019-11-18 20:36:11 INFO  GenericDao:48 - Get Page class com.internship.model.entity.Message
+2019-11-18 20:36:11 INFO  GenericDao:48 - Get Page class com.internship.model.entity.User
+2019-11-18 20:36:13 INFO  GenericDao:42 - Get class com.internship.model.entity.UserId: 7
+2019-11-18 20:36:13 INFO  GenericDao:42 - Get class com.internship.model.entity.UserId: 7
+2019-11-18 20:36:13 INFO  GenericDao:48 - Get Page class com.internship.model.entity.Task
+2019-11-18 20:36:13 INFO  GenericDao:48 - Get Page class com.internship.model.entity.Task
+2019-11-18 20:36:14 INFO  GenericDao:48 - Get Page class com.internship.model.entity.User
+2019-11-18 20:36:14 INFO  GenericDao:48 - Get Page class com.internship.model.entity.Message
+2019-11-18 20:36:14 INFO  GenericDao:48 - Get Page class com.internship.model.entity.User
+2019-11-18 20:36:15 INFO  GenericDao:42 - Get class com.internship.model.entity.UserId: 10
+2019-11-18 20:36:15 INFO  GenericDao:42 - Get class com.internship.model.entity.UserId: 10
+2019-11-18 20:36:15 INFO  GenericDao:48 - Get Page class com.internship.model.entity.Task
+2019-11-18 20:36:15 INFO  GenericDao:48 - Get Page class com.internship.model.entity.Task
+2019-11-18 20:36:17 INFO  GenericDao:48 - Get Page class com.internship.model.entity.User
+2019-11-18 20:36:17 INFO  GenericDao:48 - Get Page class com.internship.model.entity.Message
+2019-11-18 20:36:17 INFO  GenericDao:48 - Get Page class com.internship.model.entity.User
+2019-11-18 20:36:20 INFO  GenericDao:42 - Get class com.internship.model.entity.UserId: 16
+2019-11-18 20:36:20 INFO  GenericDao:42 - Get class com.internship.model.entity.UserId: 16
+2019-11-18 20:36:20 INFO  GenericDao:48 - Get Page class com.internship.model.entity.Task
+2019-11-18 20:36:20 INFO  GenericDao:48 - Get Page class com.internship.model.entity.Task
+2019-11-18 20:36:24 INFO  GenericDao:48 - Get Page class com.internship.model.entity.User
+2019-11-18 20:36:24 INFO  GenericDao:48 - Get Page class com.internship.model.entity.Message
+2019-11-18 20:36:24 INFO  GenericDao:48 - Get Page class com.internship.model.entity.User
+2019-11-18 20:36:29 INFO  UserService:30 - Admin login
+2019-11-18 20:36:29 INFO  GenericDao:48 - Get Page class com.internship.model.entity.User
+2019-11-18 20:36:29 INFO  GenericDao:48 - Get Page class com.internship.model.entity.Message
+2019-11-18 20:36:29 INFO  GenericDao:48 - Get Page class com.internship.model.entity.User
+2019-11-18 20:46:43 INFO  UserService:30 - Admin login
+2019-11-18 20:46:43 INFO  GenericDao:48 - Get Page class com.internship.model.entity.User
+2019-11-18 20:46:43 INFO  GenericDao:48 - Get Page class com.internship.model.entity.Message
+2019-11-18 20:46:43 INFO  GenericDao:48 - Get Page class com.internship.model.entity.User
+2019-11-18 20:52:53 INFO  UserService:30 - Admin login
+2019-11-18 20:52:53 INFO  GenericDao:48 - Get Page class com.internship.model.entity.User
+2019-11-18 20:52:53 INFO  GenericDao:48 - Get Page class com.internship.model.entity.Message
+2019-11-18 20:52:53 INFO  GenericDao:48 - Get Page class com.internship.model.entity.User
+2019-11-19 18:04:40 INFO  UserService:30 - Admin login
+2019-11-19 18:04:40 INFO  GenericDao:48 - Get Page class com.internship.model.entity.User
+2019-11-19 18:04:40 INFO  GenericDao:48 - Get Page class com.internship.model.entity.Message
+2019-11-19 18:04:41 INFO  GenericDao:48 - Get Page class com.internship.model.entity.User
+2019-11-19 18:06:25 INFO  UserService:30 - Admin login
+2019-11-19 18:06:26 INFO  GenericDao:48 - Get Page class com.internship.model.entity.User
+2019-11-19 18:06:26 INFO  GenericDao:48 - Get Page class com.internship.model.entity.Message
+2019-11-19 18:06:26 INFO  GenericDao:48 - Get Page class com.internship.model.entity.User
+2019-11-19 18:09:16 INFO  UserService:30 - Admin login
+2019-11-19 18:09:16 INFO  GenericDao:48 - Get Page class com.internship.model.entity.User
+2019-11-19 18:09:16 INFO  GenericDao:48 - Get Page class com.internship.model.entity.Message
+2019-11-19 18:09:16 INFO  GenericDao:48 - Get Page class com.internship.model.entity.User
+2019-11-19 18:11:50 INFO  UserService:30 - Admin login
+2019-11-19 18:11:51 INFO  GenericDao:48 - Get Page class com.internship.model.entity.User
+2019-11-19 18:11:51 INFO  GenericDao:48 - Get Page class com.internship.model.entity.Message
+2019-11-19 18:11:51 INFO  GenericDao:48 - Get Page class com.internship.model.entity.User
+2019-11-19 18:14:18 INFO  UserService:30 - Admin login
+2019-11-19 18:14:22 INFO  GenericDao:48 - Get Page class com.internship.model.entity.User
+2019-11-19 18:14:23 INFO  GenericDao:48 - Get Page class com.internship.model.entity.Message
+2019-11-19 18:14:23 INFO  GenericDao:48 - Get Page class com.internship.model.entity.User

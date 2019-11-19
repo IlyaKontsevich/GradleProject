@@ -5,10 +5,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.Properties;
 
 
@@ -27,13 +29,20 @@ public class HibernateConfig {
     }
 
     @Bean
-    public DataSource dataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/LocalDB");
-        dataSource.setUsername( "root" );
-        dataSource.setPassword( "root" );
-        return dataSource;
+    public DataSource dataSource(){
+        try {
+            Properties appProps = new Properties();
+            appProps.load(new FileInputStream("/home/kontsevich/projects/GradleProject/Controller/src/main/resources/dataBase.properties"));
+            DriverManagerDataSource dataSource = new DriverManagerDataSource();
+
+            dataSource.setDriverClassName(appProps.getProperty("jdbc.driver"));
+            dataSource.setUrl(appProps.getProperty("jdbc.url"));
+            dataSource.setUsername(appProps.getProperty("jdbc.username"));
+            dataSource.setPassword(appProps.getProperty("jdbc.password"));
+            return dataSource;
+        }catch (IOException io){
+            throw new RuntimeException(Arrays.toString(io.getStackTrace()));
+        }
     }
 
     @Bean

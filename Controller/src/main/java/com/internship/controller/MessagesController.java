@@ -61,10 +61,7 @@ public class MessagesController {
         if (userService.getByEmail(message.getReceiverEmail()) == null)
             return "redirect:/user/error";
         message.setReceiverUser(userService.getByEmail(message.getReceiverEmail()));
-        if (service.add(message) != null)
-            return "redirect:/user/{userId}/messages/" + infoService.getMessageUrl();
-        else
-            return "redirect:/user/error";
+        return "redirect:/user/{userId}/messages/" + infoService.getMessageUrl();
     }
 
     @RequestMapping(value = "/")

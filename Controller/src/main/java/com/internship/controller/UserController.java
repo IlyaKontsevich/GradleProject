@@ -1,7 +1,6 @@
 package com.internship.controller;
 
 import com.internship.model.entity.User;
-import com.internship.model.enums.Type;
 import com.internship.service.interfaces.IInfoService;
 import com.internship.service.interfaces.IMessageService;
 import com.internship.service.interfaces.IUserService;
@@ -50,11 +49,12 @@ public class UserController {
         if (service.add(user) != null)
             return "redirect:../user/" + infoService.getUserUrl();
         else
-            return "redirect:error";
+            return "redirect:error/User with same email already exists";
     }
 
-    @RequestMapping("/error")
-    public String error(Model m) {
+    @RequestMapping("/error/{errorCode}")
+    public String error(@PathVariable String errorCode, Model m) {
+        m.addAttribute("error", errorCode);
         m.addAttribute("url", infoService.getUserUrl());
         return "userPages/error";
     }

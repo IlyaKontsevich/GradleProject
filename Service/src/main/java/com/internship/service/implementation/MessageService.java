@@ -6,13 +6,10 @@ import com.internship.model.entity.Message;
 import com.internship.service.interfaces.IMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 @Service
-@Transactional(propagation=Propagation.REQUIRED,readOnly = false)
 public class MessageService extends GenericService<Message> implements IMessageService {
     @Autowired
     private IMessagesDao dao;

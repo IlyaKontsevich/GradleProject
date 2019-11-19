@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-@Transactional(propagation= Propagation.REQUIRED,readOnly = false)
+@Transactional(propagation= Propagation.REQUIRED)
 public abstract class GenericService<ENTITY> implements IService<ENTITY> {
     private static final Logger log = Logger.getLogger(GenericDao.class);
     private Class<ENTITY> entityType = (Class<ENTITY>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];

@@ -6,6 +6,7 @@
 </head>
 <h1>Something went wrong</h1>
 <br/>
+${error}
 <tr> for example: </tr>
 <br/>
 <tr> a user with the same name already exists</tr>
@@ -14,4 +15,4 @@
 <br/>
 <tr> a non-faithfully entered date</tr>
 <br/>
-<a href="../user/${url}">View Users</a>
+<a href="/user/${url}">View Users</a>

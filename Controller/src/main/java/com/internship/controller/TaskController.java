@@ -52,7 +52,7 @@ public class TaskController{
             if (service.add(task) != null)
                 return "redirect:../task/" + infoService.getTaskUrl();
             else
-                return "redirect:/user/error";
+                return "redirect:/user/error/{Task with same name already exists}";
         }
     }
 
