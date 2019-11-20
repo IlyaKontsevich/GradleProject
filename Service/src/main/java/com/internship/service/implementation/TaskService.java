@@ -29,8 +29,14 @@ public class TaskService extends GenericService<Task> implements ITaskService {
     public Integer getSize(Integer userId) {
         List<String> filter = new ArrayList<>();
         filter.add("user:" + userId);
-        return super.getPage(
-                new PageRequest(filter, new ArrayList<>(), 0, 1000)).size();
+        return super.getPage(PageRequest
+                .builder()
+                .filter(filter)
+                .sort(new ArrayList<>())
+                .pageSize(1000)
+                .position(0)
+                .build())
+                .size();
     }
 
 }

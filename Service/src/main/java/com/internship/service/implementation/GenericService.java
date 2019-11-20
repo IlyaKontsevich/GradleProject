@@ -1,10 +1,8 @@
 package com.internship.service.implementation;
 
-import com.internship.dao.implementation.GenericDao;
 import com.internship.dao.interfaces.IDao;
 import com.internship.model.PageRequest;
 import com.internship.service.interfaces.IService;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;

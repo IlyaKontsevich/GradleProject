@@ -1,6 +1,5 @@
 package com.internship.service.implementation;
 
-
 import com.internship.dao.interfaces.IInfoDao;
 import com.internship.model.entity.User;
 import com.internship.model.enums.Type;

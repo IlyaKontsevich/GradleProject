@@ -1,4 +1,5 @@
 /*
+
 package com.internship.service;
 
 import com.internship.dao.implementation.UserDao;
@@ -14,13 +15,13 @@ import java.util.List;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:hibernate.cfg.xml")
+@ContextConfiguration(locations = "classpath:com/internship/config/HibernateConfig.java")
 public class UserServiceTest {
     private UserDao dao = new UserDao();
 
 
     public User initialisationUser(){
-        User user = new User("username");
+        User user = new User();
         user.setEmail("email@mail.ru");
         user.setAge(23);
         return dao.add(user);
@@ -86,4 +87,5 @@ public class UserServiceTest {
         Assert.assertNotNull(dao.getAll());
         dao.delete(user.getId());
     }
-}*/
+}
+*/

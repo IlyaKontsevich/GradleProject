@@ -33,7 +33,14 @@ public class UserService extends GenericService<User> implements IUserService {
     }
 
     public Integer getSize() {
-        return super.getPage(new PageRequest(new ArrayList<>(), new ArrayList<>(), 0, 1000)).size();
+        return super.getPage(PageRequest
+                .builder()
+                .filter(new ArrayList<>())
+                .sort(new ArrayList<>())
+                .pageSize(1000)
+                .position(0)
+                .build())
+                .size();
     }
 
     @Override
@@ -43,6 +50,12 @@ public class UserService extends GenericService<User> implements IUserService {
 
     @Override
     public List<User> getAll() {
-        return super.getPage(new PageRequest(new ArrayList<>(), new ArrayList<>(), 0, 1000));
+        return super.getPage(PageRequest
+                .builder()
+                .filter(new ArrayList<>())
+                .sort(new ArrayList<>())
+                .pageSize(1000)
+                .position(0)
+                .build());
     }
 }

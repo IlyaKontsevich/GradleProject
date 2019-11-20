@@ -21,7 +21,14 @@ public class MessageService extends GenericService<Message> implements IMessageS
     public Integer getSize(Integer userId) {
         List<String> filter = new ArrayList<>();
         filter.add("receiverUser:" + userId);
-        return super.getPage(new PageRequest(filter, new ArrayList<>(), 0, 1000)).size();
+        return super.getPage(PageRequest
+                .builder()
+                .filter(filter)
+                .sort(new ArrayList<>())
+                .pageSize(1000)
+                .position(0)
+                .build())
+                .size();
     }
 
     @Override
@@ -41,14 +48,26 @@ public class MessageService extends GenericService<Message> implements IMessageS
     public List<Message> getBySenderId(Integer senderId) {
         List<String> filter = new ArrayList<>();
         filter.add("senderUser:"+senderId);
-        return super.getPage(new PageRequest(filter, new ArrayList<>(), 0, 1000));
+        return super.getPage(PageRequest
+                .builder()
+                .filter(filter)
+                .sort(new ArrayList<>())
+                .pageSize(1000)
+                .position(0)
+                .build());
     }
 
     @Override
     public List<Message> getByReceiverId(Integer receiverId) {
         List<String> filter = new ArrayList<>();
         filter.add("receiverUser:"+receiverId);
-        return super.getPage(new PageRequest(filter, new ArrayList<>(), 0, 1000));
+        return super.getPage(PageRequest
+                .builder()
+                .filter(filter)
+                .sort(new ArrayList<>())
+                .pageSize(1000)
+                .position(0)
+                .build());
     }
 
     @Override

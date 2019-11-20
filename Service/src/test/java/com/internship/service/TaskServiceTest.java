@@ -1,4 +1,5 @@
 /*
+
 package com.internship.service;
 
 import com.internship.dao.implementation.TaskDao;
@@ -96,4 +97,5 @@ public class TaskServiceTest {
         Assert.assertNotNull(dao.getAll(users.get(0).getId()));
         dao.delete(task.getId());
     }
-}*/
+}
+*/

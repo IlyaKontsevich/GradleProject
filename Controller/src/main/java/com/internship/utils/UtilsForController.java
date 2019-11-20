@@ -53,7 +53,13 @@ public class UtilsForController {
                     break;
             }
         }
-        return new PageRequest(filter, sort, position, pageSize);
+        return PageRequest
+                .builder()
+                .filter(filter)
+                .pageSize(pageSize)
+                .position(position)
+                .sort(sort)
+                .build();
     }
 
     public static List<String> changeFilterValue(List<String> list, String string) {
