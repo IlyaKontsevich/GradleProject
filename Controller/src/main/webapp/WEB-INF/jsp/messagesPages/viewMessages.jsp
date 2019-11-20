@@ -46,7 +46,7 @@ Filter by: ${filter}
         <th>Text<a href="changesortmessage,asc${url}">&#8593</a><a href="changesort{message,desc}${url}">&#8595</a><a href="changesortmessage,nul${url}">&#215</a></th>
         <th>Send time<a href="changesortsendTime,asc${url}">&#8593</a><a href="changesortsendTime,desc${url}">&#8595</a><a href="changesortsendTime,nul${url}">&#215</a></th>
         <th>Is read<a href="changesortisRead,asc${url}">&#8593</a><a href="changesortisRead,desc${url}">&#8595</a><a href="changesortisRead,nul${url}">&#215</a></th>
-        <th>Answer</th><th>Read</th><th>Delete</th>
+        <th>Read</th><th>Delete</th>
         <c:forEach var="message" items="${list}">
     <tr>
         <td>${message.id}</td>
@@ -55,7 +55,6 @@ Filter by: ${filter}
         <td>${message.message}</td>
         <td>${message.sendTime}</td>
         <td>${message.isRead}</td>
-        <td><a href="${message.id}/answer">Answer</a></td>
         <td><a href="${message.id}/read">Read</a></td>
         </form>
         <form:form method="DELETE" action="${message.id}">

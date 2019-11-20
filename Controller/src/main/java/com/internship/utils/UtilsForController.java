@@ -7,25 +7,24 @@ import com.internship.service.interfaces.IInfoService;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.internship.model.enums.Type.MESSAGE;
-import static com.internship.model.enums.Type.TASK;
 import static com.internship.utils.UtilsForServices.changePosition;
 
 public class UtilsForController {
 
     public static String changeUrl(String page, String size, List<String> sort,
                                    List<String> filter, Type type, IInfoService infoService) {
-        if (filter.isEmpty())
+        if (filter.isEmpty()) {
             infoService.changeUrl(
                     "?page=" + page
                             + "&size=" + size
                             + "&sort=" + String.join("&sort=", sort), type);
-        else
+        } else {
             infoService.changeUrl(
                     "?page=" + page
                             + "&size=" + size
                             + "&sort=" + String.join("&sort=", sort)
                             + "&filter=" + String.join("&filter=", filter), type);
+        }
         switch (type) {
             case MESSAGE:
                 return infoService.getMessageUrl();
@@ -43,13 +42,15 @@ public class UtilsForController {
         Integer pageSize = Integer.valueOf(size);
         position = changePosition(position, pageSize);
         if (id != null) {
-            if (type.equals(TASK)) {
-                filter = changeFilterValue(filter, "user");
-                filter.add("user:" + id);
-            }
-            if (type.equals(MESSAGE)) {
-                filter =  changeFilterValue(filter, "receiverUser");
-                filter.add("receiverUser:" + id);
+            switch (type){
+                case TASK:
+                    filter = changeFilterValue(filter, "user");
+                    filter.add("user:" + id);
+                    break;
+                case MESSAGE:
+                    filter =  changeFilterValue(filter, "receiverUser");
+                    filter.add("receiverUser:" + id);
+                    break;
             }
         }
         return new PageRequest(filter, sort, position, pageSize);

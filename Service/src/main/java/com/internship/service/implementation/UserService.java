@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
@@ -38,5 +39,10 @@ public class UserService extends GenericService<User> implements IUserService {
     @Override
     public User getByEmail(String email) {
         return dao.getByEmail(email);
+    }
+
+    @Override
+    public List<User> getAll() {
+        return super.getPage(new PageRequest(new ArrayList<>(), new ArrayList<>(), 0, 1000));
     }
 }

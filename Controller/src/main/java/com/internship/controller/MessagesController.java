@@ -34,12 +34,8 @@ public class MessagesController {
     @RequestMapping("/form")
     public String showForm(Model m) {
         m.addAttribute("command", new Message());
+        m.addAttribute("userList", userService.getAll());
         return "messagesPages/messagesForm";
-    }
-
-    @RequestMapping("{id}/answer")
-    public String answer(@PathVariable Integer id) {
-        return "redirect: ../form";
     }
 
     @RequestMapping("{id}/read")
@@ -57,8 +53,6 @@ public class MessagesController {
         message.setIsRead(false);
         message.setSendTime(LocalDate.now());
         message.setSenderUser(userService.get(id));
-        if (userService.getByEmail(message.getReceiverEmail()) == null)
-            return "redirect:/user/error";
         message.setReceiverUser(userService.getByEmail(message.getReceiverEmail()));
         service.add(message);
         return "redirect:/user/{id}/messages/" + infoService.getMessageUrl();

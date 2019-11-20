@@ -13,7 +13,12 @@
         </tr>
         <tr>
             <td>Receiver email : </td>
-            <td><form:input path="receiverEmail"  type = "email" value="s@mail.ru"/></td>
+            <td><form:select path="receiverEmail">
+                <c:forEach items="${userList}" var="user">
+                    <option value="${user.email}">${user.email}</option>
+                </c:forEach>
+            </form:select>
+            </td>
         </tr>
         <tr>
             <td> </td>

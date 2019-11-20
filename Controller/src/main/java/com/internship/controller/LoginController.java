@@ -24,13 +24,15 @@ public class LoginController {
 
     @RequestMapping("/logerror")
     public String LogErr(Model m){
-        m.addAttribute("error","Incorrect login or password or registration Error, please try again");
+        m.addAttribute("error",
+                "Incorrect login or password or registration Error, please try again");
         return "loginPages/login";
     }
 
     @RequestMapping("/logreg")
     public String LogRegistration(Model m){
-        m.addAttribute("error","Successful registration, please enter your login and password");
+        m.addAttribute("error",
+                "Successful registration, please enter your login and password");
         return "loginPages/login";
     }
 
@@ -53,10 +55,9 @@ public class LoginController {
     @RequestMapping(value="/save",method = RequestMethod.POST)
     public String save(@ModelAttribute("user") User user){
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        if(service.add(user) != null)
-            return "redirect:logreg";
-        else
-            return "redirect:logerror";
+        return (service.add(user) != null)
+                ? "redirect:logreg"
+                : "redirect:logerror";
     }
 
 }

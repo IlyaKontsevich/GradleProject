@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static com.internship.utils.UtilsForController.changeFilterValue;
 
@@ -37,6 +36,21 @@ public class FilterSortPage {
         }
     }
 
+    @RequestMapping(value = {"user/changesort{sorttype}",
+            "user/{userId}/task/changesort{sorttype}",
+            "user/{userId}/messages/changesort{sorttype}"})
+    public String changeSortType(@RequestParam(value = "page", defaultValue = "1") String page,
+                                 @RequestParam(value = "size", defaultValue = "3") String size,
+                                 @RequestParam(value = "sort", defaultValue = "id:asc") List<String> sort,
+                                 @RequestParam(required = false, value = "filter") List<String> filter,
+                                 @PathVariable String sorttype) {
+        sort = changeFilterValue(sort, sorttype);
+        if (sorttype.split(",")[1].equals("nul"))
+            return redirect(page, size, sort, filter);
+        sort.add(sorttype.replace(",", ":"));
+        return redirect(page, size, sort, filter);
+    }
+
     @RequestMapping(value = {"user/changepage{pages}",
             "user/{userId}/task/changepage{pages}",
             "user/{userId}/messages/changepage{pages}"})
@@ -57,22 +71,6 @@ public class FilterSortPage {
                                  @RequestParam(value = "sort", defaultValue = "id:asc") List<String> sort,
                                  @RequestParam(required = false, value = "filter") List<String> filter) {
         return redirect(page, pageSize, sort, filter);
-    }
-
-    @RequestMapping(value = {"user/changesort{sorttype}",
-            "user/{userId}/task/changesort{sorttype}",
-            "user/{userId}/messages/changesort{sorttype}"})
-    public String changeSortType(@RequestParam(value = "page", defaultValue = "1") String page,
-                                 @RequestParam(value = "size", defaultValue = "3") String size,
-                                 @RequestParam(value = "sort", defaultValue = "id:asc") List<String> sort,
-                                 @RequestParam(required = false, value = "filter") List<String> filter,
-                                 @PathVariable String sorttype) {
-        sort = changeFilterValue(sort, sorttype);
-        if (sorttype.split(",")[1].equals("nul"))
-            return redirect(page, size, sort, filter);
-
-        sort.add(sorttype.replace(",", ":"));
-        return redirect(page, size, sort, filter);
     }
 
     private String redirect(String page, String size, List<String> sort, List<String> filter) {

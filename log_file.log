@@ -4310,3 +4310,59 @@
 2019-11-20 14:21:19 INFO  AspectForProject:31 - Get com.internship.service.implementation.TaskService@c91169c page
 2019-11-20 14:21:20 INFO  AspectForProject:31 - Get com.internship.service.implementation.TaskService@c91169c page
 2019-11-20 14:21:21 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@2542a2d5 page
+2019-11-20 14:54:04 INFO  UserService:30 - Admin login
+2019-11-20 14:54:04 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@40dd9789 page
+2019-11-20 14:54:06 INFO  AspectForProject:36 - Get com.internship.service.implementation.UserService@40dd9789
+2019-11-20 14:54:06 INFO  AspectForProject:31 - Get com.internship.service.implementation.MessageService@5492c369 page
+2019-11-20 14:54:09 INFO  AspectForProject:31 - Get com.internship.service.implementation.MessageService@5492c369 page
+2019-11-20 14:54:13 INFO  AspectForProject:31 - Get com.internship.service.implementation.MessageService@5492c369 page
+2019-11-20 14:54:15 INFO  AspectForProject:31 - Get com.internship.service.implementation.MessageService@5492c369 page
+2019-11-20 14:54:18 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@40dd9789 page
+2019-11-20 14:54:24 INFO  AspectForProject:36 - Get com.internship.service.implementation.UserService@40dd9789
+2019-11-20 14:54:24 INFO  AspectForProject:31 - Get com.internship.service.implementation.TaskService@601e0624 page
+2019-11-20 14:54:26 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@40dd9789 page
+2019-11-20 14:58:25 INFO  AspectForProject:36 - Get com.internship.service.implementation.UserService@40dd9789
+2019-11-20 14:58:25 INFO  AspectForProject:31 - Get com.internship.service.implementation.MessageService@5492c369 page
+2019-11-20 14:58:32 INFO  AspectForProject:31 - Get com.internship.service.implementation.MessageService@5492c369 page
+2019-11-20 15:00:10 INFO  UserService:30 - Admin login
+2019-11-20 15:00:10 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@30673e4f page
+2019-11-20 15:00:13 INFO  AspectForProject:36 - Get com.internship.service.implementation.UserService@30673e4f
+2019-11-20 15:00:13 INFO  AspectForProject:31 - Get com.internship.service.implementation.MessageService@4259afef page
+2019-11-20 15:13:30 INFO  UserService:30 - Admin login
+2019-11-20 15:13:31 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@365096cd page
+2019-11-20 15:13:33 INFO  AspectForProject:36 - Get com.internship.service.implementation.UserService@365096cd
+2019-11-20 15:13:33 INFO  AspectForProject:31 - Get com.internship.service.implementation.MessageService@3303f0ce page
+2019-11-20 15:13:53 INFO  AspectForProject:36 - Get com.internship.service.implementation.UserService@365096cd
+2019-11-20 15:14:59 INFO  AspectForProject:36 - Get com.internship.service.implementation.UserService@365096cd
+2019-11-20 15:15:59 INFO  UserService:30 - Admin login
+2019-11-20 15:15:59 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@4747b522 page
+2019-11-20 15:16:02 INFO  AspectForProject:36 - Get com.internship.service.implementation.UserService@4747b522
+2019-11-20 15:16:02 INFO  AspectForProject:31 - Get com.internship.service.implementation.MessageService@145bd49a page
+2019-11-20 15:16:12 INFO  AspectForProject:36 - Get com.internship.service.implementation.UserService@4747b522
+2019-11-20 15:16:12 INFO  AspectForProject:41 - Add com.internship.service.implementation.MessageService@145bd49a
+2019-11-20 15:17:45 INFO  UserService:30 - Admin login
+2019-11-20 15:17:45 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@2eab03eb page
+2019-11-20 15:17:50 INFO  AspectForProject:36 - Get com.internship.service.implementation.UserService@2eab03eb
+2019-11-20 15:17:50 INFO  AspectForProject:31 - Get com.internship.service.implementation.MessageService@4bc9a2f7 page
+2019-11-20 15:17:56 INFO  AspectForProject:36 - Get com.internship.service.implementation.UserService@2eab03eb
+2019-11-20 15:17:56 INFO  AspectForProject:41 - Add com.internship.service.implementation.MessageService@4bc9a2f7
+2019-11-20 15:19:25 INFO  AspectForProject:36 - Get com.internship.service.implementation.UserService@2eab03eb
+2019-11-20 15:19:25 INFO  AspectForProject:41 - Add com.internship.service.implementation.MessageService@4bc9a2f7
+2019-11-20 15:19:44 INFO  UserService:30 - Admin login
+2019-11-20 15:19:44 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@415b60fb page
+2019-11-20 15:19:46 INFO  AspectForProject:36 - Get com.internship.service.implementation.UserService@415b60fb
+2019-11-20 15:19:46 INFO  AspectForProject:31 - Get com.internship.service.implementation.MessageService@4abb73ed page
+2019-11-20 15:20:46 INFO  UserService:30 - Admin login
+2019-11-20 15:20:47 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@73423fa2 page
+2019-11-20 15:20:49 INFO  AspectForProject:36 - Get com.internship.service.implementation.UserService@73423fa2
+2019-11-20 15:20:49 INFO  AspectForProject:31 - Get com.internship.service.implementation.MessageService@70d6d284 page
+2019-11-20 15:22:03 INFO  UserService:30 - Admin login
+2019-11-20 15:22:03 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@1b6ac385 page
+2019-11-20 15:22:09 INFO  AspectForProject:36 - Get com.internship.service.implementation.UserService@1b6ac385
+2019-11-20 15:22:09 INFO  AspectForProject:31 - Get com.internship.service.implementation.MessageService@2476d51e page
+2019-11-20 15:22:17 INFO  AspectForProject:36 - Get com.internship.service.implementation.UserService@1b6ac385
+2019-11-20 15:22:18 INFO  AspectForProject:41 - Add com.internship.service.implementation.MessageService@2476d51e
+2019-11-20 15:22:18 INFO  AspectForProject:31 - Get com.internship.service.implementation.MessageService@2476d51e page
+2019-11-20 15:22:39 INFO  AspectForProject:36 - Get com.internship.service.implementation.UserService@1b6ac385
+2019-11-20 15:22:39 INFO  AspectForProject:41 - Add com.internship.service.implementation.MessageService@2476d51e
+2019-11-20 15:22:39 INFO  AspectForProject:31 - Get com.internship.service.implementation.MessageService@2476d51e page
