@@ -11,38 +11,38 @@ Filter by: ${filter}
 <p align="right"> <a href="/logout/">Log out</a></p>
 <h1 align="center">Tasks List</h1>
 <table align ="center" border="2" width="70%" cellpadding="2">
-    <tr><th><form  method="post" action="savefilter{id}${url}">
+    <tr><th><form  method="post" action="savefilterid${url}">
         <input name="filtervalue"  type="number" min="0" max="1000"/>
-    </form></th><th><form method="post" action="savefilter{priority}${url}">
+    </form></th><th><form method="post" action="savefilterpriority${url}">
             <select name="filtervalue" size="1">
                 <option value="low">low</option>
                 <option value="medium">medium</option>
                 <option value="high">high</option>
             </select>
         <input type="submit" value="Save" />
-        </form></th><th><form method="post" action="savefilter{name}${url}">
+        </form></th><th><form method="post" action="savefiltername${url}">
         <input name="filtervalue"  type="text" size="10"/>
-    </form></th><th><form method="post" action="savefilter{isdone}${url}">
+    </form></th><th><form method="post" action="savefilterisDone${url}">
             <select name="filtervalue" size="1">
                 <option value="true">true</option>
                 <option value="false">false</option>
             </select>
         <input type="submit" value="Save" />
-        </form></th><th><form method="post" action="savefilter{deadline}${url}">
+        </form></th><th><form method="post" action="savefilterdeadline${url}">
             <input name="filtervalue"  type="date"/>
             <input type="submit" value="Save" />
-        </form></th><th><form method="post" action="savefilter{timeadd}${url}">
+        </form></th><th><form method="post" action="savefiltertimeaAdd${url}">
                 <input name="filtervalue"  type="date"/>
                 <input type="submit" value="Save" />
-            </form></th><th><form method="post" action="savefilter{nul}${url}">
+            </form></th><th><form method="post" action="savefilternul${url}">
             <input type="submit" value="Without filter" />
         </form></th><th></th>
-    <tr><th>Id<a href="changesort{id,asc}${url}">&#8593</a><a href="changesort{id,desc}${url}">&#8595</a><a href="changesort{id,nul}${url}">&#215</a></th>
-        <th>Priority<a href="changesort{priority,asc}${url}">&#8593</a><a href="changesort{priority,desc}${url}">&#8595</a><a href="changesort{priority,nul}${url}">&#215</a></th>
-        <th>Name<a href="changesort{name,asc}${url}">&#8593</a><a href="changesort{name,desc}${url}">&#8595</a><a href="changesort{name,nul}${url}">&#215</a></th>
-        <th>Status<a href="changesort{isdone,asc}${url}">&#8593</a><a href="changesort{isdone,desc}${url}">&#8595</a><a href="changesort{isdone,nul}${url}">&#215</a></th>
-        <th>Deadline<a href="changesort{deadline,asc}${url}">&#8593</a><a href="changesort{deadline,desc}${url}">&#8595</a><a href="changesort{deadline,nul}${url}">&#215</a></th>
-        <th>Date of Add<a href="changesort{timeadd,asc}${url}">&#8593</a><a href="changesort{timeadd,desc}${url}">&#8595</a><a href="changesort{timeadd,nul}${url}">&#215</a></th>
+    <tr><th>Id<a href="changesortid,asc${url}">&#8593</a><a href="changesortid,desc${url}">&#8595</a><a href="changesortid,nul${url}">&#215</a></th>
+        <th>Priority<a href="changesortpriority,asc${url}">&#8593</a><a href="changesortpriority,desc${url}">&#8595</a><a href="changesortpriority,nul${url}">&#215</a></th>
+        <th>Name<a href="changesortname,asc${url}">&#8593</a><a href="changesortname,desc${url}">&#8595</a><a href="changesortname,nul${url}">&#215</a></th>
+        <th>Status<a href="changesortisdone,asc${url}">&#8593</a><a href="changesortisdone,desc${url}">&#8595</a><a href="changesortisdone,nul${url}">&#215</a></th>
+        <th>Deadline<a href="changesortdeadline,asc${url}">&#8593</a><a href="changesortdeadline,desc${url}">&#8595</a><a href="changesortdeadline,nul${url}">&#215</a></th>
+        <th>Date of Add<a href="changesorttimeadd,asc${url}">&#8593</a><a href="changesorttimeadd,desc${url}">&#8595</a><a href="changesorttimeadd,nul${url}">&#215</a></th>
         <th>Edit</th><th>Delete</th>
         <c:forEach var="task" items="${list}">
     <tr>
@@ -70,8 +70,8 @@ Filter by: ${filter}
 
 <p align="center"><a href="form">Add New Task</a></p>
 Change page size
-<a href="pagesize{5}${url}">5</a>
-<a href="pagesize{10}${url}">10</a>
-<a href="pagesize{15}${url}">15</a>
+<a href="pagesize5${url}">5</a>
+<a href="pagesize10${url}">10</a>
+<a href="pagesize15${url}">15</a>
 </br>
 <p align="center"><a href="/user/redirect">View users</a></p>

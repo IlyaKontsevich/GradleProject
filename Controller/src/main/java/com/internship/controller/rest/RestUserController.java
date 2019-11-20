@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 import static com.internship.model.enums.Type.USER;
 import static com.internship.utils.UtilsForController.createPageRequest;
@@ -24,11 +25,8 @@ public class RestUserController {
                                  @RequestParam(value="size", defaultValue = "3") String size,
                                  @RequestParam(value="sort",defaultValue = "name:asc") List<String> sort,
                                  @RequestParam(required = false, value="filter") List<String> filter){
-        if(filter == null)
-            filter = new ArrayList<String>();
-
-        Collection<User> list = service.getPage(createPageRequest(page, size, sort, filter, null, USER));
-        return list;
+        filter = Optional.ofNullable(filter).orElse(new ArrayList<>());
+        return service.getPage(createPageRequest(page, size, sort, filter, null, USER));
     }
 
     @RequestMapping(value="/{id}",method = RequestMethod.DELETE)

@@ -4,18 +4,25 @@ import com.internship.model.entity.User;
 import com.internship.service.interfaces.IInfoService;
 import com.internship.service.interfaces.IMessageService;
 import com.internship.service.interfaces.IUserService;
+import com.internship.utils.Security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static com.internship.model.enums.Type.USER;
-import static com.internship.utils.UtilsForController.*;
+import static com.internship.utils.UtilsForController.changeUrl;
+import static com.internship.utils.UtilsForController.createPageRequest;
 
 @Controller
 @RequestMapping("/user")
@@ -31,25 +38,23 @@ public class UserController {
     @Secured(value = {"ROLE_ADMIN"})
     @RequestMapping("/form")
     public String showForm(Model m) {
-        m.addAttribute("command", new User("username"));
+        m.addAttribute("command", new User());
         return "userPages/userForm";
     }
 
     @RequestMapping("/redirect")
     public String prevSession() {
-        if (infoService.getUserUrl() != null)
-            return "redirect:../user/" + infoService.getUserUrl();
-        else
-            return "redirect:../user/";
+        return  (infoService.getUserUrl() != null)
+                ? "redirect:../user/" + infoService.getUserUrl()
+                :"redirect:../user/";
     }
 
     @Secured(value = {"ROLE_ADMIN"})
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String save(@ModelAttribute("user") User user) {
-        if (service.add(user) != null)
-            return "redirect:../user/" + infoService.getUserUrl();
-        else
-            return "redirect:error/User with same email already exists";
+        return  (service.add(user) != null)
+                ? "redirect:../user/" + infoService.getUserUrl()
+                : "redirect:error/User with same email already exists";
     }
 
     @RequestMapping("/error/{errorCode}")
@@ -66,16 +71,10 @@ public class UserController {
                        @RequestParam(required = false, value = "filter") List<String> filter,
                        Authentication authentication,
                        Model model) {
-        if (filter == null) {
-            filter = new ArrayList<String>();
-            changeUrl(page, size, sort, null, infoService, USER);
-            model.addAttribute("url", infoService.getUserUrl());
-        } else {
-            changeUrl(page, size, sort, filter, infoService, USER);
-            model.addAttribute("url", infoService.getUserUrl());
-        }
+        filter = Optional.ofNullable(filter).orElse(new ArrayList<>());
         List<User> list = service.getPage(createPageRequest(page, size, sort, filter, null, USER));
         model
+                .addAttribute("url", changeUrl(page, size, sort, filter, USER, infoService))
                 .addAttribute("unreadMessages", messageService.getUnreadMessages(((User) authentication.getPrincipal()).getId()))
                 .addAttribute("userId", ((User) authentication.getPrincipal()).getId())
                 .addAttribute("taskUrl", infoService.getTaskUrl())
@@ -96,33 +95,28 @@ public class UserController {
         return "redirect:/user/" + infoService.getUserUrl();
     }
 
+    @Security
     @RequestMapping(value = "/{id}/edit")
     public String edit(@PathVariable Integer id, Model m) {
-        if (access(id, service, infoService))
-            return "redirect:/accessDenied/";
         User user = service.get(id);
         m.addAttribute("command", user);
         return "userPages/userEditForm";
     }
 
+    @Security
     @RequestMapping(value = "/{id}/viewtask")
     public String viewTask(@PathVariable Integer id) {
-        if (access(id, service, infoService))
-            return "redirect:/accessDenied/";
-        if(infoService.getTaskUrl()!= null)
-            return "redirect: /user/{id}/task/" + infoService.getTaskUrl();
-        else
-            return "redirect: /user/{id}/task/";
+        return (infoService.getTaskUrl() != null)
+                ? "redirect: /user/{id}/task/" + infoService.getTaskUrl()
+                : "redirect: /user/{id}/task/";
     }
 
+    @Security
     @RequestMapping(value = "/{id}/viewMessage")
     public String viewMessage(@PathVariable Integer id) {
-        if (access(id, service, infoService))
-            return "redirect:/accessDenied/";
-        if (infoService.getMessageUrl() != null)
-            return "redirect: /user/{id}/messages/" + infoService.getMessageUrl();
-        else
-            return "redirect: /user/{id}/messages/";
+         return (infoService.getMessageUrl() != null)
+                 ? "redirect: /user/{id}/messages/" + infoService.getMessageUrl()
+                 : "redirect: /user/{id}/messages/";
     }
 
     @Secured(value = {"ROLE_ADMIN"})

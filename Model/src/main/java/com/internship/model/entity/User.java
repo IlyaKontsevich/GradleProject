@@ -1,5 +1,6 @@
 package com.internship.model.entity;
 
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -7,6 +8,7 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
 
+@Data
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
@@ -23,17 +25,6 @@ public class User implements UserDetails {
     private String email;
     @Transient
     private Collection<GrantedAuthority> authorities;
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", id=" + id +
-                ", age=" + age +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                '}';
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -93,44 +84,4 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
-    public User() {
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public User(String name) {
-        this.name = name;
-    }
-
 }

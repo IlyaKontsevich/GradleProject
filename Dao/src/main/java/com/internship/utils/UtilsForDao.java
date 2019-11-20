@@ -21,8 +21,7 @@ public class UtilsForDao {
     }
 
     public static Predicate[] mapFilterToPredicates(List<String> filter, Root root, CriteriaBuilder cb){
-        return filter
-                .stream()
+        return filter.stream()
                 .map((str) -> {
                     String[] parts = str.split(":");
                     switch (parts[0]) {

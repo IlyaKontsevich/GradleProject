@@ -1,9 +1,12 @@
 package com.internship.model.entity;
 
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
+@Data
 @Entity
 @Table(name = "tasks")
 public class Task {
@@ -23,71 +26,4 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Task() {
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Boolean getIsDone() {
-        return isDone;
-    }
-
-    public void setIsDone(Boolean done) {
-        isDone = done;
-    }
-
-    public String getPriority() {
-        return priority;
-    }
-
-    public void setPriority(String priority) {
-        this.priority = priority;
-    }
-
-    public LocalDate getTimeAdd() {
-        return timeAdd;
-    }
-
-    public void setTimeAdd(LocalDate timeAdd) {
-        this.timeAdd = timeAdd;
-    }
-
-    public Task(String name) {
-        this.name = name;
-    }
-
-    public void setDeadLine(LocalDate deadLine) {
-        this.deadLine = deadLine;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public LocalDate getDeadLine() {
-        return deadLine;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 }

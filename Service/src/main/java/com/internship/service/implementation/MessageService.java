@@ -8,7 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class MessageService extends GenericService<Message> implements IMessageService {
     @Autowired
@@ -23,11 +26,14 @@ public class MessageService extends GenericService<Message> implements IMessageS
 
     @Override
     public List<Message> getPage(PageRequest pageRequest) {
-        List<Message> result = super.getPage(pageRequest);
-        result.addAll(getBySenderId(result
-                .get(0)
-                .getSenderUser()
-                .getId()));
+        List<Message> result =super.getPage(pageRequest);
+        pageRequest.setFilter(pageRequest
+                                        .getFilter()
+                                        .stream()
+                                        .map(str -> str.replace("receiverUser","senderUser"))
+                                        .collect(Collectors.toList()));
+        result.addAll(super.getPage(pageRequest));
+        new HashSet<>(result);
         return result;
     }
 

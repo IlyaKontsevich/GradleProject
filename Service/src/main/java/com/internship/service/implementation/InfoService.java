@@ -67,6 +67,5 @@ public class InfoService implements IInfoService {
     @Override
     public void changeUserUrl(String userUrl) {
         dao.changeUserUrl(userUrl, getCurrentUser().getId());
-
     }
 }

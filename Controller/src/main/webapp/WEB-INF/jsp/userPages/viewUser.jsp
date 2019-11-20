@@ -13,23 +13,23 @@ Filter by: ${filter}
 </br>
 <h1 align ="center">Users List</h1>
 <table align ="center" border="2" width="70%" cellpadding="2">
-    <tr><th><form  method="post" action="savefilter{id}${url}">
+    <tr><th><form  method="post" action="savefilterid${url}">
         <input name="filtervalue"  type="number" min="0" max="1000"/>
-    </form></th><th><form method="post" action="savefilter{name}${url}">
+    </form></th><th><form method="post" action="savefiltername${url}">
         <input name="filtervalue"  type="text" size="10"/>
-    </form></th><th><form method="post" action="savefilter{age}${url}">
+    </form></th><th><form method="post" action="savefilterage${url}">
         <input name="filtervalue"  type="number" min="1" max="99"/>
     </form></th><th>
-        <form method="post" action="savefilter{email}${url}">
+        <form method="post" action="savefilteremail${url}">
             <input name="filtervalue"  type="email" size="10"/>
         </form></th><th>
-        <form method="post" action="savefilter{nul}${url}">
+        <form method="post" action="savefilternul${url}">
             <input type="submit" value="Without filter" />
         </form></th><th></th><th></th><th></th>
-    <tr><th>Id<a href="changesort{id,asc}${url}">&#8593</a><a href="changesort{id,desc}${url}">&#8595</a><a href="changesort{id,nul}${url}">&#215</a></th>
-        <th>Name<a href="changesort{name,asc}${url}">&#8593</a><a href="changesort{name,desc}${url}">&#8595</a><a href="changesort{name,nul}${url}">&#215</a></th>
-        <th>Age<a href="changesort{age,asc}${url}">&#8593</a><a href="changesort{age,desc}${url}">&#8595</a><a href="changesort{age,nul}${url}">&#215</a></th>
-        <th>Email<a href="changesort{email,asc}${url}">&#8593</a><a href="changesort{email,desc}${url}">&#8595</a><a href="changesort{email,nul}${url}">&#215</a></th>
+    <tr><th>Id<a href="changesortid,asc${url}">&#8593</a><a href="changesortid,desc${url}">&#8595</a><a href="changesortid,nul${url}">&#215</a></th>
+        <th>Name<a href="changesortname,asc${url}">&#8593</a><a href="changesortname,desc${url}">&#8595</a><a href="changesortname,nul${url}">&#215</a></th>
+        <th>Age<a href="changesortage,asc${url}">&#8593</a><a href="changesortage,desc${url}">&#8595</a><a href="changesortage,nul${url}">&#215</a></th>
+        <th>Email<a href="changesortemail,asc${url}">&#8593</a><a href="changesortemail,desc${url}">&#8595</a><a href="changesortemail,nul${url}">&#215</a></th>
         <th>View users tasks</th><th>Edit</th><th>Delete</th><th>View users messages</th>
     <c:forEach var="user" items="${list}">
         <tr>
@@ -43,7 +43,7 @@ Filter by: ${filter}
             <form:form method="DELETE" action="${user.id}">
             <td><input type="submit" value="Delete" /></td>
             </form:form>
-            <td><a href="${user.id}/messages/">View messages</a></td>
+            <td><a href="${user.id}/viewMessage">View messages</a></td>
         </tr>
     </c:forEach>
 </table>
@@ -58,7 +58,7 @@ Filter by: ${filter}
 <br/>
 <p align="center"><a href="form">Add New User</a></p>
 Change page size
-<a href="pagesize{5}${url}">5</a>
-<a href="pagesize{10}${url}">10</a>
-<a href="pagesize{15}${url}">15</a>
+<a href="pagesize5${url}">5</a>
+<a href="pagesize10${url}">10</a>
+<a href="pagesize15${url}">15</a>
 <br/>

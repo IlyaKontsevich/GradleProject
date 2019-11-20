@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
-import static java.lang.String.format;
-
 
 @Service
 public class UserService extends GenericService<User> implements IUserService {
