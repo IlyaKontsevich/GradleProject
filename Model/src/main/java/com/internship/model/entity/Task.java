@@ -1,12 +1,16 @@
 package com.internship.model.entity;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Data
+@Builder
+@AllArgsConstructor
 @Entity
 @Table(name = "tasks")
 public class Task {
@@ -26,4 +30,7 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    public Task() {
+    }
 }

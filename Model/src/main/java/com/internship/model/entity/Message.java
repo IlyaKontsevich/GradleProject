@@ -1,5 +1,7 @@
 package com.internship.model.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -7,6 +9,8 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 @Data
+@Builder
+@AllArgsConstructor
 @Entity
 @Table(name = "messages")
 public class Message {
@@ -27,4 +31,7 @@ public class Message {
     private User receiverUser;
     @Transient
     private String receiverEmail;
+
+    public Message() {
+    }
 }

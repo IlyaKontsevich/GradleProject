@@ -38,7 +38,7 @@ public class TaskController{
     }
 
     @RequestMapping(value="/save",method = RequestMethod.POST)
-    public String save(String date,@PathVariable Integer userId, @ModelAttribute("task") Task task){
+    public String save(@PathVariable Integer userId, String date, @ModelAttribute("task") Task task){
         task.setUser(userService.get(userId));
         LocalDate localDate = LocalDate.parse(date);
         LocalDate todayDate = LocalDate.now();
@@ -76,7 +76,7 @@ public class TaskController{
     }
 
     @RequestMapping(value="/{id}",method = RequestMethod.PUT)
-    public String editSave(String time,String done,String date,@PathVariable Integer userId, @ModelAttribute("task") Task task){
+    public String editSave(@PathVariable Integer userId, String time,String done,String date, @ModelAttribute("task") Task task){
         task.setUser(userService.get(userId));
         task.setTimeAdd(LocalDate.parse(time));
         task.setDeadLine(LocalDate.parse(date));

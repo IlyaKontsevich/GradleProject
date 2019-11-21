@@ -32,7 +32,7 @@ public class MessagesController {
     private IUserService userService;
 
     @RequestMapping("/form")
-    public String showForm(Model m) {
+    public String showForm(@PathVariable Integer id, Model m) {
         m.addAttribute("command", new Message());
         m.addAttribute("userList", userService.getAll());
         return "messagesPages/messagesForm";

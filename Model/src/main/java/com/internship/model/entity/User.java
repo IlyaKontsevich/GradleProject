@@ -1,5 +1,7 @@
 package com.internship.model.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,6 +11,8 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Data
+@Builder
+@AllArgsConstructor
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
@@ -25,6 +29,9 @@ public class User implements UserDetails {
     private String email;
     @Transient
     private Collection<GrantedAuthority> authorities;
+
+    public User() {
+    }
 
     @Override
     public String getUsername() {

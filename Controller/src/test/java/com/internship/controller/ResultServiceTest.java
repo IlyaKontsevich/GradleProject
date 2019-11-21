@@ -1,6 +1,4 @@
-/*
-
-package com.internship.service;
+package com.internship.controller;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -11,4 +9,4 @@ import org.junit.runners.Suite;
 public class ResultServiceTest {
 }
 
-*/
+
