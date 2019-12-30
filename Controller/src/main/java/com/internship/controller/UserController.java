@@ -125,5 +125,4 @@ public class UserController {
         service.delete(id);
         return "redirect:/user/" + infoService.getUserUrl();
     }
-
 }

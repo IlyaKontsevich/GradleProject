@@ -10,4 +10,5 @@ public interface IService<ENTITY> {
     boolean delete(Integer id);
     ENTITY get(Integer id);
     List<ENTITY> getPage(PageRequest pageRequest);
+    List<ENTITY> getAll();
 }

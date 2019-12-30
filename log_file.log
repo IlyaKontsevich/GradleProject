@@ -4712,3 +4712,92 @@
 2019-11-21 19:21:27 INFO  AspectForProject:46 - Delete com.internship.service.implementation.UserService@6c30fdd3
 2019-11-21 19:21:27 INFO  AspectForProject:41 - Add com.internship.service.implementation.UserService@6c30fdd3
 2019-11-21 19:21:27 INFO  AspectForProject:46 - Delete com.internship.service.implementation.UserService@6c30fdd3
+2019-12-30 18:34:08 INFO  AspectForProject:36 - Get com.internship.service.implementation.UserService@132a9f43
+2019-12-30 18:34:08 INFO  AspectForProject:41 - Add com.internship.service.implementation.TaskService@23f82c24
+2019-12-30 18:34:12 INFO  AspectForProject:36 - Get com.internship.service.implementation.TaskService@23f82c24
+2019-12-30 18:34:12 INFO  AspectForProject:46 - Delete com.internship.service.implementation.TaskService@23f82c24
+2019-12-30 18:34:12 INFO  AspectForProject:36 - Get com.internship.service.implementation.UserService@132a9f43
+2019-12-30 18:34:12 INFO  AspectForProject:41 - Add com.internship.service.implementation.TaskService@23f82c24
+2019-12-30 18:34:13 INFO  AspectForProject:36 - Get com.internship.service.implementation.TaskService@23f82c24
+2019-12-30 18:34:13 INFO  AspectForProject:46 - Delete com.internship.service.implementation.TaskService@23f82c24
+2019-12-30 18:34:13 INFO  AspectForProject:36 - Get com.internship.service.implementation.UserService@132a9f43
+2019-12-30 18:34:13 INFO  AspectForProject:41 - Add com.internship.service.implementation.TaskService@23f82c24
+2019-12-30 18:34:13 INFO  AspectForProject:46 - Delete com.internship.service.implementation.TaskService@23f82c24
+2019-12-30 18:34:13 INFO  AspectForProject:36 - Get com.internship.service.implementation.TaskService@23f82c24
+2019-12-30 18:34:13 INFO  AspectForProject:36 - Get com.internship.service.implementation.UserService@132a9f43
+2019-12-30 18:34:13 INFO  AspectForProject:41 - Add com.internship.service.implementation.TaskService@23f82c24
+2019-12-30 18:34:13 INFO  AspectForProject:31 - Get com.internship.service.implementation.TaskService@23f82c24 page
+2019-12-30 18:34:13 INFO  AspectForProject:46 - Delete com.internship.service.implementation.TaskService@23f82c24
+2019-12-30 18:34:13 INFO  AspectForProject:36 - Get com.internship.service.implementation.UserService@132a9f43
+2019-12-30 18:34:13 INFO  AspectForProject:41 - Add com.internship.service.implementation.TaskService@23f82c24
+2019-12-30 18:34:13 INFO  AspectForProject:41 - Add com.internship.service.implementation.TaskService@23f82c24
+2019-12-30 18:34:13 INFO  AspectForProject:46 - Delete com.internship.service.implementation.TaskService@23f82c24
+2019-12-30 18:34:13 INFO  AspectForProject:41 - Add com.internship.service.implementation.UserService@132a9f43
+2019-12-30 18:34:14 INFO  AspectForProject:36 - Get com.internship.service.implementation.UserService@132a9f43
+2019-12-30 18:34:14 INFO  AspectForProject:46 - Delete com.internship.service.implementation.UserService@132a9f43
+2019-12-30 18:34:14 INFO  AspectForProject:41 - Add com.internship.service.implementation.UserService@132a9f43
+2019-12-30 18:34:14 INFO  AspectForProject:36 - Get com.internship.service.implementation.UserService@132a9f43
+2019-12-30 18:34:14 INFO  AspectForProject:46 - Delete com.internship.service.implementation.UserService@132a9f43
+2019-12-30 18:34:14 INFO  AspectForProject:41 - Add com.internship.service.implementation.UserService@132a9f43
+2019-12-30 18:34:14 INFO  AspectForProject:41 - Add com.internship.service.implementation.UserService@132a9f43
+2019-12-30 18:34:14 INFO  AspectForProject:46 - Delete com.internship.service.implementation.UserService@132a9f43
+2019-12-30 18:34:14 INFO  AspectForProject:41 - Add com.internship.service.implementation.UserService@132a9f43
+2019-12-30 18:34:14 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@132a9f43 page
+2019-12-30 18:34:14 INFO  AspectForProject:46 - Delete com.internship.service.implementation.UserService@132a9f43
+2019-12-30 18:34:14 INFO  AspectForProject:41 - Add com.internship.service.implementation.UserService@132a9f43
+2019-12-30 18:34:14 INFO  AspectForProject:46 - Delete com.internship.service.implementation.UserService@132a9f43
+2019-12-30 18:34:14 INFO  AspectForProject:36 - Get com.internship.service.implementation.UserService@132a9f43
+2019-12-30 18:34:14 INFO  AspectForProject:41 - Add com.internship.service.implementation.UserService@132a9f43
+2019-12-30 18:34:14 INFO  AspectForProject:46 - Delete com.internship.service.implementation.UserService@132a9f43
+2019-12-30 18:34:14 INFO  AspectForProject:41 - Add com.internship.service.implementation.UserService@132a9f43
+2019-12-30 18:34:15 INFO  AspectForProject:46 - Delete com.internship.service.implementation.UserService@132a9f43
+2019-12-30 18:35:04 INFO  UserService:30 - Admin login
+2019-12-30 18:35:05 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@566c270b page
+2019-12-30 18:35:57 INFO  UserService:30 - Admin login
+2019-12-30 18:35:57 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@6c720c0f page
+2019-12-30 18:50:28 INFO  UserService:30 - Admin login
+2019-12-30 18:50:28 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@6801f872 page
+2019-12-30 18:56:04 INFO  UserService:30 - Admin login
+2019-12-30 18:56:04 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@7028e769 page
+2019-12-30 19:11:29 INFO  UserService:30 - Admin login
+2019-12-30 19:11:29 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@71a10b4d page
+2019-12-30 19:18:39 INFO  UserService:30 - Admin login
+2019-12-30 19:18:39 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@13ab8909 page
+2019-12-30 19:26:19 INFO  UserService:30 - Admin login
+2019-12-30 19:26:19 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@326778e1 page
+2019-12-30 19:26:35 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@326778e1 page
+2019-12-30 19:27:24 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@326778e1 page
+2019-12-30 19:28:04 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@326778e1 page
+2019-12-30 19:29:02 INFO  UserService:30 - Admin login
+2019-12-30 19:29:02 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@7c83aa3f page
+2019-12-30 19:29:08 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@7c83aa3f page
+2019-12-30 19:29:34 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@7c83aa3f page
+2019-12-30 19:34:57 INFO  UserService:30 - Admin login
+2019-12-30 19:34:57 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@43087b77 page
+2019-12-30 19:35:41 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@43087b77 page
+2019-12-30 19:49:33 INFO  UserService:30 - Admin login
+2019-12-30 19:49:33 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@3e90c83f page
+2019-12-30 19:49:37 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@3e90c83f page
+2019-12-30 19:49:39 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@3e90c83f page
+2019-12-30 19:49:40 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@3e90c83f page
+2019-12-30 19:51:31 INFO  UserService:30 - Admin login
+2019-12-30 19:51:32 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@6279d16e page
+2019-12-30 19:51:36 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@6279d16e page
+2019-12-30 19:51:38 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@6279d16e page
+2019-12-30 19:52:41 INFO  UserService:30 - Admin login
+2019-12-30 19:52:41 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@e44a1af page
+2019-12-30 19:52:44 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@e44a1af page
+2019-12-30 19:52:46 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@e44a1af page
+2019-12-30 19:52:48 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@e44a1af page
+2019-12-30 20:18:36 INFO  UserService:30 - Admin login
+2019-12-30 20:18:36 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@2bbaeede page
+2019-12-30 20:18:40 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@2bbaeede page
+2019-12-30 20:20:56 INFO  UserService:30 - Admin login
+2019-12-30 20:20:56 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@4aabb668 page
+2019-12-30 20:20:59 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@4aabb668 page
+2019-12-30 20:22:00 INFO  UserService:30 - Admin login
+2019-12-30 20:22:01 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@5f4e036d page
+2019-12-30 20:22:12 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@5f4e036d page
+2019-12-30 20:24:13 INFO  UserService:30 - Admin login
+2019-12-30 20:24:13 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@6fc158dc page
+2019-12-30 20:24:17 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@6fc158dc page

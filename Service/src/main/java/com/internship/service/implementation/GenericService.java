@@ -40,4 +40,9 @@ public abstract class GenericService<ENTITY> implements IService<ENTITY> {
     public List<ENTITY> getPage(PageRequest pageRequest) {
         return dao.getPage(pageRequest);
     }
+
+    @Override
+    public List<ENTITY> getAll() {
+        return dao.getAll();
+    }
 }

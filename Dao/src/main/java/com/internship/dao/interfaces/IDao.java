@@ -14,5 +14,7 @@ public interface IDao<T> {
     T get(Integer id);
 
     boolean delete(Integer id);
+
+    List<T> getAll();
 }
 

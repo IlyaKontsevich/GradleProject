@@ -9,7 +9,8 @@ import java.util.List;
 
 public class UtilsForDao {
     public static Order[] mapSortToOrder(List<String> sort, Root root, CriteriaBuilder cb) {
-        return sort
+        if (sort != null && !sort.isEmpty()) {
+            return sort
                     .stream()
                     .map((str) -> {
                         String[] parts = str.split(":");
@@ -18,28 +19,34 @@ public class UtilsForDao {
                         return cb.desc(root.get(parts[0]));
                     })
                     .toArray(Order[]::new);
+        } else
+            return new Order[0];
     }
 
-    public static Predicate[] mapFilterToPredicates(List<String> filter, Root root, CriteriaBuilder cb){
-        return filter.stream()
-                .map((str) -> {
-                    String[] parts = str.split(":");
-                    switch (parts[0]) {
-                        case "isRead":
-                        case "isDone":
-                            return cb.equal(root.get(parts[0]), Boolean.parseBoolean(parts[1]));
-                        case "sendTime":
-                        case "timeAdd":
-                        case "deadLine":
-                            return cb.equal(root.get(parts[0]), LocalDate.parse(parts[1]));
-                        case "senderUser":
-                        case "receiverUser":
-                        case "user":
-                            return cb.equal(root.get(parts[0]), Integer.valueOf(parts[1]));
-                        default:
-                            return cb.equal(root.get(parts[0]), parts[1]);
-                    }
-                })
-                .toArray(Predicate[]::new);
+    public static Predicate[] mapFilterToPredicates(List<String> filter, Root root, CriteriaBuilder cb) {
+        if (filter != null && !filter.isEmpty()) {
+            return filter.stream()
+                    .map((str) -> {
+                        String[] parts = str.split(":");
+                        switch (parts[0]) {
+                            case "isRead":
+                            case "isDone":
+                                return cb.equal(root.get(parts[0]), Boolean.parseBoolean(parts[1]));
+                            case "sendTime":
+                            case "timeAdd":
+                            case "deadLine":
+                                return cb.equal(root.get(parts[0]), LocalDate.parse(parts[1]));
+                            case "senderUser":
+                            case "receiverUser":
+                            case "user":
+                                return cb.equal(root.get(parts[0]), Integer.valueOf(parts[1]));
+                            default:
+                                return cb.equal(root.get(parts[0]), parts[1]);
+                        }
+                    })
+                    .toArray(Predicate[]::new);
+        } else
+            return new Predicate[0];
+
     }
 }

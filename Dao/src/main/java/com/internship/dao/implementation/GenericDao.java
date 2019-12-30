@@ -67,4 +67,11 @@ public abstract class GenericDao<ENTITY> implements IDao<ENTITY> {
     Session getSession() {
         return sessionFactory.openSession();
     }
+
+    public List<ENTITY> getAll(){
+        return getPage(PageRequest.builder()
+                .position(0)
+                .pageSize(Integer.MAX_VALUE)
+                .build());
+    }
 }
