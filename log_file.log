@@ -4828,3 +4828,20 @@
 2019-12-31 11:33:55 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@669578e9 page
 2019-12-31 11:33:56 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@669578e9 page
 2019-12-31 11:33:57 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@669578e9 page
+2019-12-31 11:47:01 INFO  AspectForProject:31 - Get com.internship.service.implementation.MessageService@421abb59 page
+2019-12-31 11:47:25 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@669578e9 page
+2019-12-31 11:47:35 INFO  UserService:30 - Admin login
+2019-12-31 11:47:35 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@669578e9 page
+2019-12-31 11:47:44 INFO  UserService:34 - User login
+2019-12-31 11:47:44 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@669578e9 page
+2019-12-31 11:47:46 INFO  AspectForProject:31 - Get com.internship.service.implementation.MessageService@421abb59 page
+2019-12-31 11:48:04 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@669578e9 page
+2019-12-31 11:48:17 INFO  AspectForProject:36 - Get com.internship.service.implementation.UserService@669578e9
+2019-12-31 11:48:18 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@669578e9 page
+2019-12-31 11:48:21 INFO  AspectForProject:36 - Get com.internship.service.implementation.UserService@669578e9
+2019-12-31 11:48:22 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@669578e9 page
+2019-12-31 11:48:26 INFO  AspectForProject:36 - Get com.internship.service.implementation.UserService@669578e9
+2019-12-31 11:48:26 INFO  AspectForProject:31 - Get com.internship.service.implementation.MessageService@421abb59 page
+2019-12-31 11:48:28 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@669578e9 page
+2019-12-31 11:48:31 INFO  UserService:30 - Admin login
+2019-12-31 11:48:31 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@669578e9 page

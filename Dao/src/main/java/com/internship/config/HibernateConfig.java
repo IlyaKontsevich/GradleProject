@@ -2,6 +2,7 @@ package com.internship.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -60,5 +61,13 @@ public class HibernateConfig {
         hibernateProperties.setProperty("show_sql", "true");
 
         return hibernateProperties;
+    }
+
+    @Bean
+    @Deprecated
+    public JdbcTemplate jdbcTemplate () {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate();
+        jdbcTemplate.setDataSource(dataSource());
+        return jdbcTemplate;
     }
 }
