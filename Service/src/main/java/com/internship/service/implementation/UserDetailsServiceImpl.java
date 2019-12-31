@@ -21,15 +21,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private IUserService userService;
     private static final Logger log = Logger.getLogger(UserService.class);
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userService.getByEmail(email);
         Set<GrantedAuthority> roles = new HashSet();
-        if(user.getName().equals("Admin")){
+        if (user.getName().equals("Admin")) {
             roles.add(new SimpleGrantedAuthority(UserRoleEnum.ROLE_ADMIN.name()));
             log.info("Admin login");
-        }
-        else {
+        } else {
             roles.add(new SimpleGrantedAuthority(UserRoleEnum.ROLE_USER.name()));
             log.info("User login");
         }

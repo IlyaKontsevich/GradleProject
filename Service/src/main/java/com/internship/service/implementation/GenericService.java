@@ -7,12 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 @Transactional(propagation= Propagation.REQUIRED)
 public abstract class GenericService<ENTITY> implements IService<ENTITY> {
-    private Class<ENTITY> entityType = (Class<ENTITY>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     @Autowired
     private IDao<ENTITY> dao;
 

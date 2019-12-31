@@ -4801,3 +4801,30 @@
 2019-12-30 20:24:13 INFO  UserService:30 - Admin login
 2019-12-30 20:24:13 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@6fc158dc page
 2019-12-30 20:24:17 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@6fc158dc page
+2019-12-31 10:36:41 INFO  UserService:30 - Admin login
+2019-12-31 10:36:41 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@675d0c39 page
+2019-12-31 10:36:46 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@675d0c39 page
+2019-12-31 10:46:02 INFO  UserService:30 - Admin login
+2019-12-31 10:46:03 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@3cb0fcee page
+2019-12-31 10:46:57 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@3cb0fcee page
+2019-12-31 10:47:36 INFO  UserService:30 - Admin login
+2019-12-31 10:47:36 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@6ac1be72 page
+2019-12-31 10:47:39 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@6ac1be72 page
+2019-12-31 10:50:58 INFO  UserService:30 - Admin login
+2019-12-31 10:50:58 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@2927d046 page
+2019-12-31 10:51:06 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@2927d046 page
+2019-12-31 11:03:26 INFO  UserService:30 - Admin login
+2019-12-31 11:03:26 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@6a7fa40e page
+2019-12-31 11:03:28 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@6a7fa40e page
+2019-12-31 11:18:20 INFO  UserService:30 - Admin login
+2019-12-31 11:18:20 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@58f45ba2 page
+2019-12-31 11:18:23 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@58f45ba2 page
+2019-12-31 11:19:43 INFO  UserService:30 - Admin login
+2019-12-31 11:19:44 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@245eeea6 page
+2019-12-31 11:19:47 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@245eeea6 page
+2019-12-31 11:33:49 INFO  UserService:30 - Admin login
+2019-12-31 11:33:49 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@669578e9 page
+2019-12-31 11:33:54 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@669578e9 page
+2019-12-31 11:33:55 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@669578e9 page
+2019-12-31 11:33:56 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@669578e9 page
+2019-12-31 11:33:57 INFO  AspectForProject:31 - Get com.internship.service.implementation.UserService@669578e9 page
