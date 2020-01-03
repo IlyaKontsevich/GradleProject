@@ -3,7 +3,6 @@ package com.internship.dao.implementation;
 import com.internship.dao.interfaces.IUserDao;
 import com.internship.model.entity.User;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 @Repository

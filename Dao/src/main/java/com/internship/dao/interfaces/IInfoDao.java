@@ -2,7 +2,7 @@ package com.internship.dao.interfaces;
 
 import com.internship.model.entity.Info;
 
-public interface IInfoDao extends IDao<Info>{
+public interface IInfoDao extends IDao<Info> {
     String getTaskUrl(Integer userId);
 
     String getUserUrl(Integer userId);

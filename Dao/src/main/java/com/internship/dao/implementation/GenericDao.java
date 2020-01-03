@@ -18,13 +18,13 @@ import static com.internship.utils.UtilsForDao.mapSortToOrder;
 
 public abstract class GenericDao<ENTITY> implements IDao<ENTITY> {
 
-   @Autowired
+    @Autowired
     private SessionFactory sessionFactory;
 
     private Class<ENTITY> entityType = (Class<ENTITY>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 
     public void update(ENTITY type) {
-            sessionFactory.getCurrentSession().update(type);
+        sessionFactory.getCurrentSession().update(type);
     }
 
     public List<ENTITY> getPage(PageRequest pageRequest) {
@@ -68,7 +68,7 @@ public abstract class GenericDao<ENTITY> implements IDao<ENTITY> {
         return sessionFactory.openSession();
     }
 
-    public List<ENTITY> getAll(){
+    public List<ENTITY> getAll() {
         return getPage(PageRequest.builder()
                 .position(0)
                 .pageSize(Integer.MAX_VALUE)

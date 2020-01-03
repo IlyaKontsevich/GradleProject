@@ -23,7 +23,7 @@ public class FileController {
     @RequestMapping(value = "/pdf", method = RequestMethod.GET)
     @ResponseBody
     public void saveInfoToPdfFile(HttpServletResponse response) throws IOException {
-        response.setHeader("Content-disposition","attachment; filename=pdfFile.pdf");
+        response.setHeader("Content-disposition", "attachment; filename=pdfFile.pdf");
         fileService.saveToPdfFile(response.getOutputStream());
     }
 
@@ -31,7 +31,7 @@ public class FileController {
     @RequestMapping(value = "/txt", method = RequestMethod.GET)
     @ResponseBody
     public void saveInfoToTxtFile(HttpServletResponse response) throws IOException {
-        response.setHeader("Content-disposition","attachment; filename=textFile.txt");
+        response.setHeader("Content-disposition", "attachment; filename=textFile.txt");
         fileService.saveToTxtFile(response.getOutputStream());
     }
 
@@ -39,7 +39,7 @@ public class FileController {
     @RequestMapping(value = "/csv", method = RequestMethod.GET, produces = ALL_VALUE)
     @ResponseBody
     public void saveInfoToCsvFile(HttpServletResponse response) throws IOException {
-        response.setHeader("Content-disposition","attachment; filename=csvFile.csv");
+        response.setHeader("Content-disposition", "attachment; filename=csvFile.csv");
         fileService.saveToCsvFile(response.getOutputStream());
     }
 
@@ -47,7 +47,7 @@ public class FileController {
     @RequestMapping(value = "/xlsx", method = RequestMethod.GET)
     @ResponseBody
     public void saveInfoToXlsxFile(HttpServletResponse response) throws IOException {
-        response.setHeader("Content-disposition","attachment; filename=xlsxFile.xlsx");
+        response.setHeader("Content-disposition", "attachment; filename=xlsxFile.xlsx");
         fileService.saveToXlsxFile(response.getOutputStream());
     }
 

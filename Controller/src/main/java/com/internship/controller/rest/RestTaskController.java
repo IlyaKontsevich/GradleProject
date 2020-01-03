@@ -3,7 +3,12 @@ package com.internship.controller.rest;
 import com.internship.model.entity.Task;
 import com.internship.service.interfaces.ITaskService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -41,9 +46,6 @@ public class RestTaskController {
 
     @RequestMapping(value="/{id}",method = RequestMethod.POST)
     public Task save(@ModelAttribute("task") Task task){
-        if(service.add(task) != null)
-            return task;
-        else
-            return null;
+        return service.add(task) != null ? task : null;
     }
 }

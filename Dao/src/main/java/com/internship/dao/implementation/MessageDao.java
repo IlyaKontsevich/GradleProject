@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class MessageDao extends GenericDao<Message> implements IMessagesDao{
+public class MessageDao extends GenericDao<Message> implements IMessagesDao {
 
     @Override
     @SuppressWarnings("unchecked")

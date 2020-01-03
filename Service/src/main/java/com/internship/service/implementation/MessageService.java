@@ -33,12 +33,12 @@ public class MessageService extends GenericService<Message> implements IMessageS
 
     @Override
     public List<Message> getPage(PageRequest pageRequest) {
-        List<Message> result =super.getPage(pageRequest);
+        List<Message> result = super.getPage(pageRequest);
         pageRequest.setFilter(pageRequest
-                                        .getFilter()
-                                        .stream()
-                                        .map(str -> str.replace("receiverUser","senderUser"))
-                                        .collect(Collectors.toList()));
+                .getFilter()
+                .stream()
+                .map(str -> str.replace("receiverUser", "senderUser"))
+                .collect(Collectors.toList()));
         result.addAll(super.getPage(pageRequest));
         new HashSet<>(result);
         return result;
@@ -47,7 +47,7 @@ public class MessageService extends GenericService<Message> implements IMessageS
     @Override
     public List<Message> getBySenderId(Integer senderId) {
         List<String> filter = new ArrayList<>();
-        filter.add("senderUser:"+senderId);
+        filter.add("senderUser:" + senderId);
         return super.getPage(PageRequest
                 .builder()
                 .filter(filter)
@@ -60,7 +60,7 @@ public class MessageService extends GenericService<Message> implements IMessageS
     @Override
     public List<Message> getByReceiverId(Integer receiverId) {
         List<String> filter = new ArrayList<>();
-        filter.add("receiverUser:"+receiverId);
+        filter.add("receiverUser:" + receiverId);
         return super.getPage(PageRequest
                 .builder()
                 .filter(filter)
@@ -72,7 +72,7 @@ public class MessageService extends GenericService<Message> implements IMessageS
 
     @Override
     public Integer getUnreadMessages(Integer userId) {
-        if(getByReceiverId(userId).isEmpty())
+        if (getByReceiverId(userId).isEmpty())
             return 0;
         return dao.getUnreadMessages(userId).size();
     }

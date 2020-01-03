@@ -16,14 +16,14 @@ public class InfoService extends GenericService<Info> implements IInfoService {
     private IInfoDao dao;
 
     @Override
-    public User getCurrentUser(){
+    public User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return (User) authentication.getPrincipal();
     }
 
     @Override
     public void changeUrl(String newUrl, Type type) {
-        switch (type){
+        switch (type) {
             case TASK:
                 changeTaskUrl(newUrl);
                 break;

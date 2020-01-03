@@ -44,15 +44,15 @@ public class UserController {
 
     @RequestMapping("/redirect")
     public String prevSession() {
-        return  (infoService.getUserUrl() != null)
+        return (infoService.getUserUrl() != null)
                 ? "redirect:../user/" + infoService.getUserUrl()
-                :"redirect:../user/";
+                : "redirect:../user/";
     }
 
     @Secured(value = {"ROLE_ADMIN"})
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String save(@ModelAttribute("user") User user) {
-        return  (service.add(user) != null)
+        return (service.add(user) != null)
                 ? "redirect:../user/" + infoService.getUserUrl()
                 : "redirect:error/User with same email already exists";
     }
@@ -114,9 +114,9 @@ public class UserController {
     @Security
     @RequestMapping(value = "/{id}/viewMessage")
     public String viewMessage(@PathVariable Integer id) {
-         return (infoService.getMessageUrl() != null)
-                 ? "redirect: /user/{id}/messages/" + infoService.getMessageUrl()
-                 : "redirect: /user/{id}/messages/";
+        return (infoService.getMessageUrl() != null)
+                ? "redirect: /user/{id}/messages/" + infoService.getMessageUrl()
+                : "redirect: /user/{id}/messages/";
     }
 
     @Secured(value = {"ROLE_ADMIN"})

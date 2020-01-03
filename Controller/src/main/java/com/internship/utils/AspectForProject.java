@@ -2,20 +2,15 @@ package com.internship.utils;
 
 import com.internship.service.interfaces.IInfoService;
 import com.internship.service.interfaces.IUserService;
-import io.swagger.models.auth.In;
 import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.servlet.NoHandlerFoundException;
 
 @Aspect
 @Component
@@ -53,7 +48,7 @@ public class AspectForProject {
 
     @Around("callAtMyServiceSecurityAnnotation(id)")
     public Object aroundCallAtSecurity(ProceedingJoinPoint pjp, Integer id) throws Throwable {
-        if(infoService.getCurrentUser().equals(userService.get(id)) ||
+        if (infoService.getCurrentUser().equals(userService.get(id)) ||
                 infoService.getCurrentUser().getEmail().equals("admin@mail.ru"))
             return pjp.proceed();
         return "redirect:/accessDenied/";

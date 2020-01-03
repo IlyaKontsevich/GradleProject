@@ -26,14 +26,12 @@ public class FilterSortPage {
         filter = Optional.ofNullable(filter).orElse(new ArrayList<>());
         if (type.equals("nul"))
             return redirect(page, size, sort, null);
-        if (filtervalue!= null && !filtervalue.isEmpty() ) {
+        if (filtervalue != null && !filtervalue.isEmpty()) {
             type = type + ":" + filtervalue;
             filter = changeFilterValue(filter, type);
             filter.add(type);
-            return redirect(page, size, sort, filter);
-        } else {
-            return redirect(page, size, sort, filter);
         }
+        return redirect(page, size, sort, filter);
     }
 
     @RequestMapping(value = {"user/changesort{sorttype}",

@@ -4,7 +4,6 @@ import com.internship.dao.interfaces.IUserDao;
 import com.internship.model.PageRequest;
 import com.internship.model.entity.User;
 import com.internship.service.interfaces.IUserService;
-import lombok.Builder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

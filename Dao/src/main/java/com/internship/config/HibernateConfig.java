@@ -15,7 +15,6 @@ import java.util.Arrays;
 import java.util.Properties;
 
 
-
 @Configuration
 @EnableTransactionManagement
 public class HibernateConfig {
@@ -30,7 +29,7 @@ public class HibernateConfig {
     }
 
     @Bean
-    public DataSource dataSource(){
+    public DataSource dataSource() {
         try {
             Properties appProps = new Properties();
             appProps.load(new FileInputStream("/home/kontsevich/projects/GradleProject/Controller/src/main/resources/dataBase.properties"));
@@ -41,7 +40,7 @@ public class HibernateConfig {
             dataSource.setUsername(appProps.getProperty("jdbc.username"));
             dataSource.setPassword(appProps.getProperty("jdbc.password"));
             return dataSource;
-        }catch (IOException io){
+        } catch (IOException io) {
             throw new RuntimeException(Arrays.toString(io.getStackTrace()));
         }
     }
@@ -65,7 +64,7 @@ public class HibernateConfig {
 
     @Bean
     @Deprecated
-    public JdbcTemplate jdbcTemplate () {
+    public JdbcTemplate jdbcTemplate() {
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
         jdbcTemplate.setDataSource(dataSource());
         return jdbcTemplate;

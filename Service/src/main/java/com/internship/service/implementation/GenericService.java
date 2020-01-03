@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Transactional(propagation= Propagation.REQUIRED)
+@Transactional(propagation = Propagation.REQUIRED)
 public abstract class GenericService<ENTITY> implements IService<ENTITY> {
     @Autowired
     private IDao<ENTITY> dao;

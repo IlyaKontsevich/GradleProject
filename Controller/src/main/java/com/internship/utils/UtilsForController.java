@@ -42,13 +42,13 @@ public class UtilsForController {
         Integer pageSize = Integer.valueOf(size);
         position = changePosition(position, pageSize);
         if (id != null) {
-            switch (type){
+            switch (type) {
                 case TASK:
                     filter = changeFilterValue(filter, "user");
                     filter.add("user:" + id);
                     break;
                 case MESSAGE:
-                    filter =  changeFilterValue(filter, "receiverUser");
+                    filter = changeFilterValue(filter, "receiverUser");
                     filter.add("receiverUser:" + id);
                     break;
             }

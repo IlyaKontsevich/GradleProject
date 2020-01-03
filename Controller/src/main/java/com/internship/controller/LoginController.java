@@ -18,42 +18,42 @@ public class LoginController {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @RequestMapping("/login")
-    public String Login(){
+    public String Login() {
         return "loginPages/login";
     }
 
     @RequestMapping("/logerror")
-    public String LogErr(Model m){
+    public String LogErr(Model m) {
         m.addAttribute("error",
                 "Incorrect login or password or registration Error, please try again");
         return "loginPages/login";
     }
 
     @RequestMapping("/logreg")
-    public String LogRegistration(Model m){
+    public String LogRegistration(Model m) {
         m.addAttribute("error",
                 "Successful registration, please enter your login and password");
         return "loginPages/login";
     }
 
     @RequestMapping("/logout")
-    public String LogOut(){
+    public String LogOut() {
         return "loginPages/login";
     }
 
     @RequestMapping("/accessDenied")
-    public String accessDenied(){
+    public String accessDenied() {
         return "loginPages/accessDenied";
     }
 
     @RequestMapping("/registration")
-    public String Registration(Model m){
+    public String Registration(Model m) {
         m.addAttribute("command", new User());
         return "loginPages/registration";
     }
 
-    @RequestMapping(value="/save",method = RequestMethod.POST)
-    public String save(@ModelAttribute("user") User user){
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public String save(@ModelAttribute("user") User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return (service.add(user) != null)
                 ? "redirect:logreg"

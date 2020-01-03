@@ -4,9 +4,7 @@ import com.internship.model.entity.Info;
 import com.internship.model.entity.User;
 import com.internship.model.enums.Type;
 
-import java.util.List;
-
-public interface IInfoService extends IService<Info>{
+public interface IInfoService extends IService<Info> {
     String getTaskUrl();
 
     String getUserUrl();

@@ -52,7 +52,7 @@ public class InfoDao extends GenericDao<Info> implements IInfoDao {
                 .createCriteria(Info.class)
                 .add(Restrictions.eq("user", user))
                 .uniqueResult();
-        if(info == null){
+        if (info == null) {
             info = new Info();
             info.setUser(user);
             add(info);

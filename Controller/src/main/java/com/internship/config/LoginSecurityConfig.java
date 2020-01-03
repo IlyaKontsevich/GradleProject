@@ -30,7 +30,7 @@ public class LoginSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/resources/**","/login", "/logerror","/logout/","/registration","/save").permitAll()
+                .antMatchers("/resources/**", "/login", "/logerror", "/logout/", "/registration", "/save").permitAll()
                 .antMatchers("/user/**").authenticated()
                 .and()
                 .formLogin()
@@ -54,5 +54,7 @@ public class LoginSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    BCryptPasswordEncoder bCryptPasswordEncoder(){return new BCryptPasswordEncoder();}
+    BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 }
