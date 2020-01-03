@@ -1,11 +1,13 @@
 package com.internship.service.interfaces;
 
+import java.io.OutputStream;
+
 public interface IFileService {
-    void saveToPdfFile(String fileName);
+    void saveToPdfFile(OutputStream outputStream);
 
-    void saveToTxtFile(String fileName);
+    void saveToTxtFile(OutputStream outputStream);
 
-    void saveToCsvFile(String fileName);
+    void saveToCsvFile(OutputStream outputStream);
 
-    void saveToXlsxFile(String fileName);
+    void saveToXlsxFile(OutputStream outputStream);
 }

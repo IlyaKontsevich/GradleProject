@@ -23,12 +23,8 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,7 +34,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class FileService implements IFileService {
-    private final static String FILE_PATH = "/home/kontsevich/projects/GradleProject/utils/";
     private final IInfoService iInfoService;
     private final IUserService userService;
     private final ITaskService taskService;
@@ -52,11 +47,11 @@ public class FileService implements IFileService {
     }
 
     @Override
-    public void saveToPdfFile(String fileName) {
+    public void saveToPdfFile(OutputStream outputStream) {
         try {
             Document document = new Document();
             Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.RED);
-            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(FILE_PATH + fileName + ".pdf"));
+            PdfWriter writer = PdfWriter.getInstance(document, outputStream);
             document.open();
 
             addChunkToDocument("Users", font, document);
@@ -70,36 +65,31 @@ public class FileService implements IFileService {
 
             document.close();
             writer.close();
-        } catch (DocumentException | FileNotFoundException e) {
+        } catch (DocumentException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    public void saveToTxtFile(String fileName) {
+    public void saveToTxtFile(OutputStream outputStream) {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH + fileName));
-            writer.write(getAllInfo().toString());
-            writer.close();
+            outputStream.write(getAllInfo().toString().getBytes());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    public void saveToCsvFile(String fileName) {
-        File csvOutputFile = new File(FILE_PATH + fileName);
-        try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
-            pw.println(getAllInfo().stream()
-                    .map(escapeSpecialCharacters())
-                    .collect(Collectors.joining(",")));
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+    public void saveToCsvFile(OutputStream outputStream) {
+        PrintWriter pw = new PrintWriter(outputStream);
+        pw.println(getAllInfo().stream()
+                .map(escapeSpecialCharacters())
+                .collect(Collectors.joining(",")));
+        pw.close();
     }
 
     @Override
-    public void saveToXlsxFile(String fileName) {
+    public void saveToXlsxFile(OutputStream outputStream) {
         List<String> columns = Arrays.asList("Id", "Age", "Name", "Email", "Password");
 
         Workbook workbook = new XSSFWorkbook();
@@ -120,9 +110,8 @@ public class FileService implements IFileService {
         columns.forEach(column -> sheet.autoSizeColumn(columns.indexOf(column)));
 
         try {
-            FileOutputStream fileOut = new FileOutputStream(FILE_PATH + fileName + ".xlsx");
-            workbook.write(fileOut);
-            fileOut.close();
+            workbook.write(outputStream);
+            outputStream.close();
             workbook.close();
         } catch (IOException e) {
             throw new RuntimeException(e);

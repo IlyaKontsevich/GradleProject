@@ -61,8 +61,8 @@ Change page size
 <a href="pagesize5${url}">5</a>
 <a href="pagesize10${url}">10</a>
 <a href="pagesize15${url}">15</a>
-<p align="right"><a href="/save/pdf">Save info to PDF file</a></p>
-<p align="right"><a href="/save/txt">Save info to TXT file</a></p>
-<p align="right"><a href="/save/csv">Save info to CSV file</a></p>
-<p align="right"><a href="/save/xlsx">Save info to XLSX file</a></p>
+<p align="right"><a href="/save/pdf" target="_blank">Save info to PDF file</a></p>
+<p align="right"><a href="/save/txt" target="_blank">Save info to TXT file</a></p>
+<p align="right"><a href="/save/csv" target="_blank">Save info to CSV file</a></p>
+<p align="right"><a href="/save/xlsx" target="_blank">Save info to XLSX file</a></p>
 <br/>
